@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/reward/reward",
+    "pages/profile/profile",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/douyinDetail/douyinDetail",
+    "pages/about/about",
+    "pages/taskDetail/taskDetail",
+    "pages/wallet/wallet",
+    "pages/pushTask/pushTask",
+    "pages/team/team",
+    "pages/myTaskOrder/myTaskOrder",
+    "pages/taskManagement/taskManagement",
+    "pages/myPushDyTaskOrder/myPushDyTaskOrder",
+    "pages/shortVideo/shortVideo"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#00aaff",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/images/tabbar/home.png",
+        "selectedIconPath": "static/images/tabbar/home.png",
+        "text": "大厅"
+      },
+      {
+        "pagePath": "pages/reward/reward",
+        "iconPath": "static/images/tabbar/reward.png",
+        "selectedIconPath": "static/images/tabbar/reward.png",
+        "text": "福利"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "static/images/tabbar/profile.png",
+        "selectedIconPath": "static/images/tabbar/profile.png",
+        "text": "个人"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

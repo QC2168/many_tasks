@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的资产",
+  "usingComponents": {
+    "u-button": "/node-modules/uview/components/u-button/u-button",
+    "u-divider": "/node-modules/uview/components/u-divider/u-divider",
+    "u-tag": "/node-modules/uview/components/u-tag/u-tag",
+    "u-empty": "/node-modules/uview/components/u-empty/u-empty"
+  }
+}

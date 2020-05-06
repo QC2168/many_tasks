@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "关于",
+  "usingComponents": {
+    "u-divider": "/node-modules/uview/components/u-divider/u-divider",
+    "u-cell-group": "/node-modules/uview/components/u-cell-group/u-cell-group",
+    "u-field": "/node-modules/uview/components/u-field/u-field",
+    "u-button": "/node-modules/uview/components/u-button/u-button"
+  }
+}

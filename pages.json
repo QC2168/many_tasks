@@ -1,0 +1,141 @@
+{
+    "easycom": {
+        "autoscan": true,
+        "custom": {
+            "u-(.*)": "uview/components/u-$1/u-$1.vue"
+        }
+    },
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path": "pages/home/home",
+            "style": {
+                "navigationBarTitleText": "大厅"
+            }
+        },
+        {
+            "path": "pages/reward/reward",
+            "style": {
+                "navigationBarTitleText": "福利"
+            }
+        },
+        {
+            "path": "pages/profile/profile",
+            "style": {
+                "navigationBarTitleText": "会员中心"
+            }
+        }
+
+        , {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录账户"
+            }
+        }, {
+            "path": "pages/register/register",
+            "style": {
+                "navigationBarTitleText": "创建账户"
+            }
+        }, {
+            "path": "pages/douyinDetail/douyinDetail",
+            "style": {
+                "navigationBarTitleText": "抖音任务"
+            }
+        }, {
+            "path": "pages/about/about",
+            "style": {
+                "navigationBarTitleText": "关于"
+            }
+        }, {
+            "path": "pages/taskDetail/taskDetail",
+            "style": {
+                "navigationBarTitleText": "标准任务"
+            }
+        }, {
+            "path": "pages/wallet/wallet",
+            "style": {
+                "navigationBarTitleText": "我的资产"
+            }
+        }, {
+            "path": "pages/pushTask/pushTask",
+            "style": {
+                "navigationBarTitleText": "发布任务"
+            }
+        }, {
+            "path": "pages/team/team",
+            "style": {
+                "navigationBarTitleText": "我的团队"
+            }
+        }, {
+            "path": "pages/myTaskOrder/myTaskOrder",
+            "style": {
+                "navigationBarTitleText": "我申请的任务"
+            }
+        }, {
+            "path": "pages/taskManagement/taskManagement",
+            "style": {
+                "navigationBarTitleText": "我发布的任务"
+            }
+        }, {
+            "path": "pages/myPushDyTaskOrder/myPushDyTaskOrder",
+            "style": {
+                "navigationBarTitleText": "订单详情"
+            }
+        }, {
+            "path": "pages/shortVideo/shortVideo",
+            "style": {
+                "navigationBarTitleText": "shortVideo"
+            }
+        }, {
+            "path": "pages/placeOrder/placeOrder",
+            "style": {
+                "navigationBarTitleText": "提交订单"
+            }
+        }, {
+            "path": "pages/myPushTaskOrder/myPushTaskOrder",
+            "style": {
+                "navigationBarTitleText": "订单详情"
+            }
+        }, {
+            "path": "pages/news/news",
+            "style": {
+                "navigationBarTitleText": "消息与通知"
+            }
+        }, {
+            "path": "pages/recharge/recharge",
+            "style": {
+                 "navigationBarTitleText": "充值账户"
+            }
+        }
+    ],
+
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#9e9e9e",
+        "selectedColor": "#000000",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [{
+                "pagePath": "pages/home/home",
+                "iconPath": "static/images/tabbar/home.png",
+                "selectedIconPath": "static/images/tabbar/home_selected.png",
+                "text": "大厅"
+            }, {
+                "pagePath": "pages/news/news",
+                "iconPath": "static/images/tabbar/news.png",
+                "selectedIconPath": "static/images/tabbar/news_selected.png",
+                "text": "消息"
+            },
+            {
+                "pagePath": "pages/profile/profile",
+                "iconPath": "static/images/tabbar/profile.png",
+                "selectedIconPath": "static/images/tabbar/profile_selected.png",
+                "text": "会员中心"
+            }
+        ]
+    }
+}
