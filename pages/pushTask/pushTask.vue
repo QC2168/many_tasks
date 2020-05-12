@@ -1,51 +1,53 @@
 <template>
     <view class="pushTask">
- <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
- <div v-show="taskType===1">
-     <view><view class="tasklogo u-f-ajc">
-           <image src="../../static/images/logo/logo.png" mode="widthFix"></image>
-       </view>
-        <view class="input">
-            <u-cell-group>
-                <u-field v-model="taskData.title" label="任务标题" placeholder="请填写任务标题">
-                </u-field>
-                <u-field v-model="taskData.price" label="价格" placeholder="请填写派发价格">
-                </u-field>
-                <u-field v-model="taskData.quota" label="数量" placeholder="请填写发放任务数量">
-                </u-field>
-                <u-field type="textarea" v-model="taskData.content" label="任务说明" placeholder="说一些注意事项吧？">
-                </u-field>
-            </u-cell-group>
-            </view>
-            <!-- 预览步骤 -->
-            <u-divider height="100">上传任务步骤</u-divider>
-        <view>
-            <view class="addStep u-f-ajc">
-                <u-button @tap="openPushTaskBox" size="medium" type="primary">添加步骤</u-button>
-            </view>
-            <!-- 步骤显示 -->
-            <view v-if="taskStepList.length!==0" class="step" v-for="(item,index) in taskStepList" :key="index">
-                <view class="st">
-                    <view class="index u-f-ajc">{{index+1}}</view>
-                    <view class="text">{{item.text}}</view>
+        <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务','福利任务']"></tabs>
+        <div v-show="taskType===1">
+            <view>
+                <view class="tasklogo u-f-ajc">
+                    <image src="../../static/images/logo/logo.png" mode="widthFix"></image>
+                </view>
+                <view class="input">
+                    <u-cell-group>
+                        <u-field v-model="taskData.title" label="任务标题" placeholder="请填写任务标题">
+                        </u-field>
+                        <u-field v-model="taskData.price" label="价格" placeholder="请填写派发价格">
+                        </u-field>
+                        <u-field v-model="taskData.quota" label="数量" placeholder="请填写发放任务数量">
+                        </u-field>
+                        <u-field type="textarea" v-model="taskData.content" label="任务说明" placeholder="说一些注意事项吧？">
+                        </u-field>
+                    </u-cell-group>
+                    <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">每一单收取
+                        {{taskServePrice}}元作为平台服务费</view>
+                </view>
+                <!-- 预览步骤 -->
+                <u-divider height="100">上传任务步骤</u-divider>
+                <view>
+                    <view class="addStep u-f-ajc">
+                        <u-button @tap="openPushTaskBox" size="medium" type="primary">添加步骤</u-button>
                     </view>
-                <view class="picBox"><image class="pic" :src="URL+item.pic" mode="widthFix"></image>
-                <view class="tips u-f-ajc">
-                   步骤图{{index+1}}
-                </view>
-                </view>
-            </view>
-            
-            
-            <!-- push模板 -->
-            <view v-show="pushTaskBox" class="addStepTemplate u-f-ajc">
-                <view class="content">
-                    <view class="sub u-f-ajc">步骤详细</view>
-                    <view class="u-f-ajc">
-                        <!-- textarea  -->
-                    <textarea
-                     placeholder="填写一下这一步的说明..." auto-height adjust-position
-                     type="text" v-model="currentPushTaskBoxData.text" /></view>
+                    <!-- 步骤显示 -->
+                    <view v-if="taskStepList.length!==0" class="step" v-for="(item,index) in taskStepList" :key="index">
+                        <view class="st">
+                            <view class="index u-f-ajc">{{index+1}}</view>
+                            <view class="text">{{item.text}}</view>
+                        </view>
+                        <view class="picBox">
+                            <image class="pic" :src="URL+item.pic" mode="widthFix"></image>
+                            <view class="tips u-f-ajc">
+                                步骤图{{index+1}}
+                            </view>
+                        </view>
+                    </view>
+
+
+                    <!-- push模板 -->
+                    <view v-show="pushTaskBox" class="addStepTemplate u-f-ajc">
+                        <view class="content">
+                            <view class="sub u-f-ajc">步骤详细</view>
+                            <view class="u-f-ajc">
+                                <!-- textarea  -->
+                                <textarea placeholder="填写一下这一步的说明..." auto-height adjust-position type="text" v-model="currentPushTaskBoxData.text" /></view>
                     <view class="uploadBox u-f-ajc">
                         <u-upload 
                         max-size="2097152" 
@@ -99,7 +101,7 @@
                    </u-field>
                </u-cell-group>
                <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">每一单收取
-                   0.1元作为平台服务费</view>
+                   {{dytaskServePrice}}元作为平台服务费</view>
                <u-divider height="110">上传视频图片</u-divider>
                <view class="uploadPicBox u-f-ajc">
                    <u-upload :auto-upload="false" 
@@ -112,6 +114,87 @@
            </view>
         </div>
     
+    <div v-show="taskType==2">
+         <u-divider>试用平台</u-divider>
+        	<u-radio-group v-model="rewardTaskObj.currentRewardGoodsPlatformType">
+        			<u-radio 
+        				v-for="(item, index) in rewardGoodsPlatformTypeList" :key="index" 
+        				:name="item.name"
+        				:disabled="item.disabled"
+        			>
+        				{{item.name}}
+        			</u-radio>
+        		</u-radio-group>
+            <u-divider height="110">试用类型</u-divider>
+                <u-radio-group v-model="rewardTaskObj.currentRewardGoodsType">
+                		<u-radio 
+                			v-for="(item, index) in rewardGoodsTypeList" :key="index" 
+                			:name="item.name"
+                			:disabled="item.disabled"
+                            
+                          
+                		>
+                			{{item.name}}
+                		</u-radio>
+                	</u-radio-group>
+        <u-cell-group>
+        			<u-field
+        				v-model="rewardTaskObj.title"
+        				label="福利标题"
+        				placeholder="请填写试用商品相关标题"
+        			>
+        			</u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.goodsUrl"
+                    	label="商品链接"
+                    	placeholder="请把商品链接复制到这里"
+                    >
+                    <u-button size="mini" slot="button" type="success" @tap="pasteUrl">粘贴商品链接</u-button>
+                    </u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.goodsUrl"
+                         label-width="160"
+                    	label="商品关键字"
+                    	placeholder="搜索关键词,建议3个以上"
+                    >
+                    </u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.liaison"
+                    	label="QQ / WeChat"
+                        label-width="190"
+                    	placeholder="请填写您的联系方式,试客可能联系您"
+                    >
+                    </u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.goodsPrice"
+                    	label="下单价格"
+                    	placeholder="请填写拍下价格"
+                    >
+                    </u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.goodsNumber"
+                    	label="发放数量"
+                    	placeholder="请填写发放数量"
+                    >
+                    </u-field>
+                    <u-field
+                    	v-model="rewardTaskObj.text"
+                    	label="商家要求"
+                    	placeholder="填写一些要求吧,如 货比  加购"
+                        type="textarea"
+                    >
+                    </u-field>
+                      </u-cell-group>
+                      <!-- 主图上传 -->
+                       <u-divider height="110">上传试用商品主图</u-divider>
+                      <view class="uploadPicBox u-f-ajc">
+                          <u-upload :auto-upload="false" 
+                          ref="uUpload" max-size="2097152" max-count="1" :size-type="['compressed']"
+                              :action="action" @on-success="success" @on-error="error" @on-oversize="oversize" @on-remove="remove"
+                              @on-choose-complete="complete" name='dy_task_pic' :form-data="formData" :header="headerData"
+                              :show-tips="false"></u-upload>
+                      </view>
+    </div>
         <!-- 发布按钮 -->
         <view class="pushBtn u-f-column" @tap="post">
             <view>发布</view>
@@ -127,6 +210,8 @@
             tabs
         },
         created(){
+            // 请求服务费接口
+            this.getServePrice();
           // 为图片上传添加请求头
             uni.getStorage({
                 key:'token',
@@ -142,6 +227,9 @@
                 taskType:0,    
                 // 是否开启添加任务步骤窗口
                 pushTaskBox:false,
+                // 服务费用
+                dytaskServePrice:0,
+                taskServePrice:0,
                 taskData:{
                   title: "",
                 price: "",
@@ -173,10 +261,73 @@
                 },
                 taskStepList:[
                     
-                ]
+                ],
+                rewardGoodsPlatformTypeList: [
+                				{
+                					name: '淘宝',
+                					checked: false,
+                					disabled: false
+                				},
+                				{
+                					name: '拼多多',
+                					checked: false,
+                					disabled: false
+                				},
+                				{
+                					name: '京东',
+                					checked: false,
+                					disabled: false
+                				},
+                                
+                                {
+                                	name: '天猫',
+                                	checked: false,
+                                	disabled: false
+                                },
+                                {
+                                	name: '阿里巴巴',
+                                	checked: false,
+                                	disabled: false
+                                },
+                                {
+                                	name: '其他',
+                                	checked: false,
+                                	disabled: false
+                                }
+                			],
+                			
+                            rewardGoodsTypeList: [
+                            				{
+                            					name: '红包试用',
+                            					checked: false,
+                            					disabled: false
+                            				},
+                            				{
+                            					name: '商品试用',
+                            					checked: false,
+                            					disabled: false
+                            				}
+                            			],
+                                        
+                    // 福利任务model
+                      rewardTaskObj:{
+                          currentRewardGoodsPlatformType: '',
+                          currentRewardGoodsType: '',
+                          title:"",
+                          goodsUrl:"",
+                          liaison:"",
+                          goodsPrice:"",
+                          goodsNumber:"",
+                          text:"",
+                          
+                      }   
             }
         },
         methods: {
+            async getServePrice(){
+               await this.$u.get('/get_serve_price',{name:'push_task'}).then(res=>this.taskServePrice=res.data)
+               await this.$u.get('/get_serve_price',{name:'push_dy_task'}).then(res=>this.dytaskServePrice=res.data)
+            },
             // 网络请求返回过滤
             response(res){
               if (res.errorCode === 10000) {
@@ -430,16 +581,25 @@ if(!(text&&pic)){
    })
 }
                
+            },
+            // 粘贴url
+            pasteUrl(){
+                uni.getClipboardData({
+                    success:  (res) =>{
+                       this.rewardTaskObj.goodsUrl=res;
+                    }
+                });
             }
+            
         },
         computed: {
             payment() {
 
                 if(this.taskType===0){
-                   return (this.formData.price * this.formData.quota) + (0.1 * this.formData.quota); 
+                   return (this.formData.price * this.formData.quota) + (this.dytaskServePrice * this.formData.quota); 
                 }
                 if(this.taskType===1){
-                    return (this.taskData.price * this.taskData.quota) + (0.5 * this.taskData.quota); 
+                    return (this.taskData.price * this.taskData.quota) + (this.taskServePrice * this.taskData.quota); 
                 }
                 
             }
@@ -507,6 +667,7 @@ if(!(text&&pic)){
     .tips{
             width: 125rpx;
             height: 55rpx;
+            font-size: 28rpx;
             border-top-right-radius: 15rpx;
             border-top-left-radius: 15rpx;
             border-bottom-right-radius: 15rpx;

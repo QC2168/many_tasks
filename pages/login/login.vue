@@ -48,7 +48,7 @@
                    })
                    return false;
                }
-               if (this.password.length < 6) {
+               if (this.password.length < 4) {
                    uni.showToast({
                        title: '密码不符合规则',
                        icon: 'none',

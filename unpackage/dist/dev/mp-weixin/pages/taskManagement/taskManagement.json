@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我发布的任务",
   "usingComponents": {
-    "u-empty": "/node-modules/uview/components/u-empty/u-empty"
+    "u-empty": "/node-modules/uview/components/u-empty/u-empty",
+    "tabs": "/components/common/tabs/tabs"
   }
 }

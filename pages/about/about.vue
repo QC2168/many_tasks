@@ -3,7 +3,7 @@
         <view class="logobox u-f-ajc">
             <image @tap="showfeelback=!showfeelback" src="../../static/images/logo/logo.png" mode="aspectFill"></image>
         </view>
-        <view  class="u-f-ajc v">
+        <view class="u-f-ajc v">
             当前版本 {{v}}
         </view>
         <u-divider height="100" class="animated rotateInUpLeft" v-show="showfeelback">意见反馈</u-divider>

@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "标准任务",
+  "usingComponents": {
+    "u-divider": "/node-modules/uview/components/u-divider/u-divider",
+    "u-row": "/node-modules/uview/components/u-row/u-row",
+    "u-col": "/node-modules/uview/components/u-col/u-col"
+  }
+}

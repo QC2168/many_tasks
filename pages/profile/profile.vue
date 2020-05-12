@@ -6,12 +6,21 @@
                     <image class="animated bounceIn" :src="URL+userData.user_pic" mode="aspectFit"></image>
                 </view>
                 <view class="u-f-ajc">{{userData.username}}</view>
-                <!--    <view class="vip u-f-ajc">
-                    <u-tag class="animated bounceIn" text="VIP" mode="light" size="mini" shape="circle" type="error" />
-                </view>
-                <view class="u-f-ajc">
-                   到期时间 2020-1-1
-                </view> -->
+                <template v-if="userData.privilege">
+                    <view v-if="userData.privilege.vip===0" class="u-f-ajc buyVip" @tap="to('buyVip')">点击购买VIP 畅享特权</view>
+                    <view class="vip u-f-ajc">
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===1" class="animated bounceIn"
+                            text="VIP" mode="light" size="mini" shape="circle" type="error" />
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===2" class="animated bounceIn"
+                            text="SVIP" mode="light" size="mini" shape="circle" type="error" />
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===3" class="animated bounceIn"
+                            text="SSVIP" mode="light" size="mini" shape="circle" type="warning" />
+                    </view>
+                    <view class="u-f-ajc expireTime" v-if="userData.privilege.vip!==0">
+                        特权到期时间: {{userData.privilege.expire_time|formatDate('yyyy-MM-dd hh:mm')}}
+                    </view>
+                </template>
+
             </view>
             <view>
                 <u-grid :col="3">
@@ -51,7 +60,18 @@
                 </view>
                 <view class="line">
                     <view class="one">{{userData.username}}</view>
-                    <view>2</view>
+                    <view v-if="userData.privilege.vip===0" class="buyVip" @tap="to('buyVip')">点击购买VIP 畅享特权</view>
+                    <view class="vip">
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===1" class="animated bounceIn"
+                            text="VIP" mode="light" size="mini" shape="circle" type="error" />
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===2" class="animated bounceIn"
+                            text="SVIP" mode="light" size="mini" shape="circle" type="error" />
+                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===3" class="animated bounceIn"
+                            text="SSVIP" mode="light" size="mini" shape="circle" type="warning" />
+                    </view>
+                    <view class="expireTime" v-if="userData.privilege.vip!==0">
+                        特权到期时间: {{userData.privilege.expire_time|formatDate('yyyy-MM-dd hh:mm')}}
+                    </view>
                 </view>
             </view>
 
@@ -73,40 +93,52 @@
 
             <view class="modelFunction animated zoomInUp">
                 <view @tap="to('wallet')" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/wallet.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">钱包</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/wallet.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">钱包</view>
                 </view>
                 <view @tap="to('pushTask')" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/push.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">发布新任务</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/push.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">发布新任务</view>
                 </view>
                 <view @tap="to('taskManagement')" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/myTaskOrder.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">我发布过的任务</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/myTaskOrder.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">我发布过的任务</view>
                 </view>
                 <view @tap="to('team')" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/team.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">邀请赚钱</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/team.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">邀请赚钱</view>
                 </view>
                 <view @tap="to('about')" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/about.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">关于</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/about.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">关于</view>
                 </view>
                 <view @tap="outin" class="line">
-                 
-                        <view class="iicon u-f-ajc"><image src="../../static/images/profile/list/exit.png" mode="aspectFill"></image></view>
-                        
-                         <view class="text">退出</view>          
+
+                    <view class="iicon u-f-ajc">
+                        <image src="../../static/images/profile/list/exit.png" mode="aspectFill"></image>
+                    </view>
+
+                    <view class="text">退出</view>
                 </view>
             </view>
         </template>
@@ -125,6 +157,11 @@
         },
         onLoad() {
             this.getdata()
+        },
+        onNavigationBarButtonTap(e) {
+            if (e.index === 0) {
+                this.to('sign')
+            }
         },
         methods: {
             changeMode() {
@@ -153,10 +190,19 @@
                 })
             },
             outin() {
-                uni.clearStorage();
-                uni.reLaunch({
-                    url: "../login/login"
-                })
+                uni.showModal({
+                    title: '提示',
+                    content: '确认退出登录吗',
+                    success: (res)=>{
+                        if (res.confirm) {
+                            uni.clearStorage();
+                            uni.reLaunch({
+                                url: "../login/login"
+                            })
+                        }
+                    }
+                });
+
             }
         }
     }
@@ -164,10 +210,11 @@
 
 <style lang="scss" scoped>
     .linear-gradient {
-        background-image: linear-gradient(#acb6e5, #74ebd5);
+        background-image: linear-gradient(#eaeaea, #b4b4b4);
     }
 
     .profile {
+        background-image: white;
         padding: 25rpx 0 0 0;
 
         height: 100vh;
@@ -180,7 +227,7 @@
         }
 
         .userinfo {
-            margin-bottom: 100rpx;
+            margin-bottom: 25rpx;
 
             .headimage {
                 display: flex;
@@ -197,10 +244,24 @@
                 }
             }
 
+            .buyVip {
+                color: red;
+                font-size: 20rpx;
+                text-decoration: underline;
+                margin-top: 6rpx;
+            }
+
             .vip {
                 height: 70rpx;
                 width: 100%;
             }
+
+            .expireTime {
+                color: red;
+                font-weight: bold;
+                font-size: 26rpx;
+            }
+
         }
 
         .grid-text {
@@ -212,7 +273,7 @@
         .modelUser {
             width: 90%;
             height: 160rpx;
-            border-radius: 25rpx;
+            border-radius: 15rpx;
             margin: 0 auto;
             box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
             display: flex;
@@ -235,10 +296,28 @@
                 padding: 20rpx;
 
                 .one {
-                    font-size: 35rpx;
+                    font-size: 30rpx;
                 }
 
+                .buyVip {
+                    color: red;
+                    font-size: 20rpx;
+                    text-decoration: underline;
+                    margin: 10rpx 0;
+                }
+
+                .vip {
+                    height: auto;
+                    width: 100%;
+                }
+
+                .expireTime {
+                    color: red;
+                    font-weight: bold;
+                    font-size: 26rpx;
+                }
             }
+
 
         }
 
@@ -247,7 +326,7 @@
             padding: 10rpx 0 0 0;
             width: 90%;
             height: 128rpx;
-            border-radius: 25rpx;
+            border-radius: 15rpx;
             margin: 25rpx auto;
             box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
             display: flex;
@@ -282,18 +361,20 @@
             .line {
                 display: flex;
                 background-color: white;
-               width: 90%;
-                height: 70rpx;
-                border-radius: 25rpx;
+                width: 90%;
+                height: 90rpx;
+                border-radius: 10rpx;
                 margin: 25rpx auto;
                 box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
                 padding: 0 30rpx;
-                line-height: 70rpx;
+                line-height: 90rpx;
                 font-size: 28rpx;
+
                 .iicon {
-                    
+
                     width: 70rpx;
-                    height: 70rpx;
+                    height: 90rpx;
+
                     image {
                         width: 45rpx;
                         height: 45rpx;
@@ -302,7 +383,7 @@
                 }
 
                 .text {
-              flex: 1;
+                    flex: 1;
 
                 }
             }

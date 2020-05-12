@@ -1,8 +1,7 @@
 {
     "easycom": {
-        "autoscan": true,
         "custom": {
-            "u-(.*)": "uview/components/u-$1/u-$1.vue"
+           "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
         }
     },
     "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
@@ -21,7 +20,25 @@
         {
             "path": "pages/profile/profile",
             "style": {
-                "navigationBarTitleText": "会员中心"
+                "navigationBarTitleText": "会员中心",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none",
+                    "titleNView":{
+                        // 配置按钮
+                        "buttons":[
+                            {
+                                "color":"#000000",
+                                "colorPressed":"#BBBBBB",
+                                "float":"right",
+                                 "fontSize":"22px",
+                                 "fontSrc":"/static/iconfont/iconfont.ttf",
+                                 "text":"\ue608"
+                                 
+                            }
+                        ]
+                    }
+                }
             }
         }
 
@@ -105,6 +122,25 @@
             "style": {
                  "navigationBarTitleText": "充值账户"
             }
+        }
+        ,{
+            "path" : "pages/buyVip/buyVip",
+            "style" : {
+                "navigationBarTitleText": "会员购买"
+            }
+        }
+        ,{
+            "path" : "pages/sign/sign",
+            "style" : {
+                "navigationBarTitleText": "每天签到"
+              
+            }
+        }
+        ,{
+            "path" : "pages/goodsTaskDetail/goodsTaskDetail",
+          "style": {
+              "navigationBarTitleText": "福利任务"
+          }
         }
     ],
 

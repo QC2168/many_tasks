@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员购买",
+  "usingComponents": {
+    "u-button": "/node-modules/uview/components/u-button/u-button"
+  }
+}

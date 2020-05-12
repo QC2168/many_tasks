@@ -11,8 +11,8 @@
         "nvueCompiler" : "任务多多",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : false,
-            "waiting" : true,
+            "alwaysShowBeforeRender" : true,
+            "waiting" : false,
             "autoclose" : true,
             "delay" : 0
         },
@@ -50,7 +50,9 @@
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "ad" : {}
+            },
             "icons" : {
                 "android" : {
                     "hdpi" : "unpackage/res/icons/72x72.png",

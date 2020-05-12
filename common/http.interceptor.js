@@ -3,6 +3,7 @@ const install = (Vue, vm) => {
     Vue.prototype.$u.http.setConfig({
         // baseUrl: 'http://api.taskarea.com/api/v1',
         baseUrl: 'http://121.42.13.36:9000/api/v1',
+        // baseUrl: 'http://api.taskarea.com/api/v1',
         header: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
@@ -37,18 +38,26 @@ const install = (Vue, vm) => {
                     icon: "none"
                 })
                 return false;
-            } else if (res.data.errorCode === 20003) {
+            } 
+            if (res.data.errorCode === 20003) {
+                    uni.reLaunch({
+                        url: "../login/login"
+                    })
+                    uni.showToast({
+                        title: res.data.msg,
+                        icon: "none"
+                    })
+                    return false;
+       
+            } 
+            if(res.data.errorCode!==0){
                 uni.showToast({
                     title: res.data.msg,
                     icon: "none"
                 })
-                setTimeout(() => {
-                    uni.reLaunch({
-                        url: "../login/login"
-                    })
-                    return false;
-                }, 1500)
-            } else {
+                 return false;
+            }
+            if(res.data.errorCode === 0) {
                 return res.data;
             }
         } else if (res.data.statusCode == 400) {

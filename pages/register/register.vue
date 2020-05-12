@@ -40,7 +40,7 @@
                 phone: "",
                 password: "",
                 rpassword: "",
-                code: ""
+                code: "123456"
 
             };
         },

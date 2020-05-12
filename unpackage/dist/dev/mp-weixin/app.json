@@ -14,7 +14,14 @@
     "pages/myTaskOrder/myTaskOrder",
     "pages/taskManagement/taskManagement",
     "pages/myPushDyTaskOrder/myPushDyTaskOrder",
-    "pages/shortVideo/shortVideo"
+    "pages/shortVideo/shortVideo",
+    "pages/placeOrder/placeOrder",
+    "pages/myPushTaskOrder/myPushTaskOrder",
+    "pages/news/news",
+    "pages/recharge/recharge",
+    "pages/buyVip/buyVip",
+    "pages/sign/sign",
+    "pages/goodsTaskDetail/goodsTaskDetail"
   ],
   "subPackages": [],
   "window": {
@@ -24,28 +31,28 @@
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#000000",
-    "selectedColor": "#00aaff",
+    "color": "#9e9e9e",
+    "selectedColor": "#000000",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/home/home",
         "iconPath": "static/images/tabbar/home.png",
-        "selectedIconPath": "static/images/tabbar/home.png",
+        "selectedIconPath": "static/images/tabbar/home_selected.png",
         "text": "大厅"
       },
       {
-        "pagePath": "pages/reward/reward",
-        "iconPath": "static/images/tabbar/reward.png",
-        "selectedIconPath": "static/images/tabbar/reward.png",
-        "text": "福利"
+        "pagePath": "pages/news/news",
+        "iconPath": "static/images/tabbar/news.png",
+        "selectedIconPath": "static/images/tabbar/news_selected.png",
+        "text": "消息"
       },
       {
         "pagePath": "pages/profile/profile",
         "iconPath": "static/images/tabbar/profile.png",
-        "selectedIconPath": "static/images/tabbar/profile.png",
-        "text": "个人"
+        "selectedIconPath": "static/images/tabbar/profile_selected.png",
+        "text": "会员中心"
       }
     ]
   },

@@ -198,22 +198,23 @@
                 border: .4rpx solid black;
                 box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
                 width: 90%;
-                height: 110rpx;
+                height: 120rpx;
                 padding: 10rpx;
                 display: flex;
 
                 .left {
-                    width: 150rpx;
+                    width: 100rpx;
 
                     image {
-                        width: 50rpx;
-                        height: 50rpx;
+                        width: 80rpx;
+                        height: 80rpx;
+                        border-radius: 8rpx;
                     }
                 }
 
                 .center {
                     flex: 1;
-
+                    padding-left: 10rpx;
                     view {
                         font-size: 30rpx;
                     }

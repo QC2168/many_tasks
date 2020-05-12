@@ -9,7 +9,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.9.2",
   "appid": "touristappid",
-  "projectname": "任务区",
+  "projectname": "任务多多",
   "condition": {
     "search": {
       "current": -1,

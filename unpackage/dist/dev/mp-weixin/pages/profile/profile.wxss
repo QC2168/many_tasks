@@ -352,8 +352,23 @@ u-icon.data-v-38199870 {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.linear-gradient.data-v-38199870 {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#acb6e5), to(#74ebd5));
+  background-image: -webkit-linear-gradient(#acb6e5, #74ebd5);
+  background-image: linear-gradient(#acb6e5, #74ebd5);
+}
+.profile.data-v-38199870 {
+  padding: 25rpx 0 0 0;
+  height: 100vh;
+}
+.profile .change.data-v-38199870 {
+  color: #007AFF;
+  font-size: 30rpx;
+  text-decoration: underline;
+  margin: 20rpx 0;
+}
 .profile .userinfo.data-v-38199870 {
-  margin-bottom: 100rpx;
+  margin-bottom: 25rpx;
 }
 .profile .userinfo .headimage.data-v-38199870 {
   display: -webkit-box;
@@ -374,13 +389,127 @@ u-icon.data-v-38199870 {
   border-radius: 100%;
   border: .5rpx solid gray;
 }
+.profile .userinfo .buyVip.data-v-38199870 {
+  color: red;
+  font-size: 20rpx;
+  text-decoration: underline;
+  margin-top: 6rpx;
+}
 .profile .userinfo .vip.data-v-38199870 {
   height: 70rpx;
   width: 100%;
+}
+.profile .userinfo .expireTime.data-v-38199870 {
+  color: red;
+  font-weight: bold;
+  font-size: 26rpx;
 }
 .profile .grid-text.data-v-38199870 {
   font-size: 28rpx;
   margin-top: 6rpx;
   color: #909399;
+}
+.profile .modelUser.data-v-38199870 {
+  width: 90%;
+  height: 160rpx;
+  border-radius: 15rpx;
+  margin: 0 auto;
+  -webkit-box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+          box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background-color: white;
+}
+.profile .modelUser .userPic.data-v-38199870 {
+  width: 180rpx;
+  margin: 0 20rpx;
+}
+.profile .modelUser .userPic image.data-v-38199870 {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 100%;
+  border: .5rpx solid #EEEEEE;
+}
+.profile .modelUser .line.data-v-38199870 {
+  width: 100%;
+  padding: 20rpx;
+}
+.profile .modelUser .line .one.data-v-38199870 {
+  font-size: 30rpx;
+}
+.profile .modelUser .line .buyVip.data-v-38199870 {
+  color: red;
+  font-size: 20rpx;
+  text-decoration: underline;
+  margin: 10rpx 0;
+}
+.profile .modelUser .line .vip.data-v-38199870 {
+  height: auto;
+  width: 100%;
+}
+.profile .modelUser .line .expireTime.data-v-38199870 {
+  color: red;
+  font-weight: bold;
+  font-size: 26rpx;
+}
+.profile .modelTask.data-v-38199870 {
+  background-color: white;
+  padding: 10rpx 0 0 0;
+  width: 90%;
+  height: 128rpx;
+  border-radius: 15rpx;
+  margin: 25rpx auto;
+  -webkit-box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+          box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.profile .modelTask view.data-v-38199870 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 26rpx;
+}
+.profile .modelTask view image.data-v-38199870 {
+  width: 72rpx;
+  height: 72rpx;
+}
+.profile .modelFunction .line.data-v-38199870 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background-color: white;
+  width: 90%;
+  height: 70rpx;
+  border-radius: 15rpx;
+  margin: 25rpx auto;
+  -webkit-box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+          box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
+  padding: 0 30rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+}
+.profile .modelFunction .line .iicon.data-v-38199870 {
+  width: 70rpx;
+  height: 70rpx;
+  margin: 0 20rpx 0 0;
+}
+.profile .modelFunction .line .iicon image.data-v-38199870 {
+  width: 45rpx;
+  height: 45rpx;
+}
+.profile .modelFunction .line .text.data-v-38199870 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
 }
 

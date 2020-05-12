@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "大厅",
+  "usingComponents": {
+    "u-notice-bar": "/node-modules/uview/components/u-notice-bar/u-notice-bar",
+    "u-swiper": "/node-modules/uview/components/u-swiper/u-swiper",
+    "u-button": "/node-modules/uview/components/u-button/u-button",
+    "home-tabs": "/components/common/tabs/homeTabs"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "福利",
+  "usingComponents": {
+    "u-empty": "/node-modules/uview/components/u-empty/u-empty"
+  }
+}

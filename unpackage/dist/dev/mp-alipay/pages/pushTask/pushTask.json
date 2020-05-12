@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "发布任务",
+  "usingComponents": {
+    "u-cell-group": "/node-modules/uview/components/u-cell-group/u-cell-group",
+    "u-field": "/node-modules/uview/components/u-field/u-field",
+    "u-divider": "/node-modules/uview/components/u-divider/u-divider",
+    "u-button": "/node-modules/uview/components/u-button/u-button",
+    "u-upload": "/node-modules/uview/components/u-upload/u-upload",
+    "tabs": "/components/common/tabs/tabs"
+  }
+}

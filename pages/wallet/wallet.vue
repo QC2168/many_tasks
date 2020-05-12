@@ -14,13 +14,14 @@
         </view>
         <view class="whiteBox">
             <view class="inpBox u-f-ajc">
-                                <input type="text" v-model="number" />
+                                <input type="text" placeholder="请输入充值卡密 / 提现金额" v-model="number" />
             </view>
             
             <view class="out u-f-ajc">
                 <u-button @tap="out" type="primary" plain shape="square" size="medium">一键提现</u-button>
                 <u-button @tap="recharge" type="primary" plain shape="square" size="medium">一键充值</u-button>
             </view>
+            <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">当前提现手续费 {{outServePrice}}</view>
             <u-divider fontSize="25" height="90">历史提现记录</u-divider>
             <view>
                 <view>
@@ -56,14 +57,16 @@
 <script>
     export default {
         created() {
+            
             this.getData()
         },
         data() {
             return {
-                number: 0,
+                number:'',
                 data: [],
                 bind:"获取中...",
-                outList:[]
+                outList:[],
+                outServePrice:0
             };
         },
         methods: {
@@ -97,7 +100,7 @@
                     res => {
                         if (res.errorCode !== 0) return;
                         this.data = res.data['assets'];
-                        this.number = res.data['assets'].wallet;
+                        // this.number = res.data['assets'].wallet;
                         this.bind=res.data['bind'];
                     }
                 )
@@ -106,8 +109,32 @@
                     if(res.errorCode!==0) return;
                     this.outList=res.data;
                 })
+                // 服务费
+                await this.$u.get('/get_serve_price',{name:'out'}).then(res=>this.outServePrice=(Math.min(res.data,1) * 100).toFixed(0)+'%');
+                
             },
             async out() {
+                if(this.$u.test.empty(this.number)){
+                   uni.showToast({
+                       title: "请输入提现金额",
+                       icon: 'none'
+                   })
+                   return; 
+                }
+                if(!(this.$u.test.digits(this.number))){
+                   uni.showToast({
+                       title: "请输入正确的提现金额",
+                       icon: 'none'
+                   })
+                   return; 
+                }
+                if(this.number>this.data.wallet){
+                   uni.showToast({
+                       title: "余额不足提现",
+                       icon: 'none'
+                   })
+                   return; 
+                }
                 if ((this.number % 10) != 0 || this.number == 0) {
                     uni.showToast({
                         title: "提现金额必须为10倍",
@@ -132,15 +159,21 @@
 
             },
             async recharge() {
-                if ((this.number % 10) != 0 || this.number == 0) {
+                if(this.number.length!==32){
                     uni.showToast({
-                        title: "充值金额必须为10倍",
+                        title: "卡密格式不正确",
                         icon: 'none'
                     })
                     return;
                 }
                 // 请求充值
-             
+            await this.$u.post('/recharge',{'cKey':this.number}).then(res=>{
+                 if(res.errorCode!==0)return;
+                 uni.showToast({
+                     title: res.msg,
+                     icon: 'none'
+                 })
+             })
             
             
             }
@@ -188,10 +221,12 @@
             border-top-right-radius: 50rpx;
             //input 
             .inpBox{
+                
                 input{
                     border-bottom: 1rpx solid #eeeeee;
                     text-align: center;
                     font-size: 35rpx;
+                    width: 450rpx;
                 }
             }
             // 提现按钮

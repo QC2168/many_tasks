@@ -31,7 +31,7 @@
                 <view class="item animated fadeInUp" v-for="(item,index) in taskList" :key="index">
                     <view class="Detail u-f">
                         <view class="pic u-f-ajc">
-                            <image :src="URL+item.dy_task_pic" mode="aspectFill"></image>
+                            <image :src="URL+item.pic" mode="aspectFill"></image>
                         </view>
                         <view class="line">
                             <view>任务标题:  {{item.title}}</view>
