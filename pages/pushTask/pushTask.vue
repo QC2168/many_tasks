@@ -1,7 +1,7 @@
 <template>
     <view class="pushTask">
         <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务','福利任务']"></tabs>
-        <div v-show="taskType===1">
+        <view v-show="taskType===1">
             <view>
                 <view class="tasklogo u-f-ajc">
                     <image src="../../static/images/logo/logo.png" mode="widthFix"></image>
@@ -24,56 +24,20 @@
                 <u-divider height="100">上传任务步骤</u-divider>
                 <view>
                     <view class="addStep u-f-ajc">
-                        <u-button @tap="openPushTaskBox" size="medium" type="primary">添加步骤</u-button>
+                        <u-button @tap="openAddStepComponent('task')" size="medium" type="primary">添加步骤</u-button>
                     </view>
-                    <!-- 步骤显示 -->
-                    <view v-if="taskStepList.length!==0" class="step" v-for="(item,index) in taskStepList" :key="index">
-                        <view class="st">
-                            <view class="index u-f-ajc">{{index+1}}</view>
-                            <view class="text">{{item.text}}</view>
-                        </view>
-                        <view class="picBox">
-                            <image class="pic" :src="URL+item.pic" mode="widthFix"></image>
-                            <view class="tips u-f-ajc">
-                                步骤图{{index+1}}
-                            </view>
-                        </view>
-                    </view>
-
+<step-card :stepList="taskStepList"></step-card>
 
                     <!-- push模板 -->
-                    <view v-show="pushTaskBox" class="addStepTemplate u-f-ajc">
-                        <view class="content">
-                            <view class="sub u-f-ajc">步骤详细</view>
-                            <view class="u-f-ajc">
-                                <!-- textarea  -->
-                                <textarea placeholder="填写一下这一步的说明..." auto-height adjust-position type="text" v-model="currentPushTaskBoxData.text" /></view>
-                    <view class="uploadBox u-f-ajc">
-                        <u-upload 
-                        max-size="2097152" 
-                        max-count="1" 
-                        :size-type="['compressed']"
-                        :action="stepPicAction" 
-                        @on-success="taskstepPicSuccess" 
-                        @on-error="error" 
-                        @on-oversize="oversize"
-                        @on-remove="taskRemove"
-                        @on-choose-complete="taskComplete" 
-                        name='pic' 
-                        :header="headerData"
-                        ref="uploadPushBox"
-                            ></u-upload>
-                    </view>
-                    <!-- addSetp  -->
-                    <view class="addSetpBox u-f-ajc">
-                        <u-button ripple type="error" @tap="addSetp" class="addSetp" size="mini">PUSH</u-button>
-                        <u-button @tap="hidePushTaskBox" ripple type="error" class="addSetp" size="mini">EXIT</u-button>
-                    </view>
-                    
-                </view>
-            </view>
+                    <!-- add步骤组件 -->
+                    <pushstep
+                     ref="taskStepComponent"
+                      stepPicAction="http://api.taskarea.com/api/v1/upload_task_detail_pic"
+                      :header="headerData"
+                      @stepList="updateTaskStepList"
+                      />
         </view></view>
- </div>
+ </view>
        
         
         
@@ -83,7 +47,7 @@
         
         
         
-        <div v-show="taskType===0">
+        <view v-show="taskType===0">
            <view class="dylogo u-f-ajc">
                <image src="../../static/images/pushTask/douyin.jpg" mode="widthFix"></image>
            </view>
@@ -112,11 +76,11 @@
                </view>
            
            </view>
-        </div>
+        </view>
     
-    <div v-show="taskType==2">
+    <view v-show="taskType==2">
          <u-divider>试用平台</u-divider>
-        	<u-radio-group v-model="rewardTaskObj.currentRewardGoodsPlatformType">
+        	<u-radio-group @change="currentRewardGoodsPlatformTypeChange" v-model="rewardTaskObj.currentRewardGoodsPlatformType">
         			<u-radio 
         				v-for="(item, index) in rewardGoodsPlatformTypeList" :key="index" 
         				:name="item.name"
@@ -152,7 +116,7 @@
                     <u-button size="mini" slot="button" type="success" @tap="pasteUrl">粘贴商品链接</u-button>
                     </u-field>
                     <u-field
-                    	v-model="rewardTaskObj.goodsUrl"
+                    	v-model="rewardTaskObj.keyword"
                          label-width="160"
                     	label="商品关键字"
                     	placeholder="搜索关键词,建议3个以上"
@@ -172,29 +136,36 @@
                     >
                     </u-field>
                     <u-field
-                    	v-model="rewardTaskObj.goodsNumber"
+                    	v-model="rewardTaskObj.quota"
                     	label="发放数量"
                     	placeholder="请填写发放数量"
                     >
                     </u-field>
                     <u-field
-                    	v-model="rewardTaskObj.text"
+                    	v-model="rewardTaskObj.content"
                     	label="商家要求"
                     	placeholder="填写一些要求吧,如 货比  加购"
                         type="textarea"
                     >
                     </u-field>
                       </u-cell-group>
-                      <!-- 主图上传 -->
-                       <u-divider height="110">上传试用商品主图</u-divider>
-                      <view class="uploadPicBox u-f-ajc">
-                          <u-upload :auto-upload="false" 
-                          ref="uUpload" max-size="2097152" max-count="1" :size-type="['compressed']"
-                              :action="action" @on-success="success" @on-error="error" @on-oversize="oversize" @on-remove="remove"
-                              @on-choose-complete="complete" name='dy_task_pic' :form-data="formData" :header="headerData"
-                              :show-tips="false"></u-upload>
+                      <!-- 步骤上传 -->
+                       <u-divider height="110">步骤上传</u-divider>
+                      <view class="addStep u-f-ajc">
+                          <u-button @tap="openAddStepComponent('reward')" size="medium" type="primary">添加步骤</u-button>
+                          
                       </view>
-    </div>
+                      <step-card :stepList="rewardStepList"></step-card>
+                      <!-- add步骤组件 -->
+                      <pushstep
+                       ref="rewardStepComponent"
+                        :stepPicAction="taskType===1?'http://api.taskarea.com/api/v1/upload_task_detail_pic':'http://api.taskarea.com/api/v1/upload_task_detail_pic'"
+                        :header="headerData"
+                        @stepList="updateRewardStepList"
+                        />
+                        
+                        
+    </view>
         <!-- 发布按钮 -->
         <view class="pushBtn u-f-column" @tap="post">
             <view>发布</view>
@@ -205,9 +176,11 @@
 
 <script>
     import tabs from "../../components/common/tabs/tabs.vue";
+    import pushstep from "../../components/pushTask/pushstep/pushstep.vue"
+    import stepCard from "../../components/stepCard/stepCard.vue"
     export default {
         components:{
-            tabs
+            tabs,pushstep,stepCard
         },
         created(){
             // 请求服务费接口
@@ -262,6 +235,7 @@
                 taskStepList:[
                     
                 ],
+                rewardStepList:[],
                 rewardGoodsPlatformTypeList: [
                 				{
                 					name: '淘宝',
@@ -317,8 +291,9 @@
                           goodsUrl:"",
                           liaison:"",
                           goodsPrice:"",
-                          goodsNumber:"",
-                          text:"",
+                          quota:"",
+                          content:"",
+                          keyword:""
                           
                       }   
             }
@@ -358,6 +333,9 @@
                 }
                 if(this.taskType===1){
                     this.postTask();
+                }
+                if(this.taskType===2){
+                  console.log(this.rewardTaskObj)
                 }
             },
             // tabs 监听
@@ -413,7 +391,6 @@
 
                     return true;
             },
-            
             postDyTask() {
                 if (!this.dycheckParam()) return;
                 // 上传
@@ -561,27 +538,6 @@
                 this.currentPushTaskBoxData.isImg = false
             },
             
-            // 添加步骤
-            addSetp(){
-               let text=this.$u.test.empty(this.currentPushTaskBoxData.text)
-             let pic=this.$u.test.empty(this.currentPushTaskBoxData.pic)
-if(!(text&&pic)){
-    // 追加list
-    let obj=JSON.parse(JSON.stringify(this.currentPushTaskBoxData))
-    this.taskStepList.push(obj)
-    this.hidePushTaskBox();
-    this.currentPushTaskBoxData.text="";
-    this.currentPushTaskBoxData.pic="";
-    this.currentPushTaskBoxData.isImg=false;
-   this.$refs.uploadPushBox.lists = []
-}else{
-   uni.showToast({
-       title:"请完善再添加",
-       icon:'none'
-   })
-}
-               
-            },
             // 粘贴url
             pasteUrl(){
                 uni.getClipboardData({
@@ -589,7 +545,27 @@ if(!(text&&pic)){
                        this.rewardTaskObj.goodsUrl=res;
                     }
                 });
-            }
+            },
+            openAddStepComponent(type){
+                switch(type){
+                    case 'reward':
+                     this.$refs.rewardStepComponent.showBox();
+                     return;
+                     case 'task':
+                     this.$refs.taskStepComponent.showBox();
+                     return;
+                }
+             
+                
+            },
+            updateRewardStepList(list){
+                this.rewardStepList=list;
+            },
+            updateTaskStepList(list){
+                console.log(list)
+                this.taskStepList=list;
+            },
+
             
         },
         computed: {
@@ -601,6 +577,7 @@ if(!(text&&pic)){
                 if(this.taskType===1){
                     return (this.taskData.price * this.taskData.quota) + (this.taskServePrice * this.taskData.quota); 
                 }
+
                 
             }
         }
@@ -727,6 +704,7 @@ if(!(text&&pic)){
     
 }
         .pushBtn {
+            z-index: 999;;
             position: fixed;
             bottom: 0;
             width: 100%;

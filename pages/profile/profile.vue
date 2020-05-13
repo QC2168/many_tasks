@@ -376,8 +376,8 @@
                     height: 90rpx;
 
                     image {
-                        width: 45rpx;
-                        height: 45rpx;
+                        width: 50rpx;
+                        height: 50rpx;
                     }
                     margin: 0 20rpx 0 0;
                 }
