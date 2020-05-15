@@ -11,7 +11,6 @@ App.mpType = 'app'
 Vue.use(uView);
 const app = new Vue({
     ...App,
-    minRequest
 })
 
 app.$mount()
