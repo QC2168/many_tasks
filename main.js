@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import App from './App'
-import MinRequest from '@/common/MinRequest'
-import minRequest from '@/common/api';
 import uView from "uview-ui";
 Vue.config.productionTip = false
 //全局过滤器
@@ -10,7 +8,6 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 });
 App.mpType = 'app'
-Vue.use(MinRequest)
 Vue.use(uView);
 const app = new Vue({
     ...App,

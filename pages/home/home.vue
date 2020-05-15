@@ -11,7 +11,7 @@
 <view @tap="to('cart')"><image src="../../static/images/home/cart.png" mode="aspectFit"></image>购物赚钱</view>
 <view @tap="to('game')"><image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚钱</view>
         </view>
-        <home-tabs @changeTabIndex="changeTabIndex" :list="['点赞任务','悬赏任务']"></home-tabs>
+        <home-tabs @changeTabIndex="changeTabIndex" :list="['点赞任务','悬赏任务','福利任务']"></home-tabs>
         <!-- 任务列表 -->
         <template v-if="taskType===0">
                <view class="tasklist">
@@ -47,7 +47,23 @@
          
          </view>
         </template>
-     
+     <template v-if="taskType===2">
+      <view class="tasklist">
+          <view class="item animated fadeInUp" v-for="(item,index) in rewardtasklist" :key="index">
+              <view class="left u-f-ajc">
+                  <image :src="URL+item.pic" mode="aspectFill"></image>
+              </view>
+              <view class="center">
+                  <view>{{item.title}}</view>
+                  <view>佣金：{{item.price}}</view>
+              </view>
+              <view class="right u-f-ajc">
+                  <u-button @tap="openRewardTaskDetail(item.reward_task_id)" type="warning" size="mini" shape="circle">查看任务</u-button>
+              </view>
+          </view>
+      
+      </view>
+     </template>
         
         <!-- 到底了 -->
         <!-- <u-divider>先完成一个任务后再查看吧！</u-divider> -->
@@ -61,6 +77,7 @@
             homeTabs
         },
         created() {
+            this.checkVersion()
             //没token  跳登录去
             uni.getStorage({
                 key: 'token',
@@ -86,13 +103,21 @@
                 URL:getApp().globalData.URL,
                 tasklist:[],
                 dytasklist:[],
+                rewardtasklist:[],
                 swiperlist: [],
                 noticeList:[],
-                taskType:0
+                taskType:0,
+                v:plus.runtime.version
                 
             }
         },
         methods: {
+            async checkVersion() {
+                //版本判断
+                await this.$u.post('updateV', {
+                    v
+                })
+            },
             // tabs 监听
             changeTabIndex(index){
                 // 0 抖音  1 普通任务
@@ -122,7 +147,13 @@
                           this.dytasklist=res.data
                     }
                 )
-                
+                // 福利任务列表
+                await this.$u.get('/get_reward_task_list').then(
+                    res => {
+                        if (res.errorCode !== 0) return;
+                          this.rewardtasklist=res.data
+                    }
+                )
                 // 获取轮播图
                 await this.$u.get('/get_home_pic').then(
                 res=>{
@@ -157,6 +188,11 @@
             openDyTaskDetail(dy_task_id) {
                 this.$u.route('pages/douyinDetail/douyinDetail', {
                 	dy_task_id
+                });
+            },
+            openRewardTaskDetail(reward_task_id){
+                this.$u.route('pages/rewardTaskDetail/rewardTaskDetail', {
+                	reward_task_id
                 });
             }
         },

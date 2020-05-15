@@ -50,6 +50,14 @@ const install = (Vue, vm) => {
                     return false;
        
             } 
+            
+            if(res.data.errorCode===20014){
+                uni.showToast({
+                    title: res.data.msg,
+                    icon: "none"
+                })
+                 return false;
+            }
             if(res.data.errorCode!==0){
                 uni.showToast({
                     title: res.data.msg,
@@ -67,12 +75,12 @@ const install = (Vue, vm) => {
                 title: res.data.msg,
                 icon: "none"
             })
-            setTimeout(() => {
-                // 此为uView的方法，详见路由相关文档
-                this.$u.route({
-                    url: "../login/login"
-                })
-            }, 1500)
+            // setTimeout(() => {
+            //     // 此为uView的方法，详见路由相关文档
+            //     this.$u.route({
+            //         url: "../login/login"
+            //     })
+            // }, 1500)
             return false;
         } else {
             // 如果返回false，则会调用Promise的reject回调，

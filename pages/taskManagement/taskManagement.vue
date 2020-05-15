@@ -1,6 +1,6 @@
 <template>
     <view class="taskManagement">
-         <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
+         <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务','福利任务']"></tabs>
          <template v-if="taskType===0">
              <template v-if="dytaskList.length!==0">
                  <view class="item animated fadeInUp" v-for="(item,index) in dytaskList" :key="index">
@@ -42,8 +42,33 @@
                         </view>
                     </view>
                     <view class="btn u-f-ajc">
-                        <view class="open u-f-ajc" @tap="open(item.task_id,2)">查看</view>
-                        <view class="del u-f-ajc" @tap="del(item.task_id,2)">下架</view>
+                        <view class="open u-f-ajc" @tap="open(item.task_id,3)">查看</view>
+                        <view class="del u-f-ajc" @tap="del(item.task_id,3)">下架</view>
+                    </view>
+                </view>
+            </template>
+            <template v-else>
+                <u-empty text="快去发布悬赏任务吧" mode="order"></u-empty>
+            </template>
+        </template>
+        <template v-if="taskType===2">
+            <template v-if="rewardTaskList.length!==0">
+                <view class="item animated fadeInUp" v-for="(item,index) in rewardTaskList" :key="index">
+                    <view class="Detail u-f">
+                        <view class="pic u-f-ajc">
+                            <image :src="URL+item.pic" mode="aspectFill"></image>
+                        </view>
+                        <view class="line">
+                            <view>任务标题:  {{item.title}}</view>
+                            <view>任务金币:  {{item.price}}</view>
+                            <view>剩下名额:  {{item.remaining_quota}} / {{item.quota}}</view>
+                            <view>创建时间:  {{item.create_time}}</view>
+                            <view>任务状态:  {{item.show|taskStatus}}</view>
+                        </view>
+                    </view>
+                    <view class="btn u-f-ajc">
+                        <view class="open u-f-ajc" @tap="open(item.reward_task_id,3)">查看</view>
+                        <view class="del u-f-ajc" @tap="del(item.reward_task_id,3)">下架</view>
                     </view>
                 </view>
             </template>
@@ -69,6 +94,7 @@
                 taskType:0,
                 dytaskList: [],
                 taskList: [],
+                rewardTaskList:[],
                 URL:getApp().globalData.URL,
             };
         },
@@ -84,6 +110,9 @@
                 })
                 await this.$u.get('/my_push_task').then(res => {
                     this.taskList = res.data
+                })
+                await this.$u.get('/my_push_reward_task').then(res => {
+                    this.rewardTaskList = res.data
                 })
             },
             del(id,type){
@@ -142,6 +171,11 @@
                 if(type===2){
                     this.$u.route('pages/myPushTaskOrder/myPushTaskOrder', {
                     	task_id:id
+                    });
+                }
+                if(type===3){
+                    this.$u.route('pages/myPushRewardTaskOrder/myPushRewardTaskOrder', {
+                    	reward_task_id:id
                     });
                 }
               

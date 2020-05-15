@@ -54,7 +54,7 @@
 
         <template v-if="!mode">
             <!-- model 头像 -->
-            <view class="modelUser animated zoomInDown">
+            <view class="modelUser animated fadeIn">
                 <view class="userPic u-f-ajc">
                     <image class="animated flipInX" :src="URL+userData.user_pic" mode="aspectFit"></image>
                 </view>
@@ -75,7 +75,7 @@
                 </view>
             </view>
 
-            <view class="modelTask animated zoomInLeft">
+            <view class="modelTask animated fadeIn">
                 <view class="u-f-ajc" @tap="to('myTaskOrder')">
                     <image src="../../static/images/profile/myTaskOrderSn.png" mode="aspectFill">
                         <view>待审核</view>
@@ -91,7 +91,7 @@
                 </view>
             </view>
 
-            <view class="modelFunction animated zoomInUp">
+            <view class="modelFunction animated fadeIn">
                 <view @tap="to('wallet')" class="line">
 
                     <view class="iicon u-f-ajc">

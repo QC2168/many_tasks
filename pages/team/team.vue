@@ -3,14 +3,11 @@
        <view class="imageBox u-f-ajc">
             <image src="../../static/images/team/share.png" mode="aspectFill"></image>
         </view>
+        <view class="myCode u-f-ajc">我的邀请码:{{team.code}}</view>
 		<view class="myTeamData u-f">
             <view class="u-f-column">
                 <view>我的团队</view>
                 <view>{{team.count}}</view>
-            </view>
-            <view class="u-f-column">
-                <view>预计最大赏金</view>
-                <view>{{team.reward}}</view>
             </view>
         </view>
         <u-divider fontSize="32" half-width="250" height="90">我的团队</u-divider>
@@ -61,6 +58,10 @@
     .imageBox{
         width: 100%;
         height: 500rpx;
+    }
+    .myCode{
+        height: 70rpx;
+        font-size: 33rpx;
     }
     .myTeamData{
         height: 100rpx;

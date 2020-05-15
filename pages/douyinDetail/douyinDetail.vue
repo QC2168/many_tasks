@@ -94,7 +94,7 @@
                 //是否选择了图片
                 isImg: false,
                 // 上传路径
-                action: 'http://121.42.13.36:9000/api/v1/create_dy_task_order',
+                action: this.URL+'/api/v1/create_dy_task_order',
                 showCopyBtn:false,
                 url: null,
                 formData: {
@@ -233,6 +233,7 @@
             font-size: 35rpx;
             background-color: rgb(41, 121, 255);
             color: white;
+            z-index: 999;
         }
 
         .describe {

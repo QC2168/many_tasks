@@ -32,8 +32,7 @@
                     <!-- add步骤组件 -->
                     <pushstep
                      ref="taskStepComponent"
-                      stepPicAction="http://api.taskarea.com/api/v1/upload_task_detail_pic"
-                      :header="headerData"
+                      :stepPicAction="URL+'/api/v1/upload_task_detail_pic'"
                       @stepList="updateTaskStepList"
                       />
         </view></view>
@@ -80,7 +79,7 @@
     
     <view v-show="taskType==2">
          <u-divider>试用平台</u-divider>
-        	<u-radio-group @change="currentRewardGoodsPlatformTypeChange" v-model="rewardTaskObj.currentRewardGoodsPlatformType">
+        	<u-radio-group v-model="rewardTaskObj.currentRewardGoodsPlatformType">
         			<u-radio 
         				v-for="(item, index) in rewardGoodsPlatformTypeList" :key="index" 
         				:name="item.name"
@@ -130,7 +129,7 @@
                     >
                     </u-field>
                     <u-field
-                    	v-model="rewardTaskObj.goodsPrice"
+                    	v-model="rewardTaskObj.price"
                     	label="下单价格"
                     	placeholder="请填写拍下价格"
                     >
@@ -149,6 +148,14 @@
                     >
                     </u-field>
                       </u-cell-group>
+                      <!--是否开启地址给用户访问 -->
+                      <view class="isBtn u-f">
+                          <view>是否显示一键跳转到商品页面</view>
+                          <view><u-switch v-model="rewardTaskObj.isBtn" active-color='#19BE6B' size="40"></u-switch></view>
+                      </view>
+                      
+                      <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">每一单收取
+                          {{rewardTaskServePrice}}元作为平台服务费</view>
                       <!-- 步骤上传 -->
                        <u-divider height="110">步骤上传</u-divider>
                       <view class="addStep u-f-ajc">
@@ -159,8 +166,7 @@
                       <!-- add步骤组件 -->
                       <pushstep
                        ref="rewardStepComponent"
-                        :stepPicAction="taskType===1?'http://api.taskarea.com/api/v1/upload_task_detail_pic':'http://api.taskarea.com/api/v1/upload_task_detail_pic'"
-                        :header="headerData"
+                        :stepPicAction="URL+'/api/v1/upload_task_detail_pic'"
                         @stepList="updateRewardStepList"
                         />
                         
@@ -203,6 +209,7 @@
                 // 服务费用
                 dytaskServePrice:0,
                 taskServePrice:0,
+                rewardTaskServePrice:0,
                 taskData:{
                   title: "",
                 price: "",
@@ -212,9 +219,7 @@
                 //抖音页  是否选择了图片
                 isImg: false,
                 // 上传路径
-                action: 'http://121.42.13.36:9000/api/v1/push_dy_task',
-                // 步骤图上传路径
-                stepPicAction: 'http://121.42.13.36:9000/api/v1/upload_task_detail_pic',
+                action: this.URL+'/api/v1/push_dy_task',
                 formData: {
                     title: '',
                     content: '',
@@ -290,10 +295,12 @@
                           title:"",
                           goodsUrl:"",
                           liaison:"",
-                          goodsPrice:"",
+                          price:"",
                           quota:"",
                           content:"",
-                          keyword:""
+                          keyword:"",
+                          isBtn:false,
+                          isBtnStatus:0,
                           
                       }   
             }
@@ -301,7 +308,8 @@
         methods: {
             async getServePrice(){
                await this.$u.get('/get_serve_price',{name:'push_task'}).then(res=>this.taskServePrice=res.data)
-               await this.$u.get('/get_serve_price',{name:'push_dy_task'}).then(res=>this.dytaskServePrice=res.data)
+               await this.$u.get('/get_serve_price',{name:'push_dy_task'}).then(res=>this.dytaskServePrice=res.data),
+               await this.$u.get('/get_serve_price',{name:'push_reward_task'}).then(res=>this.rewardTaskServePrice=res.data)
             },
             // 网络请求返回过滤
             response(res){
@@ -335,7 +343,7 @@
                     this.postTask();
                 }
                 if(this.taskType===2){
-                  console.log(this.rewardTaskObj)
+                  this.postRewardTask();
                 }
             },
             // tabs 监听
@@ -462,6 +470,106 @@
                     
                 })
             },
+            rewardtaskcheckParam() {
+                if (this.$u.test.empty(this.rewardTaskObj.currentRewardGoodsPlatformType)) {
+                    uni.showToast({
+                        title: "试用平台参数错误",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.$u.test.empty(this.rewardTaskObj.currentRewardGoodsType)) {
+                    uni.showToast({
+                        title: "试用type参数错误",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.rewardTaskObj.title.length > 15  ) {
+                    uni.showToast({
+                        title: "标题控制需在15字内",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                
+                if (this.$u.test.empty(this.rewardTaskObj.title)) {
+                    uni.showToast({
+                        title: "标题不能为空",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.$u.test.empty(this.rewardTaskObj.price)) {
+                    uni.showToast({
+                        title: "你还没有填写任务价格",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.$u.test.empty(this.rewardTaskObj.quota)) {
+                    uni.showToast({
+                        title: "你还没有填写发布数量",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.$u.test.empty(this.rewardTaskObj.content)) {
+                    uni.showToast({
+                        title: "你还没有填写要求",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                if (this.$u.test.empty(this.rewardTaskObj.keyword)) {
+                    uni.showToast({
+                        title: "你还没有填写商品关键词",
+                        icon: "none"
+                    })
+                    return false;
+                };
+                // 验证是否有步骤图片
+                if (this.$u.test.empty(this.rewardStepList)) {
+                    uni.showToast({
+                        title: "至少添加一个步骤",
+                        icon: "none"
+                    })
+                    return false;
+                }
+                //修改下内容
+                if(this.rewardTaskObj.isBtn){
+                    this.rewardTaskObj.isBtnStatus=1;
+                }else{
+                    this.rewardTaskObj.isBtnStatus=0;
+                }
+                    return true;
+            },
+            async postRewardTask(){
+                if(!this.rewardtaskcheckParam())return;
+                await this.$u.post('/push_reward_task',{
+                    reward_goods_platform_type:this.rewardTaskObj.currentRewardGoodsPlatformType,
+                    reward_goods_type:this.rewardTaskObj.currentRewardGoodsType,
+                       title:this.rewardTaskObj.title,
+                       goods_url:this.rewardTaskObj.goodsUrl,
+                       liaison:this.rewardTaskObj.liaison,
+                       price:this.rewardTaskObj.price,
+                       quota:this.rewardTaskObj.quota,
+                       content:this.rewardTaskObj.content,
+                       keyword:this.rewardTaskObj.keyword,
+                       is_btn:this.rewardTaskObj.isBtnStatus,
+                     reward_task_step_list:JSON.stringify(this.rewardStepList)
+                 }).then(res=>{
+                     uni.showToast({
+                         title: res.msg,
+                     }) 
+                     setTimeout(()=>{
+                        uni.switchTab({
+                            url:"../home/home"
+                        })
+                     },2000)
+                     
+                 })
+            },
             oversize() {
                 uni.showToast({
                     title: "图片过大，请重新上传",
@@ -562,7 +670,6 @@
                 this.rewardStepList=list;
             },
             updateTaskStepList(list){
-                console.log(list)
                 this.taskStepList=list;
             },
 
@@ -575,7 +682,10 @@
                    return (this.formData.price * this.formData.quota) + (this.dytaskServePrice * this.formData.quota); 
                 }
                 if(this.taskType===1){
-                    return (this.taskData.price * this.taskData.quota) + (this.taskServePrice * this.taskData.quota); 
+                    return (this.taskData.price * this.rewardTaskObj.quota) + (this.taskServePrice * this.taskData.quota); 
+                }
+                if(this.taskType===2){
+                    return (this.rewardTaskObj.price * this.rewardTaskObj.quota) + (this.rewardTaskServePrice * this.rewardTaskObj.quota); 
                 }
 
                 
@@ -702,6 +812,13 @@
     }
    
     
+}
+.isBtn{
+    justify-content: space-between;
+    height: 75rpx;
+    align-items: center;
+    padding:0 28rpx;
+    font-size: 28rpx;
 }
         .pushBtn {
             z-index: 999;;

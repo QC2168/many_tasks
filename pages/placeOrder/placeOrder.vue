@@ -67,7 +67,8 @@
         },
 		data() {
 			return {
-                action:"http://121.42.13.36:9000/api/v1/upload_task_order_pic",
+                URL:getApp().globalData.URL,
+                action:this.URL+"/api/v1/upload_task_order_pic",
 				content:"",
                 orderSn:null,
                 headerData:{},

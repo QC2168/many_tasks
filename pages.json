@@ -137,10 +137,18 @@
             }
         }
         ,{
-            "path" : "pages/goodsTaskDetail/goodsTaskDetail",
-          "style": {
-              "navigationBarTitleText": "福利任务"
-          }
+            "path" : "pages/rewardTaskDetail/rewardTaskDetail",
+           "style": {
+               "navigationBarTitleText": "福利任务"
+           }
+        }
+        ,{
+            "path" : "pages/placeRewardOrder/placeRewardOrder",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/myPushRewardTaskOrder/myPushRewardTaskOrder",
+            "style" : {}
         }
     ],
 
