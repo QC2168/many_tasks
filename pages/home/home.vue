@@ -24,7 +24,7 @@
                            <view>佣金：{{item.price}}</view>
                        </view>
                        <view class="right u-f-ajc">
-                           <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini" shape="circle">点赞任务</u-button>
+                           <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini" shape="circle">领取任务</u-button>
                        </view>
                    </view>
                
@@ -107,7 +107,10 @@
                 swiperlist: [],
                 noticeList:[],
                 taskType:0,
+                //#ifdef APP-PLUS
                 v:plus.runtime.version
+                //#endif
+                
                 
             }
         },
@@ -160,7 +163,8 @@
                     if (res.errorCode !== 0) return;
                     //给url加上前缀
                     for(let i of res.data){
-                        i.img_url=this.URL+i.img_url
+                        // 判断是不是网络图片
+                        if(!this.$u.test.url(i.img_url))i.img_url=this.URL+i.img_url;
                     }
                   this.swiperlist=res.data
                 })

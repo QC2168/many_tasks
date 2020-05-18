@@ -1,8 +1,8 @@
 {
-    "name" : "任务多多",
+    "name" : "任务联盟",
     "appid" : "__UNI__43907E6",
     "description" : "这是一款多兼职模式的平台App",
-    "versionName" : "1.0.0",
+    "versionName" : "1.1.0",
     "versionCode" : "100",
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -110,5 +110,15 @@
     },
     "mp-toutiao" : {
         "usingComponents" : true
+    },
+    "h5" : {
+        "router" : {
+            "mode" : "history"
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
     }
 }

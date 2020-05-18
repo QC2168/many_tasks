@@ -104,7 +104,7 @@
                 </view>
             </template>
             <template v-else>
-                <u-empty text="快去申请悬赏任务吧!" mode="order"></u-empty>
+                <u-empty text="快去申请福利任务吧!" mode="order"></u-empty>
             </template>
         </template>
         <!--        <scroll-view :style="{'height':windowHeight+'px'}" scroll-y="true" class="scroll-Y"></scroll-view> -->

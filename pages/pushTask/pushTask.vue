@@ -69,7 +69,7 @@
                <view class="uploadPicBox u-f-ajc">
                    <u-upload :auto-upload="false" 
                    ref="uUpload" max-size="2097152" max-count="1" :size-type="['compressed']"
-                       :action="action" @on-success="success" @on-error="error" @on-oversize="oversize" @on-remove="remove"
+                       :action="URL+'/api/v1/push_dy_task'" @on-success="success" @on-error="error" @on-oversize="oversize" @on-remove="remove"
                        @on-choose-complete="complete" name='dy_task_pic' :form-data="formData" :header="headerData"
                        :show-tips="false"></u-upload>
                </view>
@@ -132,6 +132,13 @@
                     	v-model="rewardTaskObj.price"
                     	label="下单价格"
                     	placeholder="请填写拍下价格"
+                    >
+                    </u-field>
+                    <u-field
+                        v-if="rewardTaskObj.currentRewardGoodsType=='红包试用'"
+                    	v-model="rewardTaskObj.moneyReward"
+                    	label="红包金额"
+                    	placeholder="请填写任务红包金额"
                     >
                     </u-field>
                     <u-field
@@ -290,12 +297,13 @@
                                         
                     // 福利任务model
                       rewardTaskObj:{
-                          currentRewardGoodsPlatformType: '',
-                          currentRewardGoodsType: '',
+                          currentRewardGoodsPlatformType: '淘宝',
+                          currentRewardGoodsType: '红包试用',
                           title:"",
                           goodsUrl:"",
                           liaison:"",
                           price:"",
+                          moneyReward:0,
                           quota:"",
                           content:"",
                           keyword:"",
@@ -507,6 +515,13 @@
                     })
                     return false;
                 };
+                if (this.$u.test.empty(this.rewardTaskObj.moneyReward)) {
+                    uni.showToast({
+                        title: "你还没有填写红包金额",
+                        icon: "none"
+                    })
+                    return false;
+                };
                 if (this.$u.test.empty(this.rewardTaskObj.quota)) {
                     uni.showToast({
                         title: "你还没有填写发布数量",
@@ -553,6 +568,7 @@
                        goods_url:this.rewardTaskObj.goodsUrl,
                        liaison:this.rewardTaskObj.liaison,
                        price:this.rewardTaskObj.price,
+                       money_reward:this.rewardTaskObj.moneyReward,
                        quota:this.rewardTaskObj.quota,
                        content:this.rewardTaskObj.content,
                        keyword:this.rewardTaskObj.keyword,
@@ -685,7 +701,7 @@
                     return (this.taskData.price * this.rewardTaskObj.quota) + (this.taskServePrice * this.taskData.quota); 
                 }
                 if(this.taskType===2){
-                    return (this.rewardTaskObj.price * this.rewardTaskObj.quota) + (this.rewardTaskServePrice * this.rewardTaskObj.quota); 
+                    return (this.rewardTaskObj.price* this.rewardTaskObj.quota) + (this.rewardTaskServePrice * this.rewardTaskObj.quota)+(this.rewardTaskObj.moneyReward* this.rewardTaskObj.quota); 
                 }
 
                 

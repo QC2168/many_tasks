@@ -6,26 +6,26 @@
         <u-divider fontSize="30" height="60">任务数据</u-divider>
         <view class="wrap" justify="around">
             <u-row gutter="16">
-                <u-col span="4">
+                <u-col span="6">
                     <view class="demo-layout bg-purple u-f-ajc">佣金</view>
                 </u-col>
-                <u-col span="4">
+                <u-col span="6">
                     <view class="demo-layout bg-purple-light u-f-ajc">剩余名额</view>
                 </u-col>
-                <u-col span="4">
+          <!--      <u-col span="4">
                     <view class="demo-layout bg-purple-dark u-f-ajc">积分</view>
-                </u-col>
+                </u-col> -->
             </u-row>
             <u-row gutter="16">
-                <u-col span="4">
+                <u-col span="6">
                     <view class="demo-layout bg-purple u-f-ajc">{{dyTaskDetail.price}}</view>
                 </u-col>
-                <u-col span="4">
+                <u-col span="6">
                     <view class="demo-layout bg-purple-light u-f-ajc">{{dyTaskDetail.remaining_quota}}</view>
                 </u-col>
-                <u-col span="4">
+      <!--          <u-col span="4">
                     <view class="demo-layout bg-purple-dark u-f-ajc">{{dyTaskDetail.price*.1}}</view>
-                </u-col>
+                </u-col> -->
             </u-row>
         </view>
         <!-- 任务简介 -->
@@ -36,10 +36,17 @@
             </text>
         </view>
         <u-divider fontSize="30" height="90">选择一种方式完成任务</u-divider>
+        <!-- #ifndef H5 -->
+        <view class="opendouyinbox u-f-ajc">
+            <u-button size="medium" @tap="copy()">复制分享链接</u-button>
+        </view>
+        <!-- #endif -->
+        <!-- #ifdef APP-PLUS -->
         <view class="opendouyinbox u-f-ajc">
             <u-button v-show="showCopyBtn" size="medium" @tap="copy()">复制分享链接</u-button>
             <u-button size="medium" @tap="open()">跳转到指定视频中</u-button>
         </view>
+        <!-- #endif -->
         <u-divider fontSize="30" height="60">上传点赞图证</u-divider>
         <view class="uploadimg u-f-ajc">
             <u-upload 
@@ -48,7 +55,7 @@
             max-size="2097152" 
             max-count="1" 
             :size-type="['compressed']"
-                :action="action" 
+                :action="this.URL+'/api/v1/create_dy_task_order'" 
                 @on-success="success"
                 @on-error="error"
                 @on-oversize="oversize" 
@@ -93,8 +100,6 @@
                 dyTaskDetail: {},
                 //是否选择了图片
                 isImg: false,
-                // 上传路径
-                action: this.URL+'/api/v1/create_dy_task_order',
                 showCopyBtn:false,
                 url: null,
                 formData: {
@@ -218,6 +223,7 @@
 
 <style lang="scss" scoped>
     .douyinDetail {
+        padding-bottom: 105rpx;
         .wrap {
             padding: 24rpx;
             font-size: 28rpx;

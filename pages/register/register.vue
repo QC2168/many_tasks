@@ -16,8 +16,8 @@
                 </u-field>
                 <u-field v-model="code" label="邀请码" placeholder="请填写邀请码 (可不填写)">
                 </u-field>
-                <u-field v-model="code" label="验证码" placeholder="请填写验证码" :error-message="checkCode">
-                </u-field>
+<!--                <u-field v-model="code" label="验证码" placeholder="请填写验证码" :error-message="checkCode">
+                </u-field> -->
             </u-cell-group>
         </view>
         <view class="btns">
@@ -61,7 +61,7 @@
                     this.checkPhone="请输入正确的手机号";
                     return false;
                 }
-                if (this.password.length < 6) {
+                if (this.password.length < 4) {
                      this.checkPassword="请设置密码";
 
                     return false;

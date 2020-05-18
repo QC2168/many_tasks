@@ -3,9 +3,17 @@
         <view class="logobox u-f-ajc">
             <image @tap="showfeelback=!showfeelback" src="../../static/images/logo/logo.png" mode="aspectFill"></image>
         </view>
+        <!-- #ifdef APP-PLUS -->
         <view class="u-f-ajc v">
             当前版本 {{v}}
         </view>
+        <!-- #endif -->
+        <!-- #ifdef H5 -->
+        <view class="u-f-ajc v">
+            当前版本 {{v}}
+        </view>
+        <!-- #endif -->
+       
         <u-divider height="100" class="animated rotateInUpLeft" v-show="showfeelback">意见反馈</u-divider>
         <u-cell-group v-show="showfeelback" class="animated rotateInUpLeft">
             <u-field v-model="value" label="反馈内容" placeholder="请填写您的意见" type="textarea" maxlength="80" confirm-type="反馈内容"
@@ -28,7 +36,13 @@
             return {
                 value: "",
                 showfeelback: false,
-                v:plus.runtime.version
+                //#ifdef APP-PLUS
+                v:plus.runtime.version,
+                //#endif
+                //#ifdef H5
+                v:require("package.json").version
+                //#endif
+               
             }
         },
         methods: {
@@ -58,35 +72,44 @@
                 })
             },
             async update(v) {
-                //版本判断
-                await this.$u.post('updateV', {
-                    v
-                }).then(res => {
-                    if (res.errorCode === 0) {
-                        // 新版本
-                        uni.showModal({
-                            title: '探索到新版本',
-                            content: res.data.content,
-                            success: (model)=>{
-                                if (model.confirm) {
-                                  plus.runtime.openURL(res.data.url);
-                                } else if (model.cancel) {
-                                    uni.showToast({
-                                        title: "建议更新到最新版本",
-                                        icon: "none"
-                                    })
-                                }
-                            }
-                        });
-                    }
-                    if (res.errorCode === 20011) {
-                        uni.showToast({
-                            title: "当前已是最新版本",
-                            icon: "none"
-                        })
-                    }
-
+                //#ifdef H5
+                uni.showToast({
+                    title:"无需更新",
+                    icon:'none'
                 })
+                //#endif
+                //#ifdef APP-PLUS
+               //版本判断
+               await this.$u.post('updateV', {
+                   v
+               }).then(res => {
+                   if (res.errorCode === 0) {
+                       // 新版本
+                       uni.showModal({
+                           title: '探索到新版本',
+                           content: res.data.content,
+                           success: (model)=>{
+                               if (model.confirm) {
+                                 plus.runtime.openURL(res.data.url);
+                               } else if (model.cancel) {
+                                   uni.showToast({
+                                       title: "建议更新到最新版本",
+                                       icon: "none"
+                                   })
+                               }
+                           }
+                       });
+                   }
+                   if (res.errorCode === 20011) {
+                       uni.showToast({
+                           title: "当前已是最新版本",
+                           icon: "none"
+                       })
+                   }
+               
+               })
+                //#endif
+               
             }
         }
     }

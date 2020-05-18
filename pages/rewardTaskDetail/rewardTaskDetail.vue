@@ -25,13 +25,13 @@
 	<view class="wrap" justify="around">
 		<u-row gutter="16">
 			<u-col span="4">
-				<view class="demo-layout bg-purple u-f-ajc">佣金</view>
+				<view class="demo-layout bg-purple u-f-ajc">下单价格</view>
 			</u-col>
 			<u-col span="4">
 				<view class="demo-layout bg-purple-light u-f-ajc">剩余名额</view>
 			</u-col>
 			<u-col span="4">
-				<view class="demo-layout bg-purple-dark u-f-ajc">积分</view>
+				<view class="demo-layout bg-purple-dark u-f-ajc">佣金</view>
 			</u-col>
 		</u-row>
 	    <u-row gutter="16">
@@ -42,7 +42,7 @@
 	    		<view class="demo-layout bg-purple-light u-f-ajc">{{rewardTaskData.remaining_quota}}</view>
 	    	</u-col>
 	    	<u-col span="4">
-	    		<view class="demo-layout bg-purple-dark u-f-ajc">{{rewardTaskData.price*.1}}</view>
+	    		<view class="demo-layout bg-purple-dark u-f-ajc">{{rewardTaskData.money_reward}}</view>
 	    	</u-col>
 	    </u-row>
 	</view>

@@ -1,9 +1,9 @@
 <template>
 	<view class="buyVip" v-if="goods.length!==0">
         <view class="vip">
-            <view class="u-f-ajc current">
+     <!--       <view class="u-f-ajc current">
                 您当前当前等级&nbsp;VIP
-            </view>
+            </view> -->
             <view class="item" v-for="(list,index) in goods" :key="index" @tap="currentIndex=index" :class="{'active':currentIndex===index}">
                 <view v-for="(item,index) in list" :key="index"><view>{{index}}</view><view>{{item}}</view></view>
             </view>
@@ -39,7 +39,7 @@
                         '发布抖音任务技术服务费':o.push_dy_task+'元',
                         '开通时长':o.term+'天',
                         '开通价格':o.price+'元',
-                        '开通条件':'下级达到'+o.fans+'位',
+                        '开通条件':'粉丝达到'+o.fans+'位',
                         }});
                     });
                

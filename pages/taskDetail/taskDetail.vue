@@ -6,26 +6,26 @@
         >任务数据</u-divider>
 	<view class="wrap" justify="around">
 		<u-row gutter="16">
-			<u-col span="4">
+			<u-col span="6">
 				<view class="demo-layout bg-purple u-f-ajc">佣金</view>
 			</u-col>
-			<u-col span="4">
+			<u-col span="6">
 				<view class="demo-layout bg-purple-light u-f-ajc">剩余名额</view>
 			</u-col>
-			<u-col span="4">
+		<!-- 	<u-col span="4">
 				<view class="demo-layout bg-purple-dark u-f-ajc">积分</view>
-			</u-col>
+			</u-col> -->
 		</u-row>
 	    <u-row gutter="16">
-	    	<u-col span="4">
+	    	<u-col span="6">
 	    		<view class="demo-layout bg-purple u-f-ajc">{{taskData.price}}</view>
 	    	</u-col>
-	    	<u-col span="4">
+	    	<u-col span="6">
 	    		<view class="demo-layout bg-purple-light u-f-ajc">{{taskData.remaining_quota}}</view>
 	    	</u-col>
-	    	<u-col span="4">
-	    		<view class="demo-layout bg-purple-dark u-f-ajc">{{taskData.price*.1}}</view>
-	    	</u-col>
+	   <!-- 	<u-col span="4">
+	    		<view class="demo-layout bg-purple-dark u-f-ajc">暂时无</view>
+	    	</u-col> -->
 	    </u-row>
 	</view>
     <!-- 任务简介 -->
