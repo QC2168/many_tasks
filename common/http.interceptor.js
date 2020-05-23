@@ -68,6 +68,26 @@ const install = (Vue, vm) => {
             if(res.data.errorCode === 0) {
                 return res.data;
             }
+            if(res.data.errorCode === 20014) {
+                uni.showToast({
+                    title: res.data.msg,
+                    icon: "none"
+                })
+                setTimeout(()=>{
+                    //退出 应用
+                    // #ifdef APP-PLUS
+                    	 if (plus.os.name.toLowerCase() === 'android') {
+                    		 plus.runtime.quit();
+                    	 }
+                    	 else{ 
+                    		 const threadClass = plus.ios.importClass("NSThread");
+                    		 const mainThread = plus.ios.invoke(threadClass, "mainThread");
+                    		 plus.ios.invoke(mainThread, "exit");
+                    	 }
+                    	// #endif
+                          return false;
+                },1000)
+            }
         } else if (res.data.statusCode == 400) {
             // 400
             // 服务器异常

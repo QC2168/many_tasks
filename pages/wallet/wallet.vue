@@ -60,6 +60,14 @@
             
             this.getData()
         },
+        onNavigationBarButtonTap(e) {
+            if (e.index === 0) {
+                uni.navigateTo({
+                    url: `../walletDetails/walletDetails`,
+                    
+                })
+            }
+        },
         data() {
             return {
                 number:'',
@@ -68,6 +76,9 @@
                 outList:[],
                 outServePrice:0
             };
+        },
+        onPullDownRefresh(){
+              this.getData()
         },
         methods: {
             outTypeValue(value){
@@ -111,7 +122,7 @@
                 })
                 // 服务费
                 await this.$u.get('/get_serve_price',{name:'out'}).then(res=>this.outServePrice=(Math.min(res.data,1) * 100).toFixed(0)+'%');
-                
+         uni.stopPullDownRefresh()
             },
             async out() {
                 if(this.$u.test.empty(this.number)){

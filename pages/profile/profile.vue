@@ -76,16 +76,16 @@
             </view>
 
             <view class="modelTask animated fadeIn">
-                <view class="u-f-ajc" @tap="to('myTaskOrder')">
+                <view class="u-f-ajc" @tap="to('myTaskOrder','toBeSubmitted')">
                     <image src="../../static/images/profile/myTaskOrderSn.png" mode="aspectFill">
-                        <view>待审核</view>
+                        <view>待提交</view>
                     </image>
                 </view>
-                <view class="u-f-ajc" @tap="to('myTaskOrder')">
+                <view class="u-f-ajc" @tap="to('myTaskOrder','underReview')">
                     <image src="../../static/images/profile/examine.png" mode="aspectFill"></image>
                     <view>审核中</view>
                 </view>
-                <view class="u-f-ajc" @tap="to('myTaskOrder')">
+                <view class="u-f-ajc" @tap="to('myTaskOrder','complete')">
                     <image src="../../static/images/profile/success.png" mode="aspectFill"></image>
                     <view>完成</view>
                 </view>
@@ -148,6 +148,9 @@
 
 <script>
     export default {
+        onPullDownRefresh(){
+             this.getdata()
+        },
         data() {
             return {
                 mode: false,
@@ -155,7 +158,7 @@
                 URL: getApp().globalData.URL,
             };
         },
-        onLoad() {
+        created() {
             this.getdata()
         },
         onNavigationBarButtonTap(e) {
@@ -167,17 +170,26 @@
             changeMode() {
                 this.mode = !this.mode;
             },
-            getdata() {
-                this.$u.get('/get_user').then(res => {
+           async getdata() {
+                await this.$u.get('/get_user').then(res => {
                     if (res.errorCode !== 0) return;
-                    this.userData = res.data[0]
+                    this.userData = res.data[0];
+                    uni.stopPullDownRefresh();
                 })
+                
             },
-            to(page) {
-                uni.navigateTo({
-                    url: `../${page}/${page}`
-                })
-
+            to(page,type) {
+                if(type){
+                  uni.navigateTo({
+                      url: `../${page}/${page}?type=${type}`,
+                      
+                  })
+                }else{
+                    uni.navigateTo({
+                        url: `../${page}/${page}`
+                    })
+                }
+               
             },
             login() {
                 uni.navigateTo({

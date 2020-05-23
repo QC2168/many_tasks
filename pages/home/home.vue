@@ -24,7 +24,7 @@
                            <view>佣金：{{item.price}}</view>
                        </view>
                        <view class="right u-f-ajc">
-                           <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini" shape="circle">领取任务</u-button>
+                           <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini" shape="circle">查看任务</u-button>
                        </view>
                    </view>
                
@@ -76,8 +76,13 @@
         components:{
             homeTabs
         },
+        onPullDownRefresh(){
+              this.getData()
+        },
         created() {
-            this.checkVersion()
+            // #ifdef  APP-PLUS
+           this.checkVersion()
+            // #endif
             //没token  跳登录去
             uni.getStorage({
                 key: 'token',
@@ -115,12 +120,14 @@
             }
         },
         methods: {
+            // #ifdef APP-PLUS
             async checkVersion() {
                 //版本判断
                 await this.$u.post('updateV', {
                     v
-                })
+                }).then(res=>{})
             },
+            // #endif
             // tabs 监听
             changeTabIndex(index){
                 // 0 抖音  1 普通任务
@@ -172,9 +179,11 @@
                 // 获取notic
                 await this.$u.get('/get_notice_bar').then(res=>{
                      if (res.errorCode !== 0) return;
+                     this.noticeList=[];
                      for(let i of res.data){
                        this.noticeList.push(i.content)
                      }
+                      uni.stopPullDownRefresh()
                 })
             },
             dy() {

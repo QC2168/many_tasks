@@ -42,8 +42,8 @@
                         </view>
                     </view>
                     <view class="btn u-f-ajc">
-                        <view class="open u-f-ajc" @tap="open(item.task_id,3)">查看</view>
-                        <view class="del u-f-ajc" @tap="del(item.task_id,3)">下架</view>
+                        <view class="open u-f-ajc" @tap="open(item.task_id,2)">查看</view>
+                        <view class="del u-f-ajc" @tap="del(item.task_id,2)">下架</view>
                     </view>
                 </view>
             </template>

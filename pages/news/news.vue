@@ -11,16 +11,25 @@
 
 <script>
 	export default {
+        onPullDownRefresh() {
+            this.getData()
+        },
         created(){
-          this.$u.get('/get_news').then(res=>{
-              this.list=res.data
-          })
+            this.getData()
         },
 		data() {
 			return {
 				list:[]
 			};
-		}
+		},
+        methods:{
+            async getData(){
+               await this.$u.get('/get_news').then(res=>{
+                    this.list=res.data
+                    uni.stopPullDownRefresh()
+                })
+            }
+        }
 	}
 </script>
 

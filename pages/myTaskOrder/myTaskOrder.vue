@@ -115,6 +115,29 @@
 <script>
     import tabs from "../../components/common/tabs/tabs.vue";
     export default {
+        onLoad(res) {
+            // 请求订单数据
+                this.getData(res.type)
+                // 修改title
+                switch(res.type){
+                    case "toBeSubmitted":
+                    uni.setNavigationBarTitle({
+                        title: "待提交的任务订单"
+                    });
+                    break;
+                    case "underReview":
+                    uni.setNavigationBarTitle({
+                        title: "审核中的任务订单"
+                    });
+                    break;
+                    case "complete":
+                    uni.setNavigationBarTitle({
+                        title: "已完成的任务订单"
+                    });
+                    break;
+                }
+
+        },
         components: {
             tabs
         },
@@ -125,8 +148,7 @@
                     this.windowHeight = res.windowHeight;
                 }
             });
-            // 请求订单数据
-            this.getData()
+            
         },
         data() {
             return {
@@ -144,16 +166,44 @@
                 // 0 抖音  1 普通任务
                 this.taskType = index;
             },
-            async getData() {
-                await this.$u.get('/my_dy_task_order').then(res => {
-                    this.dyOrderList = res.data
-                })
-                await this.$u.get('/my_task_order').then(res => {
-                    this.orderList = res.data
-                })
-                await this.$u.get('/my_reward_task_order').then(res => {
-                    this.rewardOrderList = res.data
-                })
+            // 传参 表示  待提交  审核中  已完成
+            async getData(type) {
+                    await this.$u.get('/my_dy_task_order').then(res => {
+                        // 0 审核中 1 完成 2 未通过 3 自主取消 4待提交任务
+                        if(type==='toBeSubmitted'){
+                            this.dyOrderList =res.data.filter(item=>item.status===4)
+                        }else if(type==='underReview'){
+                           this.dyOrderList =res.data.filter(item=>item.status===0) 
+                        } else if(type==='complete'){
+                            this.dyOrderList =res.data.filter(item=>item.status===1) 
+                        }else{
+                            this.dyOrderList = res.data
+                        }
+                    })
+                    await this.$u.get('/my_task_order').then(res => {
+                        // 0 审核中 1 完成 2 未通过 3 自主取消 4待提交任务
+                        if(type==='toBeSubmitted'){
+                            this.orderList =res.data.filter(item=>item.status===4)
+                        }else if(type==='underReview'){
+                           this.orderList =res.data.filter(item=>item.status===0) 
+                        } else if(type==='complete'){
+                            this.orderList =res.data.filter(item=>item.status===1) 
+                        }else{
+                            this.orderList = res.data
+                        }
+                    })
+                    await this.$u.get('/my_reward_task_order').then(res => {
+                       // 0 商家审核中 1 完成 2 未通过 3 自主取消 4待提交订单号 5用户拍下填写订单号（商家审核是否有订单） 6 待确认收货（已拍下，商家通过） 7审核不通过
+                        if(type==='toBeSubmitted'){
+                            this.rewardOrderList =res.data.filter(item=>item.status===4)
+                        }else if(type==='underReview'){
+                           this.rewardOrderList =res.data.filter(item=>item.status===0 || item.status===5) 
+                        } else if(type==='complete'){
+                            this.rewardOrderList =res.data.filter(item=>item.status===1) 
+                        }else{
+                            this.rewardOrderList = res.data
+                        }
+                    })
             },
             submit(orderSn) {
                 this.$u.route({

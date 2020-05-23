@@ -8,19 +8,22 @@
         {
             "path": "pages/home/home",
             "style": {
-                "navigationBarTitleText": "大厅"
+                "navigationBarTitleText": "大厅",
+                "enablePullDownRefresh":true
             }
         },
         {
             "path": "pages/reward/reward",
             "style": {
                 "navigationBarTitleText": "福利"
+                 
             }
         },
         {
             "path": "pages/profile/profile",
             "style": {
                 "navigationBarTitleText": "会员中心",
+                 "enablePullDownRefresh":true,
                 "app-plus":{
                     // 隐藏滚动条
                     "scrollIndicator":"none",
@@ -34,7 +37,6 @@
                                  "fontSize":"22px",
                                  "fontSrc":"/static/iconfont/iconfont.ttf",
                                  "text":"\ue608"
-                                 
                             }
                         ]
                     }
@@ -70,7 +72,25 @@
         }, {
             "path": "pages/wallet/wallet",
             "style": {
-                "navigationBarTitleText": "我的资产"
+                "navigationBarTitleText": "我的资产",
+                 "enablePullDownRefresh":true,
+                 "app-plus":{
+                     // 隐藏滚动条
+                     "scrollIndicator":"none",
+                     "titleNView":{
+                         // 配置按钮
+                         "buttons":[
+                             {
+                                 "color":"#000000",
+                                 "colorPressed":"#BBBBBB",
+                                 "float":"right",
+                                  "fontSize":"22px",
+                                  "fontSrc":"/static/iconfont/iconfont.ttf",
+                                  "text":"\ue60f"
+                             }
+                         ]
+                     }
+                 }
             }
         }, {
             "path": "pages/pushTask/pushTask",
@@ -115,7 +135,8 @@
         }, {
             "path": "pages/news/news",
             "style": {
-                "navigationBarTitleText": "消息与通知"
+                "navigationBarTitleText": "消息与通知",
+                "enablePullDownRefresh":true
             }
         }, {
             "path": "pages/recharge/recharge",
@@ -149,6 +170,12 @@
         ,{
             "path" : "pages/myPushRewardTaskOrder/myPushRewardTaskOrder",
             "style" : {}
+        }
+        ,{
+            "path" : "pages/walletDetails/walletDetails",
+            "style": {
+                "navigationBarTitleText": "账户明细"
+            }
         }
     ],
 

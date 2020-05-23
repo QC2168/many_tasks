@@ -36,7 +36,7 @@
             </text>
         </view>
         <u-divider fontSize="30" height="90">选择一种方式完成任务</u-divider>
-        <!-- #ifndef H5 -->
+        <!-- #ifdef H5 -->
         <view class="opendouyinbox u-f-ajc">
             <u-button size="medium" @tap="copy()">复制分享链接</u-button>
         </view>
@@ -188,17 +188,12 @@
                      },1500)
                      return;
                  }
-                 if(data2.errorCode===20010){
+                 if(data2.errorCode!==0){
                      uni.showToast({
-                         title:data2.msg,
-                         icon:'none'
+                         title: data2.msg,
+                         icon: "none"
                      })
-                    setTimeout(()=>{
-                        uni.switchTab({
-                            url:'../home/home'
-                        })
-                    },1500)
-                     return;
+                      return false;
                  }
             },
             //图片上传失败
