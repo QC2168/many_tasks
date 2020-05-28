@@ -139,7 +139,7 @@
                    })
                    return; 
                 }
-                if(this.number>this.data.wallet){
+                if(this.number>parseFloat(this.data.wallet)){
                    uni.showToast({
                        title: "余额不足提现",
                        icon: 'none'
@@ -163,6 +163,7 @@
                             title: res.msg,
                             icon: 'none'
                         })
+                         this.getData();
                         return;
                     }
                 })

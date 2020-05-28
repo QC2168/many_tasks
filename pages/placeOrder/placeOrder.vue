@@ -25,7 +25,7 @@
                 max-size="2097152" 
                 class="u-f-ajc"
                  ref="uUpload" 
-                 :action="action"  
+                 :action="this.URL+'/api/v1/upload_task_order_pic'"  
                  max-count="6" 
                  :size-type="['compressed']"
                  name='pic'
@@ -68,7 +68,6 @@
 		data() {
 			return {
                 URL:getApp().globalData.URL,
-                action:this.URL+"/api/v1/upload_task_order_pic",
 				content:"",
                 orderSn:null,
                 headerData:{},

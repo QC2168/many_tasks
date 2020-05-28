@@ -1,11 +1,16 @@
 {
   "navigationBarTitleText": "发布任务",
   "usingComponents": {
-    "u-cell-group": "/node-modules/uview/components/u-cell-group/u-cell-group",
-    "u-field": "/node-modules/uview/components/u-field/u-field",
-    "u-divider": "/node-modules/uview/components/u-divider/u-divider",
-    "u-button": "/node-modules/uview/components/u-button/u-button",
-    "u-upload": "/node-modules/uview/components/u-upload/u-upload",
-    "tabs": "/components/common/tabs/tabs"
+    "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-field": "/node-modules/uview-ui/components/u-field/u-field",
+    "u-divider": "/node-modules/uview-ui/components/u-divider/u-divider",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload",
+    "u-radio-group": "/node-modules/uview-ui/components/u-radio-group/u-radio-group",
+    "u-radio": "/node-modules/uview-ui/components/u-radio/u-radio",
+    "u-switch": "/node-modules/uview-ui/components/u-switch/u-switch",
+    "tabs": "/components/common/tabs/tabs",
+    "pushstep": "/components/pushTask/pushstep/pushstep",
+    "step-card": "/components/stepCard/stepCard"
   }
 }

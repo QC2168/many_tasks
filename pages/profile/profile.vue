@@ -87,7 +87,7 @@
                 </view>
                 <view class="u-f-ajc" @tap="to('myTaskOrder','complete')">
                     <image src="../../static/images/profile/success.png" mode="aspectFill"></image>
-                    <view>完成</view>
+                    <view>已完成</view>
                 </view>
             </view>
 

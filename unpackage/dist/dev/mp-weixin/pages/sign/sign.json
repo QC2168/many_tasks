@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "每天签到",
   "usingComponents": {
-    "u-button": "/node-modules/uview/components/u-button/u-button"
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
   }
 }

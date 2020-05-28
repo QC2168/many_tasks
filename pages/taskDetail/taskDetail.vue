@@ -74,7 +74,13 @@
         methods:{
             // 请求详细数据
             async getData(task_id){
-                await this.$u.get('get_task_detail',{task_id}).then(res=>this.taskData=res.data)
+                await this.$u.get('get_task_detail',{task_id}).then(res=>{
+                this.taskData=res.data;
+                uni.setNavigationBarTitle({
+                    title:res.data.title
+                });}
+                )
+                
             },
             async post(task_id){
                await this.$u.post('/create_task_order',{task_id}).then(res=>{
@@ -121,17 +127,18 @@
             }
         }
         .signUp{
-            height: 80rpx;
-            width: 100%;
-            background-color: #007AFF;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            color: white;
-            font-size: 30rpx;
-            font-family: Sans-serif;
-            font-weight: bold;
-            letter-spacing:10rpx;
+         height: 80rpx;
+         width: 100%;
+         background-color: #007AFF;
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         color: white;
+         font-size: 30rpx;
+         font-family: Sans-serif;
+         font-weight: bold;
+         letter-spacing:10rpx;
+         z-index: 999;
         }
     }
 

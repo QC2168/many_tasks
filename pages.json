@@ -9,14 +9,21 @@
             "path": "pages/home/home",
             "style": {
                 "navigationBarTitleText": "大厅",
-                "enablePullDownRefresh":true
+                "enablePullDownRefresh":true,
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         },
         {
             "path": "pages/reward/reward",
             "style": {
-                "navigationBarTitleText": "福利"
-                 
+                "navigationBarTitleText": "福利",
+                 "app-plus":{
+                     // 隐藏滚动条
+                     "scrollIndicator":"none"
+                     }
             }
         },
         {
@@ -47,27 +54,47 @@
         , {
             "path": "pages/login/login",
             "style": {
-                "navigationBarTitleText": "登录账户"
+                "navigationBarTitleText": "登录账户",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/register/register",
             "style": {
-                "navigationBarTitleText": "创建账户"
+                "navigationBarTitleText": "创建账户",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/douyinDetail/douyinDetail",
             "style": {
-                "navigationBarTitleText": "抖音任务"
+                "navigationBarTitleText": "抖音任务",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/about/about",
             "style": {
-                "navigationBarTitleText": "关于"
+                "navigationBarTitleText": "关于",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/taskDetail/taskDetail",
             "style": {
-                "navigationBarTitleText": "标准任务"
+                "navigationBarTitleText": "标准任务",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/wallet/wallet",
@@ -95,93 +122,161 @@
         }, {
             "path": "pages/pushTask/pushTask",
             "style": {
-                "navigationBarTitleText": "发布任务"
+                "navigationBarTitleText": "发布任务",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/team/team",
             "style": {
-                "navigationBarTitleText": "我的团队"
+                "navigationBarTitleText": "我的团队",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/myTaskOrder/myTaskOrder",
             "style": {
-                "navigationBarTitleText": "我申请的任务"
+                "navigationBarTitleText": "我申请的任务",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/taskManagement/taskManagement",
             "style": {
-                "navigationBarTitleText": "我发布的任务"
+                "navigationBarTitleText": "我发布的任务",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/myPushDyTaskOrder/myPushDyTaskOrder",
             "style": {
-                "navigationBarTitleText": "订单详情"
+                "navigationBarTitleText": "订单详情",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/shortVideo/shortVideo",
             "style": {
-                "navigationBarTitleText": "shortVideo"
+                "navigationBarTitleText": "shortVideo",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/placeOrder/placeOrder",
             "style": {
-                "navigationBarTitleText": "提交订单"
+                "navigationBarTitleText": "提交订单",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/myPushTaskOrder/myPushTaskOrder",
             "style": {
-                "navigationBarTitleText": "订单详情"
+                "navigationBarTitleText": "订单详情",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/news/news",
             "style": {
                 "navigationBarTitleText": "消息与通知",
-                "enablePullDownRefresh":true
+                "enablePullDownRefresh":true,
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }, {
             "path": "pages/recharge/recharge",
             "style": {
-                 "navigationBarTitleText": "充值账户"
+                 "navigationBarTitleText": "充值账户",
+                 "app-plus":{
+                     // 隐藏滚动条
+                     "scrollIndicator":"none"
+                     }
             }
         }
         ,{
             "path" : "pages/buyVip/buyVip",
             "style" : {
-                "navigationBarTitleText": "会员购买"
+                "navigationBarTitleText": "会员购买",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }
         ,{
             "path" : "pages/sign/sign",
             "style" : {
-                "navigationBarTitleText": "每天签到"
+                "navigationBarTitleText": "每天签到",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
               
             }
         }
         ,{
             "path" : "pages/rewardTaskDetail/rewardTaskDetail",
            "style": {
-               "navigationBarTitleText": "福利任务"
+               "navigationBarTitleText": "福利任务",
+               "app-plus":{
+                   // 隐藏滚动条
+                   "scrollIndicator":"none"
+                   }
            }
         }
         ,{
             "path" : "pages/placeRewardOrder/placeRewardOrder",
-            "style" : {}
+           "style": {
+               "navigationBarTitleText": "提交订单",
+               "app-plus":{
+                   // 隐藏滚动条
+                   "scrollIndicator":"none"
+                   }
+           }
         }
         ,{
             "path" : "pages/myPushRewardTaskOrder/myPushRewardTaskOrder",
-            "style" : {}
+            "style": {
+                "navigationBarTitleText": "订单详情",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
+            }
         }
         ,{
             "path" : "pages/walletDetails/walletDetails",
             "style": {
-                "navigationBarTitleText": "账户明细"
+                "navigationBarTitleText": "账户明细",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
             }
         }
     ],
 
     "globalStyle": {
         "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
+        "navigationBarTitleText": "TASKAREA",
         "navigationBarBackgroundColor": "#F8F8F8",
         "backgroundColor": "#F8F8F8"
     },

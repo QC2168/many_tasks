@@ -27,10 +27,10 @@
         	</u-col>
         </u-row>
         <u-divider fontSize="32" half-width="250" height="90">我的团队</u-divider>
-
+           <template v-if="team.list">
         <scroll-view scroll-y class="list">
            
-              <view class="item u-f" v-for="(item,index) in team.list" :key="index">
+              <view class="item u-f" v-for="(item,index) in team.list" :key="item.create_time">
         
                    <view>{{item.username}}</view>
                    <view>{{item.create_time}}</view>
@@ -38,10 +38,10 @@
                </view>
 
         </scroll-view>
-
-        <!-- <template v-else>
+</template>
+        <template v-else>
           <u-empty text="暂时没有下级哦" mode="history"></u-empty>
-        </template> -->
+        </template>
 	</view>
 </template>
 
@@ -59,7 +59,8 @@
 		data() {
 			return {
 				team:[],
-                listHeight:540
+                listHeight:540,
+                URL:getApp().globalData.URL,
 			};
 		},
         methods:{
@@ -69,24 +70,24 @@
                 copyCode(){
                     // #ifndef H5
                     uni.setClipboardData({
-                        data: this.team.code,
+                        data: 'http://www.taskarea.top/pages/register/register?INC='+this.team.code,
                         success: function () {
                             uni.showToast({
-                                title:"复制邀请码成功!",
+                                title:"复制邀请链接成功!",
                                 icon:"none"
                             })
                         }
                     }); 
                     // #endif
                     // #ifdef H5
-                  const result = h5Copy(this.team.code)
+                  const result = h5Copy(window.location.host+'/pages/register/register?INC='+this.team.code);
                         if (result === false) {
                           uni.showToast({
                             title:'该浏览器不支持复制功能',
                           })
                         } else {
                           uni.showToast({
-                            title:'复制邀请码成功!',
+                            title:'复制邀请链接成功!',
                             icon:'none'
                           })
                         }

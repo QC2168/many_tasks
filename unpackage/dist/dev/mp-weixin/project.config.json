@@ -4,12 +4,15 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.9.2",
   "appid": "touristappid",
-  "projectname": "任务多多",
+  "projectname": "任务联盟",
   "condition": {
     "search": {
       "current": -1,

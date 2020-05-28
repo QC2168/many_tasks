@@ -11,6 +11,7 @@
  *
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
+/* 引入uView的全局SCSS主题文件 */
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
@@ -24,35 +25,20 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.team .imageBox.data-v-3d928f14 {
+.team .imageBox.data-v-103584e9 {
   width: 100%;
   height: 500rpx;
 }
-.team .myTeamData.data-v-3d928f14 {
-  height: 100rpx;
-}
-.team .myTeamData view.data-v-3d928f14 {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
-}
-.team .myTeamData view view.data-v-3d928f14 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-}
-.team .myTeamData view view.data-v-3d928f14:first-child {
-  font-size: 32rpx;
+.team .dataTitle.data-v-103584e9 {
+  font-size: 33rpx;
   font-weight: bold;
-  margin: 5rpx 0;
 }
-.team .myTeamData view view.data-v-3d928f14:last-child {
-  font-size: 28rpx;
+.team .dataValue.data-v-103584e9 {
+  margin: 8rpx 0;
+  font-size: 26rpx;
+  font-weight: bold;
 }
-.team .list .item.data-v-3d928f14 {
+.team .list .item.data-v-103584e9 {
   padding: 0 30rpx;
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -61,8 +47,10 @@
   -webkit-justify-content: space-between;
           justify-content: space-between;
   height: 70rpx;
-  border-bottom-left-radius: 20rpx;
-  border-bottom-right-radius: 20rpx;
+  -webkit-border-bottom-left-radius: 20rpx;
+          border-bottom-left-radius: 20rpx;
+  -webkit-border-bottom-right-radius: 20rpx;
+          border-bottom-right-radius: 20rpx;
   border-bottom: 1rpx solid #eeeeee;
   -webkit-box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
           box-shadow: 5rpx 5rpx 5rpx #EEEEEE;

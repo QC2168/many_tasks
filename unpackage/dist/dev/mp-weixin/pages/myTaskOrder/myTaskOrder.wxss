@@ -11,6 +11,7 @@
  *
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
+/* 引入uView的全局SCSS主题文件 */
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
@@ -24,17 +25,18 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.myTaskOrder .item.data-v-2b265570 {
+.myTaskOrder .item.data-v-7a87f285 {
   height: auto;
   margin: 20rpx 0;
 }
-.myTaskOrder .item .box.data-v-2b265570 {
+.myTaskOrder .item .box.data-v-7a87f285 {
   border: 3rpx solid black;
   width: 700rpx;
   padding: 10rpx 30rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
-.myTaskOrder .item .box .line.data-v-2b265570 {
+.myTaskOrder .item .box .line.data-v-7a87f285 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -44,34 +46,38 @@
   margin: 4rpx 0;
   font-size: 28rpx;
 }
-.myTaskOrder .item .box .btn.data-v-2b265570 {
+.myTaskOrder .item .box .btn.data-v-7a87f285 {
   margin: 15rpx 0;
   background-color: red;
-  border-radius: 80rpx;
+  -webkit-border-radius: 80rpx;
+          border-radius: 80rpx;
   height: 70rpx;
   font-size: 28rpx;
   color: white;
 }
-.myTaskOrder .item .box .btns.data-v-2b265570 {
+.myTaskOrder .item .box .btns.data-v-7a87f285 {
   margin: 15rpx 0;
-  border-radius: 80rpx;
+  -webkit-border-radius: 80rpx;
+          border-radius: 80rpx;
   height: 60rpx;
   font-size: 25rpx;
   color: white;
 }
-.myTaskOrder .item .box .btns .yes.data-v-2b265570, .myTaskOrder .item .box .btns .no.data-v-2b265570 {
+.myTaskOrder .item .box .btns .yes.data-v-7a87f285,
+.myTaskOrder .item .box .btns .no.data-v-7a87f285 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  border-radius: 80rpx;
+  -webkit-border-radius: 80rpx;
+          border-radius: 80rpx;
   margin: 0 10rpx;
   -webkit-box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
           box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
 }
-.myTaskOrder .item .box .btns .yes.data-v-2b265570 {
+.myTaskOrder .item .box .btns .yes.data-v-7a87f285 {
   background-color: #ff007f;
 }
-.myTaskOrder .item .box .btns .no.data-v-2b265570 {
+.myTaskOrder .item .box .btns .no.data-v-7a87f285 {
   background-color: #bebebe;
 }
 

@@ -22,7 +22,7 @@
             <u-divider margin-top="20">提交区域</u-divider>
             <!-- <view class="postArea u-f-ajc">提交区域</view> -->
             	<u-field
-            				v-model="goodsUrl"
+            				v-model="goods_orderSn"
             				label="购买订单号"
             				placeholder="请填写商品的订单号"
                             label-width="150"
@@ -82,7 +82,7 @@
                 action:'',
 				content:"",
                 orderSn:null,
-                goodsUrl:"",
+                goods_orderSn:"",
                 headerData:{},
                 filesArr:[],
                 pic_list:[],
@@ -99,7 +99,7 @@
             },
             // 验证参数
             paramCheck(){
-                if(this.$u.test.empty(this.goodsUrl)){ uni.showToast({
+                if(this.$u.test.empty(this.goods_orderSn)){ uni.showToast({
                         title:"商品订单号不能为空",
                         icon:"none"
                     })
@@ -128,7 +128,7 @@
                 // 发送请求
                 await this.$u.post('/place_reward_order',{
                     orderSn:this.orderSn,
-                    goods_url:this.goodsUrl,
+                    goods_orderSn:this.goods_orderSn,
                     content:this.content,
                     pic_list:JSON.stringify(this.pic_list)
                 }).then(res=>{

@@ -11,6 +11,7 @@
  *
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
+/* 引入uView的全局SCSS主题文件 */
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
@@ -24,21 +25,22 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.buyVip .current.data-v-6b1e62d4 {
+.buyVip .vip .current.data-v-b60f33ae {
   font-size: 30rpx;
   height: 90rpx;
   font-weight: bold;
 }
-.buyVip .item.data-v-6b1e62d4 {
-  border-radius: 10rpx;
-  border: 1rpx solid #CCCCCC;
+.buyVip .vip .item.data-v-b60f33ae {
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  border: 5rpx solid #CCCCCC;
   margin: 20rpx auto;
   width: 90%;
   height: auto;
   padding: 20rpx;
   font-size: 30rpx;
 }
-.buyVip .item view.data-v-6b1e62d4 {
+.buyVip .vip .item view.data-v-b60f33ae {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -47,30 +49,10 @@
           justify-content: space-between;
   margin: 1rpx 0;
 }
-.buyVip .selectbox view.data-v-6b1e62d4 {
-  width: 25%;
-  height: 200rpx;
-  border-radius: 10rpx;
-  border: 1rpx solid #d9d9d9;
-  margin: 0 auto;
-  font-size: 40rpx;
-  font-weight: bold;
+.buyVip .vip .active.data-v-b60f33ae {
+  border: 5rpx solid red;
 }
-.buyVip .selectbox .VIP.data-v-6b1e62d4 {
-  color: #ff4d41;
-}
-.buyVip .selectbox .SVIP.data-v-6b1e62d4 {
-  color: #ffa143;
-}
-.buyVip .selectbox .SSVIP.data-v-6b1e62d4 {
-  color: #ffe137;
-}
-.buyVip .selectbox .active.data-v-6b1e62d4 {
-  border: 5rpx solid #ef0000;
-  -webkit-box-shadow: 3rpx 3rpx 3rpx #d1d1d1;
-          box-shadow: 3rpx 3rpx 3rpx #d1d1d1;
-}
-.buyVip .btn.data-v-6b1e62d4 {
-  height: 150rpx;
+.buyVip .vip .btn.data-v-b60f33ae {
+  height: 100rpx;
 }
 

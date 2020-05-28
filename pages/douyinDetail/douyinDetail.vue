@@ -77,6 +77,7 @@
 </template>
 
 <script>
+    import h5Copy from '@/common/h5Copy.js'
     export default {
         onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
             this.getData(option.dy_task_id);
@@ -119,6 +120,9 @@
                 }).then(res => {
                     this.dyTaskDetail = res.data;
                     this.url = res.data.dy_url
+                    uni.setNavigationBarTitle({
+                        title:res.data.title
+                    });
                 })
             },
             uploaded(lists) {
@@ -131,7 +135,21 @@
                 })
             },
             copy() {
-                uni.setClipboardData({
+                // #ifdef H5
+                const result = h5Copy(this.url);
+                      if (result === false) {
+                        uni.showToast({
+                          title:'该浏览器不支持复制功能',
+                        })
+                      } else {
+                        uni.showToast({
+                          title:'复制链接:'+this.url,
+                          icon:'none'
+                        })
+                      }
+                // #endif
+                // #ifdef APP-PLUS
+                 uni.setClipboardData({
                     data: this.url,
                     success: ()=>{
                         uni.showToast({
@@ -140,6 +158,8 @@
                         })
                     }
                 });
+                // #endif
+               
             },
             open() {
                 plus.runtime.openURL(this.url, (res) =>{
@@ -181,11 +201,6 @@
                      uni.showToast({
                          title:data2.msg
                      })
-                     setTimeout(()=>{
-                         uni.switchTab({
-                             url:'../home/home'
-                         })
-                     },1500)
                      return;
                  }
                  if(data2.errorCode!==0){
@@ -227,14 +242,18 @@
 
 
         .submitBtn {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 95rpx;
-            font-size: 35rpx;
-            background-color: rgb(41, 121, 255);
-            color: white;
-            z-index: 999;
+        height: 80rpx;
+        width: 100%;
+        background-color: #007AFF;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        color: white;
+        font-size: 30rpx;
+        font-family: Sans-serif;
+        font-weight: bold;
+        letter-spacing:10rpx;
+        z-index: 999;
         }
 
         .describe {

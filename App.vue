@@ -3,12 +3,23 @@
         onLaunch: function() {
           uni.showModal({
               title:"警告",
-              content:'此版本为测试版,非发布版本 可能发生一些小问题',
+              content:'测试阶段',
               showCancel:false,
               confirmText:"已读"
           })
-          
-         console.log(this.$u.config.v);
+          // #ifdef H5
+          uni.showModal({
+              title: '提示',
+              content: 'APP版本现已推出，是否马上下载~',
+              success: function (res) {
+                  if (res.confirm) {
+                      window.open("http://task.taskarea.top/static/taskmore_test.apk")
+                  }
+              }
+          });
+          // #endif
+       
+         // console.log(this.$u.config.v);
         },
         onShow: function() {
 
@@ -17,7 +28,7 @@
 
         },
         globalData: {
-        		 URL:"http://121.42.13.36:9000",
+        		 URL:"http://task.taskarea.top",
         		 // URL:"http://api.taskarea.com",
         	},
             methods:{

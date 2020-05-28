@@ -78,7 +78,7 @@
         </view>
     
     <view v-show="taskType==2">
-         <u-divider>试用平台</u-divider>
+         <u-divider  height="90">试用平台</u-divider>
         	<u-radio-group v-model="rewardTaskObj.currentRewardGoodsPlatformType">
         			<u-radio 
         				v-for="(item, index) in rewardGoodsPlatformTypeList" :key="index" 
@@ -88,8 +88,8 @@
         				{{item.name}}
         			</u-radio>
         		</u-radio-group>
-            <u-divider height="110">试用类型</u-divider>
-                <u-radio-group v-model="rewardTaskObj.currentRewardGoodsType">
+            <u-divider height="90">试用类型</u-divider>
+                <u-radio-group class="rewardGoodsType" v-model="rewardTaskObj.currentRewardGoodsType">
                 		<u-radio 
                 			v-for="(item, index) in rewardGoodsTypeList" :key="index" 
                 			:name="item.name"
@@ -271,7 +271,7 @@
                                 	disabled: false
                                 },
                                 {
-                                	name: '阿里巴巴',
+                                	name: '阿里',
                                 	checked: false,
                                 	disabled: false
                                 },
@@ -698,7 +698,7 @@
                    return (this.formData.price * this.formData.quota) + (this.dytaskServePrice * this.formData.quota); 
                 }
                 if(this.taskType===1){
-                    return (this.taskData.price * this.rewardTaskObj.quota) + (this.taskServePrice * this.taskData.quota); 
+                    return (this.taskData.price * this.taskData.quota) + (this.taskServePrice * this.taskData.quota); 
                 }
                 if(this.taskType===2){
                     return (this.rewardTaskObj.price* this.rewardTaskObj.quota) + (this.rewardTaskServePrice * this.rewardTaskObj.quota)+(this.rewardTaskObj.moneyReward* this.rewardTaskObj.quota); 
@@ -828,6 +828,10 @@
     }
    
     
+}
+.rewardGoodsType{
+        width: 100%;
+        justify-content: space-around;
 }
 .isBtn{
     justify-content: space-between;

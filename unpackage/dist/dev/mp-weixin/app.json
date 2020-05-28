@@ -21,12 +21,15 @@
     "pages/recharge/recharge",
     "pages/buyVip/buyVip",
     "pages/sign/sign",
-    "pages/goodsTaskDetail/goodsTaskDetail"
+    "pages/rewardTaskDetail/rewardTaskDetail",
+    "pages/placeRewardOrder/placeRewardOrder",
+    "pages/myPushRewardTaskOrder/myPushRewardTaskOrder",
+    "pages/walletDetails/walletDetails"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "TASKAREA",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },

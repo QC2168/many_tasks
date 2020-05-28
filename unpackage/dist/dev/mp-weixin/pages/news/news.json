@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "消息与通知",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

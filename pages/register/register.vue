@@ -14,10 +14,9 @@
                 </u-field>
                 <u-field password v-model="rpassword" label="确认密码" placeholder="确认设置您的密码" :error-message="checkRpassword">
                 </u-field>
-                <u-field v-model="code" label="邀请码" placeholder="请填写邀请码 (可不填写)">
+                <u-field :disabled="codeStatus" v-model="code" label="邀请码" placeholder="请填写邀请码 (可不填写)" :error-message="checkCode">
                 </u-field>
-<!--                <u-field v-model="code" label="验证码" placeholder="请填写验证码" :error-message="checkCode">
-                </u-field> -->
+                </u-field> 
             </u-cell-group>
         </view>
         <view class="btns">
@@ -29,6 +28,13 @@
 
 <script>
     export default {
+          onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+          if(option.INC){
+              this.code=option.INC;
+                this.codeStatus=true;
+          }
+                
+            },
         data() {
             return {
                 checkUsername:"",
@@ -40,11 +46,14 @@
                 phone: "",
                 password: "",
                 rpassword: "",
-                code: "123456"
+                code: "",
+                codeStatus:false
 
             };
         },
         methods: {
+         
+            
             // 返回
             back(){
                 uni.navigateBack({
@@ -70,9 +79,8 @@
                      this.checkRpassword="两次录入的密码不一致";
                     return false;
                 }
-                if (this.code.length < 4) {
-                     this.checkCode="请输入正确的验证码";
-
+                if (this.code.length>10) {
+                     this.checkCode="邀请码格式不正确";
                     return false;
                 }
                 return true;

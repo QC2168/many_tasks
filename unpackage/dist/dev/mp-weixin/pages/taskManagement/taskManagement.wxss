@@ -11,6 +11,7 @@
  *
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
+/* 引入uView的全局SCSS主题文件 */
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
@@ -24,32 +25,34 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.taskManagement.data-v-3b9bbe98 {
+.taskManagement.data-v-23e64bee {
   padding: 20rpx;
 }
-.taskManagement .item.data-v-3b9bbe98 {
+.taskManagement .item.data-v-23e64bee {
   border: 1rpx solid #fff0f0;
-  border-radius: 15rpx;
+  -webkit-border-radius: 15rpx;
+          border-radius: 15rpx;
   height: 300rpx;
   position: relative;
   margin: 15rpx 0;
 }
-.taskManagement .item .Detail .pic.data-v-3b9bbe98 {
+.taskManagement .item .Detail .pic.data-v-23e64bee {
   width: 210rpx;
   height: 210rpx;
 }
-.taskManagement .item .Detail .pic image.data-v-3b9bbe98 {
+.taskManagement .item .Detail .pic image.data-v-23e64bee {
   width: 200rpx;
   height: 200rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
-.taskManagement .item .Detail .line.data-v-3b9bbe98 {
+.taskManagement .item .Detail .line.data-v-23e64bee {
   font-size: 24rpx;
 }
-.taskManagement .item .Detail .line view.data-v-3b9bbe98 {
+.taskManagement .item .Detail .line view.data-v-23e64bee {
   margin: 10rpx;
 }
-.taskManagement .item .btn.data-v-3b9bbe98 {
+.taskManagement .item .btn.data-v-23e64bee {
   height: 80rpx;
   width: 100%;
   position: absolute;
@@ -58,8 +61,8 @@
           box-shadow: 5rpx 5rpx -5rpx #EEEEEE;
   font-size: 30rpx;
 }
-.taskManagement .item .btn .open.data-v-3b9bbe98,
-.taskManagement .item .btn .del.data-v-3b9bbe98 {
+.taskManagement .item .btn .open.data-v-23e64bee,
+.taskManagement .item .btn .del.data-v-23e64bee {
   -webkit-box-shadow: 5rpx 5rpx -5rpx #EEEEEE;
           box-shadow: 5rpx 5rpx -5rpx #EEEEEE;
   height: 80rpx;
@@ -67,14 +70,16 @@
   -webkit-flex: 1;
           flex: 1;
 }
-.taskManagement .item .btn .open.data-v-3b9bbe98 {
+.taskManagement .item .btn .open.data-v-23e64bee {
   background-color: #e5d412;
-  border-bottom-left-radius: 15rpx;
+  -webkit-border-bottom-left-radius: 15rpx;
+          border-bottom-left-radius: 15rpx;
   color: black;
 }
-.taskManagement .item .btn .del.data-v-3b9bbe98 {
+.taskManagement .item .btn .del.data-v-23e64bee {
   background-color: #e56767;
   color: white;
-  border-bottom-right-radius: 15rpx;
+  -webkit-border-bottom-right-radius: 15rpx;
+          border-bottom-right-radius: 15rpx;
 }
 

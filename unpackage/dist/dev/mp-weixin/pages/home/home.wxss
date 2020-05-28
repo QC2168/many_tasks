@@ -11,6 +11,7 @@
  *
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
+/* 引入uView的全局SCSS主题文件 */
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
@@ -24,13 +25,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.home .wrap.data-v-09759f58 {
+.home .wrap.data-v-642fb3ae {
   padding: 20rpx;
 }
-.home .taskmodel.data-v-09759f58 {
+.home .taskmodel.data-v-642fb3ae {
   height: 100rpx;
 }
-.home .taskmodel view.data-v-09759f58 {
+.home .taskmodel view.data-v-642fb3ae {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
@@ -46,12 +47,12 @@
   text-align: center;
   font-size: 22rpx;
 }
-.home .taskmodel view image.data-v-09759f58 {
+.home .taskmodel view image.data-v-642fb3ae {
   margin: 0 auto;
   width: 80rpx;
   height: 80rpx;
 }
-.home .tasklist.data-v-09759f58 {
+.home .tasklist.data-v-642fb3ae {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,9 +62,10 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
-.home .tasklist .item.data-v-09759f58 {
+.home .tasklist .item.data-v-642fb3ae {
   margin: 0 auto 15rpx auto;
-  border-radius: 15rpx;
+  -webkit-border-radius: 15rpx;
+          border-radius: 15rpx;
   border: .4rpx solid black;
   -webkit-box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
           box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
@@ -74,24 +76,25 @@
   display: -webkit-flex;
   display: flex;
 }
-.home .tasklist .item .left.data-v-09759f58 {
+.home .tasklist .item .left.data-v-642fb3ae {
   width: 100rpx;
 }
-.home .tasklist .item .left image.data-v-09759f58 {
+.home .tasklist .item .left image.data-v-642fb3ae {
   width: 80rpx;
   height: 80rpx;
-  border-radius: 8rpx;
+  -webkit-border-radius: 8rpx;
+          border-radius: 8rpx;
 }
-.home .tasklist .item .center.data-v-09759f58 {
+.home .tasklist .item .center.data-v-642fb3ae {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
   padding-left: 10rpx;
 }
-.home .tasklist .item .center view.data-v-09759f58 {
+.home .tasklist .item .center view.data-v-642fb3ae {
   font-size: 30rpx;
 }
-.home .tasklist .item .right.data-v-09759f58 {
+.home .tasklist .item .right.data-v-642fb3ae {
   width: 150rpx;
 }
 

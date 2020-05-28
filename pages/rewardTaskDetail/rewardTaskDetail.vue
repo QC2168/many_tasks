@@ -46,9 +46,11 @@
 	    	</u-col>
 	    </u-row>
 	</view>
+    <!-- #ifdef APP-PLUS -->
     <view v-if="rewardTaskData.is_btn==1" class="u-f-ajc" style="height: 80rpx;">
         <u-button size="mini" @tap="toGoddsDetail">一键跳转到商品页面</u-button>
     </view>
+    <!-- #endif -->
     <!-- 任务简介 -->
     <u-divider
     fontSize="30"
@@ -97,7 +99,12 @@
         methods:{
             // 请求详细数据
             async getData(reward_task_id){
-                await this.$u.get('get_reward_task_detail',{reward_task_id}).then(res=>this.rewardTaskData=res.data)
+                await this.$u.get('get_reward_task_detail',{reward_task_id}).then(res=>{
+                    this.rewardTaskData=res.data
+                    uni.setNavigationBarTitle({
+                        title:res.data.title
+                    });
+                    })
             },
             async post(reward_task_id){
                await this.$u.post('/create_reward_task_order',{reward_task_id}).then(res=>{
@@ -163,17 +170,18 @@
             }
         }
         .signUp{
-            height: 80rpx;
-            width: 100%;
-            background-color: #007AFF;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            color: white;
-            font-size: 30rpx;
-            font-family: Sans-serif;
-            font-weight: bold;
-            letter-spacing:10rpx;
+           height: 80rpx;
+           width: 100%;
+           background-color: #007AFF;
+           position: fixed;
+           bottom: 0;
+           left: 0;
+           color: white;
+           font-size: 30rpx;
+           font-family: Sans-serif;
+           font-weight: bold;
+           letter-spacing:10rpx;
+           z-index: 999;
         }
     }
 
