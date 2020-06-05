@@ -37,31 +37,10 @@ export const taskOrder = (value) => {
         case 4:
             return "得提交数据";
         default:
-            return "未知任务状态"
+            return "未知任务状态";
     }
 };
-export const rewardTaskOrder = (value) => {
-    switch (value) {
-        case 0:
-            return "商家审核任务中";
-        case 1:
-            return "完成";
-        case 2:
-            return "未通过";
-        case 3:
-            return "自主取消";
-        case 4:
-            return "待提交订单号";
-        case 5:
-            return "商家审核订单中";
-        case 6:
-            return "待确认收货";
-        case 7:
-            return "审核不通过";
-        default:
-            return "未知任务状态"
-    }
-};
+
 export const taskStatus = (value) => {
     switch (value) {
         case 0:
@@ -75,7 +54,16 @@ export const taskStatus = (value) => {
     }
 };
 
-
+export const feedbackState = (value) => {
+    switch (value) {
+        case "0":
+            return "未处理";
+        case "1":
+            return "已处理";
+        default:
+            return "未知";
+    }
+};
 export const formatDate = (time, fmt) => {
     let date = new Date(parseInt(time, ) * 1000)
     if (/(y+)/.test(fmt)) {

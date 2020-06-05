@@ -1,5 +1,5 @@
 <template>
-    <view :class="[mode?'profile':'profile linear-gradient']" v-if="userData">
+    <view :style="'height:'+view_height+'px'" :class="[mode?'profile':'profile linear-gradient']" v-if="userData">
         <template v-if="mode">
             <view class="userinfo">
                 <view class="headimage">
@@ -156,10 +156,16 @@
                 mode: false,
                 userData: [],
                 URL: getApp().globalData.URL,
+                view_height:0
             };
         },
         created() {
-            this.getdata()
+            this.getdata();
+ uni.getSystemInfo({
+                success:(res)=>{
+                    this.view_height=res.windowHeight;
+                }
+            })
         },
         onNavigationBarButtonTap(e) {
             if (e.index === 0) {
@@ -228,8 +234,6 @@
     .profile {
         background-image: white;
         padding: 25rpx 0 0 0;
-
-        height: 100vh;
 
         .change {
             color: #007AFF;

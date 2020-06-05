@@ -2,8 +2,8 @@
     "name" : "任务联盟",
     "appid" : "__UNI__43907E6",
     "description" : "这是一款多兼职模式的平台App",
-    "versionName" : "1.1.0",
-    "versionCode" : "100",
+    "versionName" : "1.2.0",
+    "versionCode" : 120,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -122,12 +122,13 @@
         },
         "optimization" : {
             "treeShaking" : {
-                "enable" : true
+                "enable" : false
             }
         },
         "title" : "任务联盟",
         "devServer" : {
             "https" : false
-        }
+        },
+        "domain" : "www.taskarea.top"
     }
 }

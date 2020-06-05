@@ -2,8 +2,8 @@ const install = (Vue, vm) => {
     // 此为自定义配置参数，具体参数见上方说明
     Vue.prototype.$u.http.setConfig({
         // baseUrl: 'http://api.taskarea.com/api/v1',
-        baseUrl: 'http://task.taskarea.top/api/v1',
-        // baseUrl: process.env.NODE_ENV === 'development'?'http://api.taskarea.com/api/v1':'http://task.taskarea.top/api/v1',
+        // baseUrl: 'http://task.taskarea.top/api/v1',
+        baseUrl: process.env.NODE_ENV === 'development'?'http://api.taskarea.com/api/v1':'http://task.taskarea.top/api/v1',
         header: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
@@ -26,11 +26,9 @@ const install = (Vue, vm) => {
             '/login',
             '/A_login',
             '/get_task_list',
-            '/get_reward_task_list',
             '/get_dy_task_list',
             '/get_dy_task_detail',
             '/get_task_detail',
-            '/get_reward_task_detail',
             '/get_home_pic',
             '/get_notice_bar',
         ];

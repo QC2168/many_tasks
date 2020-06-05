@@ -195,12 +195,24 @@
                 this.$refs.uUpload.upload();
             },
             //图片上传成功
-            success(data) {
+            success(data) {     
                 let data2=JSON.parse(data)
                  if(data2.errorCode===0){
+                     // #ifdef H5
                      uni.showToast({
-                         title:data2.msg
+                         title:"提交成功",
+                         duration:2000
                      })
+                     // #endif
+                     // #ifdef APP-PLUS
+                     plus.nativeUI.toast("提交成功");
+                     // #endif
+                     setTimeout(()=>{
+                         uni.switchTab({
+                             url:"../home/home"
+                         })
+                     },2000)
+                     
                      return;
                  }
                  if(data2.errorCode!==0){

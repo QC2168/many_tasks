@@ -2,6 +2,7 @@
     <view class="myTaskOrder">
         <scroll-view :style="{'height':windowHeight+'px'}" scroll-y="true" class="scroll-Y"></scroll-view>
         <template v-if="orderList.length!==0">
+             <open-task-info :item="currentItem" ref="openData" filterName="taskOrder"></open-task-info>
             <view class="item u-f-ajc" v-for="(item,index) in orderList" :key="index">
                 <view class="box" v-if="item">
                     <view class="line">
@@ -16,9 +17,11 @@
                         <view>申请时间</view>
                         <view>{{item.create_time}}</view>
                     </view>
-                    <view v-if="item.status===0" @tap="openImage(item.orderSn)" class="btn u-f-ajc">
-                        <view>查看图片</view>
+                    <view v-if="item.status===0" class="btns u-f">
+                        <view class="yes u-f-ajc" style="background-color:  #007AFF;" @tap="openImage(item.orderSn)">查看图片</view>
+                        <view class="no u-f-ajc" style="background-color:  #c0e82f;" @tap="openData(item)">查看数据</view>
                     </view>
+                   
                     <view v-if="item.status===0" class="btns u-f">
                         <view class="yes u-f-ajc" @tap="changeStatus(1,item.orderSn)">通过</view>
                         <view class="no u-f-ajc" @tap="changeStatus(2,item.orderSn)">不合格</view>
@@ -35,11 +38,15 @@
 </template>
 
 <script>
+      import openTaskInfo from "../../components/common/openTaskInfo/openTaskInfo.vue"
     export default {
         onLoad: function(res) {
             // 请求订单
             this.task_id = res.task_id
             this.getData(this.task_id)
+        },
+        components:{
+            openTaskInfo
         },
         created() {
             //计算滚动高度
@@ -51,6 +58,7 @@
         },
         data() {
             return {
+                currentItem:[],
                 task_id: null,
                 orderList: [],
                 // 滚动条高度
@@ -93,6 +101,11 @@
                         this.orderList = res.data
                     }
                 })
+            },
+            openData(item){
+                // console.log(this.$refs.openData);
+                this.currentItem=item
+                this.$refs.openData.open()
             }
         }
     }

@@ -3,19 +3,12 @@
        <view class="imageBox u-f-ajc">
             <image src="../../static/images/team/share.png" mode="aspectFill"></image>
         </view>
-   <!--     <view class="myCode u-f-ajc">我的邀请码:{{team.code}}</view>
-		<view class="myTeamData u-f">
-            <view class="u-f-column">
-                <view>我的团队</view>
-                <view>{{team.count}}</view>
-            </view>
-        </view> -->
         <u-row gutter="16" justify="around">
         	<u-col span="6">
         		<view class="dataTitle u-f-ajc">我的团队</view>
         	</u-col>
         	<u-col span="6">
-        		<view @tap="copyCode" class="dataTitle u-f-ajc">我的邀请码</view>
+        		<view @tap="copyCode" @longtap="copyCode" class="dataTitle u-f-ajc">我的邀请码</view>
         	</u-col>
         </u-row>
         <u-row gutter="16" justify="around">
@@ -23,12 +16,13 @@
         		<view class="dataValue u-f-ajc">{{team.count}}</view>
         	</u-col>
         	<u-col span="6">
-        		<view @tap="copyCode" class="dataValue u-f-ajc">{{team.code}}</view>
+        		<view @tap="copyCode" @longtap="copyCode" class="dataValue u-f-ajc">{{team.code}}</view>
         	</u-col>
         </u-row>
         <u-divider fontSize="32" half-width="250" height="90">我的团队</u-divider>
-           <template v-if="team.list">
-        <scroll-view scroll-y class="list">
+           <!-- <template v-if="team.list"> -->
+                
+        <scroll-view scroll-y :style="{height:navHeight+'px'}" id="scroll" class="scroll-Y list">
            
               <view class="item u-f" v-for="(item,index) in team.list" :key="item.create_time">
         
@@ -38,10 +32,10 @@
                </view>
 
         </scroll-view>
-</template>
-        <template v-else>
+<!-- </template> -->
+   <!--     <template v-else>
           <u-empty text="暂时没有下级哦" mode="history"></u-empty>
-        </template>
+        </template> -->
 	</view>
 </template>
 
@@ -50,22 +44,22 @@
 	export default {
         created() {
             this.getData()
-            uni.getSystemInfo({
-                success(res) {
-                  this.listHeight=res.windowHeight-300;
-                }
-            })
         },
 		data() {
 			return {
 				team:[],
-                listHeight:540,
+                pH:0,
+                navHeight:0,
                 URL:getApp().globalData.URL,
 			};
 		},
         methods:{
             async getData(){
-                await this.$u.get('get_team').then(res=>this.team=res.data)
+                await this.$u.get('get_team').then(res=>{
+                    this.team=res.data
+                 this.setScrollHeight()
+                    })
+               
                 },
                 copyCode(){
                     // #ifndef H5
@@ -73,7 +67,7 @@
                         data: 'http://www.taskarea.top/pages/register/register?INC='+this.team.code,
                         success: function () {
                             uni.showToast({
-                                title:"复制邀请链接成功!",
+                                title:"复制邀请链接成功",
                                 icon:"none"
                             })
                         }
@@ -87,14 +81,29 @@
                           })
                         } else {
                           uni.showToast({
-                            title:'复制邀请链接成功!',
+                            title:'复制邀请链接成功',
                             icon:'none'
                           })
                         }
                     // #endif
                   
+                },
+                setScrollHeight(){
+                    if(!this.team.list)return;
+                    uni.getSystemInfo({ //调用uni-app接口获取屏幕高度
+                        success: (res) => { //成功回调函数
+                            this.pH = res.windowHeight //windoHeight为窗口高度，主要使用的是这个
+                           let titleH = uni.createSelectorQuery().in(this).select("#scroll"); //想要获取高度的元素名（class/id）
+                            titleH.boundingClientRect(data => {
+                                let pH = this.pH;
+                                this.navHeight = pH - data.top //计算高度：元素高度=窗口高度-元素距离顶部的距离（data.top）
+                                console.log(this.navHeight);
+                            }).exec()
+                        }
+                    })
                 }
         }
+        
 	}
 </script>
 

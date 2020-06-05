@@ -1,6 +1,6 @@
 <template>
     <view class="myTaskOrder">
-        <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务','福利任务']"></tabs>
+        <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
         <template v-if="taskType===0">
             <template v-if="dyOrderList.length!==0">
                 <view class="item u-f-ajc animated fadeInUp" v-for="(item,index) in dyOrderList" :key="index">
@@ -70,43 +70,7 @@
                 <u-empty text="快去申请悬赏任务吧!" mode="order"></u-empty>
             </template>
         </template>
-        <template v-if="taskType===2">
-            <template v-if="rewardOrderList.length!==0">
-                <view class="item u-f-ajc animated fadeInUp" v-for="(item,index) in rewardOrderList" :key="index">
-                    <view class="box">
-                        <view class="line">
-                            <view>任务名称</view>
-                            <view>{{item.reward_task_list[0].title}}</view>
-                        </view>
-                        <view class="line">
-                            <view>任务金币</view>
-                            <view>{{item.reward_task_list[0].price}}</view>
-                        </view>
-                        <view class="line">
-                            <view>任务订单</view>
-                            <view>{{item.orderSn}}</view>
-                        </view>
-                        <view class="line">
-                            <view>任务状态</view>
-                            <view>{{item.status|rewardTaskOrder}}</view>
-                        </view>
-                        <view class="line">
-                            <view>申请时间</view>
-                            <view>{{item.create_time}}</view>
-                        </view>
-
-                        <view v-if="item.status===4" class="btns u-f">
-                            <view class="yes u-f-ajc" @tap="submitReward(item.orderSn)">提交内容</view>
-                            <view class="no u-f-ajc" @tap="changeTaskOrderStatus(3,item.orderSn)">取消报名</view>
-                        </view>
-                    </view>
-
-                </view>
-            </template>
-            <template v-else>
-                <u-empty text="快去申请福利任务吧!" mode="order"></u-empty>
-            </template>
-        </template>
+       
         <!--        <scroll-view :style="{'height':windowHeight+'px'}" scroll-y="true" class="scroll-Y"></scroll-view> -->
 
     </view>
@@ -155,7 +119,6 @@
                 taskType: 0,
                 dyOrderList: [],
                 orderList: [],
-                rewardOrderList: [],
                 // 滚动条高度
                 windowHeight: 0
             };
@@ -192,30 +155,11 @@
                             this.orderList = res.data
                         }
                     })
-                    await this.$u.get('/my_reward_task_order').then(res => {
-                       // 0 商家审核中 1 完成 2 未通过 3 自主取消 4待提交订单号 5用户拍下填写订单号（商家审核是否有订单） 6 待确认收货（已拍下，商家通过） 7审核不通过
-                        if(type==='toBeSubmitted'){
-                            this.rewardOrderList =res.data.filter(item=>item.status===4)
-                        }else if(type==='underReview'){
-                           this.rewardOrderList =res.data.filter(item=>item.status===0 || item.status===5) 
-                        } else if(type==='complete'){
-                            this.rewardOrderList =res.data.filter(item=>item.status===1) 
-                        }else{
-                            this.rewardOrderList = res.data
-                        }
-                    })
+                   
             },
             submit(orderSn) {
                 this.$u.route({
                     url: 'pages/placeOrder/placeOrder',
-                    params: {
-                        orderSn
-                    }
-                })
-            },
-            submitReward(orderSn) {
-                this.$u.route({
-                    url: 'pages/placeRewardOrder/placeRewardOrder',
                     params: {
                         orderSn
                     }

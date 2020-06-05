@@ -26,6 +26,7 @@
                      }
             }
         },
+        // #ifdef APP-PLUS
         {
             "path": "pages/profile/profile",
             "style": {
@@ -49,9 +50,20 @@
                     }
                 }
             }
-        }
-
-        , {
+        
+        },
+           // #endif
+           // #ifdef H5
+           {
+               "path": "pages/profile/profile",
+               "style": {
+                   "navigationBarTitleText": "会员中心",
+                    "enablePullDownRefresh":true
+               }
+           
+           },
+              // #endif
+        {
             "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "登录账户",
@@ -96,7 +108,9 @@
                     "scrollIndicator":"none"
                     }
             }
-        }, {
+        }, 
+        // #ifdef APP-PLUS
+        {
             "path": "pages/wallet/wallet",
             "style": {
                 "navigationBarTitleText": "我的资产",
@@ -119,7 +133,18 @@
                      }
                  }
             }
-        }, {
+        },
+        // #endif
+        // #ifdef H5
+        {
+            "path": "pages/wallet/wallet",
+            "style": {
+                "navigationBarTitleText": "我的资产",
+                 "enablePullDownRefresh":true
+            }
+        },
+        // #endif
+        {
             "path": "pages/pushTask/pushTask",
             "style": {
                 "navigationBarTitleText": "发布任务",
@@ -232,36 +257,7 @@
               
             }
         }
-        ,{
-            "path" : "pages/rewardTaskDetail/rewardTaskDetail",
-           "style": {
-               "navigationBarTitleText": "福利任务",
-               "app-plus":{
-                   // 隐藏滚动条
-                   "scrollIndicator":"none"
-                   }
-           }
-        }
-        ,{
-            "path" : "pages/placeRewardOrder/placeRewardOrder",
-           "style": {
-               "navigationBarTitleText": "提交订单",
-               "app-plus":{
-                   // 隐藏滚动条
-                   "scrollIndicator":"none"
-                   }
-           }
-        }
-        ,{
-            "path" : "pages/myPushRewardTaskOrder/myPushRewardTaskOrder",
-            "style": {
-                "navigationBarTitleText": "订单详情",
-                "app-plus":{
-                    // 隐藏滚动条
-                    "scrollIndicator":"none"
-                    }
-            }
-        }
+     
         ,{
             "path" : "pages/walletDetails/walletDetails",
             "style": {
@@ -271,6 +267,16 @@
                     "scrollIndicator":"none"
                     }
             }
+        }
+        ,{
+            "path" : "pages/changePassword/changePassword",
+         "style": {
+             "navigationBarTitleText": "修改密码",
+             "app-plus":{
+                 // 隐藏滚动条
+                 "scrollIndicator":"none"
+                 }
+         }
         }
     ],
 

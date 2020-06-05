@@ -22,7 +22,10 @@
         </u-cell-group>
         <view class="btn u-f-ajc">
             <u-button v-show="showfeelback" @tap="post" type="primary" size="medium" class="animated rotateInUpLeft">提交反馈</u-button>
-            <u-button @tap="update(v)" type="primary" size="medium">检查更新</u-button>
+            <u-button @tap="update()" type="primary" size="medium">检查更新</u-button>
+        </view>
+        <view @tap="tochangepassword" class="tochangepassword u-f-ajc">
+            点击修改账号密码
         </view>
     </view>
 </template>
@@ -71,7 +74,7 @@
                     return;
                 })
             },
-            async update(v) {
+            async update() {
                 //#ifdef H5
                 uni.showToast({
                     title:"无需更新",
@@ -81,7 +84,7 @@
                 //#ifdef APP-PLUS
                //版本判断
                await this.$u.post('updateV', {
-                   v
+                   v:this.v
                }).then(res => {
                    if (res.errorCode === 0) {
                        // 新版本
@@ -110,6 +113,11 @@
                })
                 //#endif
                
+            },
+            tochangepassword(){
+                uni.navigateTo({
+                    url:'../changePassword/changePassword'
+                })
             }
         }
     }
@@ -134,5 +142,14 @@
             width: 100%;
             height: 200rpx;
         }
+        .tochangepassword{
+            font-size: 28rpx;
+            color: blue;
+            position: absolute;
+            bottom: 10rpx;
+            text-decoration: underline;
+            width: 100%;
+            }
+            
     }
 </style>

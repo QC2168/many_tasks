@@ -25,7 +25,7 @@
             <u-divider fontSize="25" height="90">历史提现记录</u-divider>
             <view>
                 <view>
-                                <scroll-view scroll-y="true" class="scroll-Y">
+                                <scroll-view scroll-y :style="{height:navHeight+'px'}" class="scroll-Y">
    <template v-if="outList.length!==0">
                     <view class="outListItme" v-for="(item,index) in outList" :key="index">
                         <view class="left">
@@ -70,6 +70,8 @@
         },
         data() {
             return {
+                navHeight:0,
+                pH:0,
                 number:'',
                 data: [],
                 bind:"获取中...",
@@ -106,13 +108,13 @@
                 }
             },
             async getData() {
-                // 任务列表
+                // 列表
                 await this.$u.get('/get_assets').then(
                     res => {
                         if (res.errorCode !== 0) return;
                         this.data = res.data['assets'];
-                        // this.number = res.data['assets'].wallet;
                         this.bind=res.data['bind'];
+                        this.setScrollHeight()
                     }
                 )
                 // 请求列表
@@ -186,8 +188,19 @@
                      icon: 'none'
                  })
              })
-            
-            
+            },
+            setScrollHeight(){
+                uni.getSystemInfo({ //调用uni-app接口获取屏幕高度
+                    success: (res) => { //成功回调函数
+                        this.pH = res.windowHeight //windoHeight为窗口高度，主要使用的是这个
+                        let titleH = uni.createSelectorQuery().select(".scroll-Y"); //想要获取高度的元素名（class/id）
+                        titleH.boundingClientRect(data => {
+                            let pH = this.pH;
+                            this.navHeight = pH - data.top //计算高度：元素高度=窗口高度-元素距离顶部的距离（data.top）
+                            console.log(this.navHeight);
+                        }).exec()
+                    }
+                })
             }
         }
     }

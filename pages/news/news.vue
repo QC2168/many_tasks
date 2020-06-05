@@ -1,5 +1,5 @@
 <template>
-	<view class="news">
+	<view :style="'height:'+view_height+'px'" class="news">
 		<!-- model -->
         <view v-for="(item,index) in list" :key="index" class="card animated pulse">
             <view class="title">{{item.title}}</view>
@@ -15,11 +15,17 @@
             this.getData()
         },
         created(){
-            this.getData()
+            this.getData();
+            uni.getSystemInfo({
+                success:(res)=>{
+                    this.view_height=res.windowHeight;
+                }
+            })
         },
 		data() {
 			return {
-				list:[]
+				list:[],
+                view_height:0
 			};
 		},
         methods:{

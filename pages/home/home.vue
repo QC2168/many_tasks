@@ -6,14 +6,71 @@
         </view>
         <!-- 任务模块 -->
         <view class="taskmodel u-f">
-<view @tap="to('shortVideo')"><image src="../../static/images/home/video.png" mode="aspectFit"></image>视频赚米</view>
-<view @tap="to('film')"><image src="../../static/images/home/film.png" mode="aspectFit"></image>电影代理</view>
-<view @tap="to('cart')"><image src="../../static/images/home/cart.png" mode="aspectFit"></image>购物赚钱</view>
-<view @tap="to('game')"><image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚钱</view>
+            <view @tap="to('shortVideo')">
+                <image src="../../static/images/home/video.png" mode="aspectFit"></image>视频赚米
+            </view>
+            <view @tap="to('film')">
+                <image src="../../static/images/home/film.png" mode="aspectFit"></image>电影代理
+            </view>
+            <view @tap="to('cart')">
+                <image src="../../static/images/home/cart.png" mode="aspectFit"></image>购物赚钱
+            </view>
+            <view @tap="to('game')">
+                <image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚钱
+            </view>
         </view>
-        <home-tabs @changeTabIndex="changeTabIndex" :list="['点赞任务','悬赏任务','福利任务']"></home-tabs>
+        <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['点赞任务','悬赏任务']"></tabs>
+        <view class="uni-padding-wrap">
+            <view class="page-section swiper">
+                <view class="page-section-spacing">
+                    <swiper :style="{height:navHeight+'px'}" class="swiper" :current="taskType" @change="swiperChange">
+
+                        <swiper-item>
+                            <scroll-view scroll-y :style="{height:navHeight+'px'}" scroll-with-animation class="scroll-Y">
+                                <view class="tasklist">
+                                    <view class="item animated fadeInUp" v-for="(item,index) in dytasklist" :key="index">
+                                        <view class="left u-f-ajc">
+                                            <image :src="URL+item.dy_task_pic" mode="aspectFill"></image>
+                                        </view>
+                                        <view class="center">
+                                            <view>{{item.title}}</view>
+                                            <view>佣金：{{item.price}}</view>
+                                        </view>
+                                        <view class="right u-f-ajc">
+                                            <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini"
+                                                shape="circle">查看任务</u-button>
+                                        </view>
+                                    </view>
+
+                                </view>
+                            </scroll-view>
+
+                        </swiper-item>
+                        <swiper-item>
+                             <scroll-view scroll-y :style="{height:navHeight+'px'}" class="scroll-Y">
+                            <view class="tasklist">
+                                <view class="item animated fadeInUp" v-for="(item,index) in tasklist" :key="index">
+                                    <view class="left u-f-ajc">
+                                        <image :src="URL+item.pic" mode="aspectFill"></image>
+                                    </view>
+                                    <view class="center">
+                                        <view>{{item.title}}</view>
+                                        <view>佣金：{{item.price}}</view>
+                                    </view>
+                                    <view class="right u-f-ajc">
+                                        <u-button @tap="openTaskDetail(item.task_id)" type="warning" size="mini" shape="circle">查看任务</u-button>
+                                    </view>
+                                </view>
+
+                            </view>
+                            </scroll-view>
+                        </swiper-item>
+                    </swiper>
+                </view>
+            </view>
+        </view>
         <!-- 任务列表 -->
-        <template v-if="taskType===0">
+        <!-- <template v-if="taskType===0">
                <view class="tasklist">
                    <view class="item animated fadeInUp" v-for="(item,index) in dytasklist" :key="index">
                        <view class="left u-f-ajc">
@@ -29,8 +86,8 @@
                    </view>
                
                </view>
-           </template>
-        <template v-if="taskType===1">
+           </template> -->
+        <!-- <template v-if="taskType===1">
          <view class="tasklist">
              <view class="item animated fadeInUp" v-for="(item,index) in tasklist" :key="index">
                  <view class="left u-f-ajc">
@@ -46,57 +103,44 @@
              </view>
          
          </view>
-        </template>
-     <template v-if="taskType===2">
-      <view class="tasklist">
-          <view class="item animated fadeInUp" v-for="(item,index) in rewardtasklist" :key="index">
-              <view class="left u-f-ajc">
-                  <image :src="URL+item.pic" mode="aspectFill"></image>
-              </view>
-              <view class="center">
-                  <view>{{item.title}}</view>
-                  <view>佣金：{{item.price}}</view>
-              </view>
-              <view class="right u-f-ajc">
-                  <u-button @tap="openRewardTaskDetail(item.reward_task_id)" type="warning" size="mini" shape="circle">查看任务</u-button>
-              </view>
-          </view>
-      
-      </view>
-     </template>
-        
+        </template> -->
+
+
         <!-- 到底了 -->
         <!-- <u-divider>先完成一个任务后再查看吧！</u-divider> -->
     </view>
 </template>
 
 <script>
-    import homeTabs from "../../components/common/tabs/homeTabs.vue";
+    import tabs from "../../components/common/tabs/tabs.vue";
     export default {
-        components:{
-            homeTabs
+        onReady() {
+            
+            
         },
-        onPullDownRefresh(){
-              this.getData()
+        components: {
+            tabs
+        },
+        onPullDownRefresh() {
+            this.getData()
         },
         created() {
             // #ifdef  APP-PLUS
-           this.checkVersion()
+            // this.checkVersion()
             // #endif
             //没token  跳登录去
             uni.getStorage({
                 key: 'token',
-                success: function (res) {
-                    const token =res.data
-                    if(!token){
-                        // 没有token
-                        // 滚去login
+                success: function(res) {
+                    const token = res.data
+                    if (!token) {
+                        // 没有token 滚去login
                         uni.navigateTo({
-                            url:"../login/login"
+                            url: "../login/login"
                         })
                         return;
                     };
-                    if(token){
+                    if (token) {
                         //查询是否存在
                     }
                 }
@@ -105,108 +149,107 @@
         },
         data() {
             return {
-                URL:getApp().globalData.URL,
-                tasklist:[],
-                dytasklist:[],
-                rewardtasklist:[],
+                URL: getApp().globalData.URL,
+                tasklist: [],
+                dytasklist: [],
                 swiperlist: [],
-                noticeList:[],
-                taskType:0,
+                noticeList: [],
+                pH:0, //窗口高度
+                		navHeight:0, //元素的所需高度
+                taskType: 0,
                 //#ifdef APP-PLUS
-                v:plus.runtime.version
+                v: plus.runtime.version
                 //#endif
-                
-                
+
+
             }
         },
         methods: {
             // #ifdef APP-PLUS
-            async checkVersion() {
-                //版本判断
-                await this.$u.post('updateV', {
-                    v
-                }).then(res=>{})
-            },
+            // async checkVersion() {
+            //     //版本判断
+            //     await this.$u.post('/check_version', {
+            //         v
+            //     }).then(res => {
+
+            //     })
+            // },
             // #endif
             // tabs 监听
-            changeTabIndex(index){
+            changeTabIndex(index) {
                 // 0 抖音  1 普通任务
-                this.taskType=index;
+                this.taskType = index;
             },
             to(page) {
                 uni.showToast({
-                    title:"即将开放",
-                    icon:'none'
+                    title: "即将开放",
+                    icon: 'none'
                 })
-                // uni.navigateTo({
-                //             url: `../${page}/${page}`
-                //         })
             },
             async getData() {
                 // 任务列表
                 await this.$u.get('/get_task_list').then(
                     res => {
                         if (res.errorCode !== 0) return;
-                          this.tasklist=res.data
+                        this.tasklist = res.data
                     }
                 )
                 // 抖音任务列表
                 await this.$u.get('/get_dy_task_list').then(
                     res => {
                         if (res.errorCode !== 0) return;
-                          this.dytasklist=res.data
-                    }
-                )
-                // 福利任务列表
-                await this.$u.get('/get_reward_task_list').then(
-                    res => {
-                        if (res.errorCode !== 0) return;
-                          this.rewardtasklist=res.data
+                        this.dytasklist = res.data
                     }
                 )
                 // 获取轮播图
                 await this.$u.get('/get_home_pic').then(
-                res=>{
-                    if (res.errorCode !== 0) return;
-                    //给url加上前缀
-                    for(let i of res.data){
-                        // 判断是不是网络图片
-                        if(!this.$u.test.url(i.img_url))i.img_url=this.URL+i.img_url;
-                    }
-                  this.swiperlist=res.data
-                })
-                
-                // 获取notic
-                await this.$u.get('/get_notice_bar').then(res=>{
-                     if (res.errorCode !== 0) return;
-                     this.noticeList=[];
-                     for(let i of res.data){
-                       this.noticeList.push(i.content)
-                     }
-                      uni.stopPullDownRefresh()
-                })
-            },
-            dy() {
-                uni.navigateTo({
-                    url: "../douyinDetail/douyinDetail"
-                })
+                    res => {
+                        if (res.errorCode !== 0) return;
+                        //给url加上前缀
+                        for (let i of res.data) {
+                            // 判断是不是网络图片
+                            if (!this.$u.test.url(i.img_url)) i.img_url = this.URL + i.img_url;
+                        }
+                        this.swiperlist = res.data
+                    })
 
+                // 获取notic
+                await this.$u.get('/get_notice_bar').then(res => {
+                    if (res.errorCode !== 0) return;
+                   this.noticeList=[];
+               this.noticeList.push(res.data)
+    
+                    uni.stopPullDownRefresh()
+                })
+              await this.setScrollHeight()
             },
             openTaskDetail(task_id) {
                 this.$u.route('pages/taskDetail/taskDetail', {
-                	task_id
+                    task_id
                 });
             },
-          
+
             openDyTaskDetail(dy_task_id) {
                 this.$u.route('pages/douyinDetail/douyinDetail', {
-                	dy_task_id
+                    dy_task_id
                 });
+
             },
-            openRewardTaskDetail(reward_task_id){
-                this.$u.route('pages/rewardTaskDetail/rewardTaskDetail', {
-                	reward_task_id
-                });
+            swiperChange(e) {
+                this.taskType = e.detail.current;
+                this.$refs.tabs.setCurrentIndex(e.detail.current);
+            },
+            setScrollHeight(){
+                uni.getSystemInfo({ //调用uni-app接口获取屏幕高度
+                    success: (res) => { //成功回调函数
+                        this.pH = res.windowHeight //windoHeight为窗口高度，主要使用的是这个
+                        let titleH = uni.createSelectorQuery().select(".scroll-Y"); //想要获取高度的元素名（class/id）
+                        titleH.boundingClientRect(data => {
+                            let pH = this.pH;
+                            this.navHeight = pH - data.top //计算高度：元素高度=窗口高度-元素距离顶部的距离（data.top）
+                        }).exec()
+                    }
+                })
             }
         },
     }
@@ -220,57 +263,64 @@
 
         .taskmodel {
             height: 100rpx;
-            view{
-                flex:1;
+
+            view {
+                flex: 1;
                 width: 80rpx;
                 height: 80rpx;
                 display: flex;
-           flex-direction: column;
+                flex-direction: column;
                 text-align: center;
                 font-size: 22rpx;
-                image{
-                     margin: 0 auto;
+
+                image {
+                    margin: 0 auto;
                     width: 80rpx;
                     height: 80rpx;
                 }
             }
         }
 
-        .tasklist {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
+        .swiper {
+            .scroll-Y {
+                .tasklist {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
 
-            .item {
-                margin: 0 auto 15rpx auto;
-                border-radius: 15rpx;
-                border: .4rpx solid black;
-                box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
-                width: 90%;
-                height: 120rpx;
-                padding: 10rpx;
-                display: flex;
+                    .item {
+                        margin: 0 auto 15rpx auto;
+                        border-radius: 15rpx;
+                        border: .4rpx solid black;
+                        box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
+                        width: 90%;
+                        height: 120rpx;
+                        padding: 10rpx;
+                        display: flex;
 
-                .left {
-                    width: 100rpx;
+                        .left {
+                            width: 100rpx;
 
-                    image {
-                        width: 80rpx;
-                        height: 80rpx;
-                        border-radius: 8rpx;
+                            image {
+                                width: 80rpx;
+                                height: 80rpx;
+                                border-radius: 8rpx;
+                            }
+                        }
+
+                        .center {
+                            flex: 1;
+                            padding-left: 10rpx;
+
+                            view {
+                                font-size: 30rpx;
+                            }
+                        }
+
+                        .right {
+                            width: 150rpx;
+                        }
                     }
-                }
-
-                .center {
-                    flex: 1;
-                    padding-left: 10rpx;
-                    view {
-                        font-size: 30rpx;
-                    }
-                }
-
-                .right {
-                    width: 150rpx;
                 }
             }
         }

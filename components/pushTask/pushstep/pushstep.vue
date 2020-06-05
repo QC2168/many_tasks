@@ -22,8 +22,8 @@
 		        </view>
 		        <!-- addStep  -->
 		        <view class="addSetpBox u-f-ajc">
-		            <u-button ripple type="error" @tap="addSetp" class="addSetp" size="mini">PUSH</u-button>
-		            <u-button @tap="hideBox" ripple type="error" class="addSetp" size="mini">EXIT</u-button>
+		            <u-button ripple type="error" @tap="addSetp" class="addSetp" size="mini">追加</u-button>
+		            <u-button @tap="hideBox" ripple type="error" class="addSetp" size="mini">退出</u-button>
 		        </view>
 		        
 		    </view>

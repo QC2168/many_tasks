@@ -18,6 +18,16 @@
             clickItem(index){
                 this.currentIndex=index;
                 this.$emit('changeTabIndex',index)
+            },
+            setCurrentIndex(index){
+               
+                try{
+                    this.currentIndex=index
+                    
+                }catch(e){
+                    console.log(e)
+                }
+                
             }
         }
     }
