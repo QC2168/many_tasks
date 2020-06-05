@@ -1,5 +1,5 @@
 <template>
-    <view :style="'height:'+view_height+'px'" :class="[mode?'profile':'profile linear-gradient']" v-if="userData">
+    <view v-if="userData.length!==0" :style="'height:'+view_height+'px'" :class="[mode?'profile':'profile linear-gradient']">
         <template v-if="mode">
             <view class="userinfo">
                 <view class="headimage">
