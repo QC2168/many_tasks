@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "抖音任务",
-  "usingComponents": {
-    "u-divider": "/node-modules/uview-ui/components/u-divider/u-divider",
-    "u-row": "/node-modules/uview-ui/components/u-row/u-row",
-    "u-col": "/node-modules/uview-ui/components/u-col/u-col",
-    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload"
-  }
-}

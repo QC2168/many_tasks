@@ -1,1 +1,0 @@
-<text class="{{(('uicon data-v-49494b6a')+' '+customClass)}}" style="{{'color:'+(color)+';'+('font-size:'+(size+'rpx')+';')+('font-weight:'+(bold?'bold':'normal')+';')}}" hover-class="{{hoverClass}}" data-event-opts="{{[['tap',[['click',['$event']]]],['touchStart',[['touchstart',['$event']]]]]}}" onTap="__e" onTouchStart="__e"></text>

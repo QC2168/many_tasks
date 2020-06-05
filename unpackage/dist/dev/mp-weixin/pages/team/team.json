@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "我的团队",
-  "usingComponents": {
-    "u-row": "/node-modules/uview-ui/components/u-row/u-row",
-    "u-col": "/node-modules/uview-ui/components/u-col/u-col",
-    "u-divider": "/node-modules/uview-ui/components/u-divider/u-divider",
-    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
-  }
-}
