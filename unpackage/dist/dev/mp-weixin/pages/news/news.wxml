@@ -1,1 +1,0 @@
-<view class="news data-v-95c902ae"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="card animated pulse data-v-95c902ae"><view class="title data-v-95c902ae">{{item.title}}</view><view class="content data-v-95c902ae">{{item.content}}</view><view class="create_time data-v-95c902ae">{{"发布时间："+item.create_time}}</view></view></block></view>

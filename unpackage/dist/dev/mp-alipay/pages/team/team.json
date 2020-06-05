@@ -1,6 +1,0 @@
-{
-  "defaultTitle": "我的团队",
-  "usingComponents": {
-    "u-divider": "/node-modules/uview/components/u-divider/u-divider"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "defaultTitle": "订单详情",
-  "usingComponents": {
-    "u-empty": "/node-modules/uview/components/u-empty/u-empty"
-  }
-}

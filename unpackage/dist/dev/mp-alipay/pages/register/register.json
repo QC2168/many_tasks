@@ -1,8 +1,0 @@
-{
-  "defaultTitle": "创建账户",
-  "usingComponents": {
-    "u-cell-group": "/node-modules/uview/components/u-cell-group/u-cell-group",
-    "u-field": "/node-modules/uview/components/u-field/u-field",
-    "u-button": "/node-modules/uview/components/u-button/u-button"
-  }
-}
