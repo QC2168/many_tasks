@@ -103,7 +103,6 @@
                 })
             },
             openData(item){
-                // console.log(this.$refs.openData);
                 this.currentItem=item
                 this.$refs.openData.open()
             }

@@ -98,8 +98,7 @@
          // 添加步骤
                      addSetp(){
                         let text=this.$u.test.empty(this.currentPushTaskBoxData.text)
-                      let isImg=this.currentPushTaskBoxData.isImg
-                      console.log(this.currentPushTaskBoxData)
+                      let isImg=this.currentPushTaskBoxData.isImg;
          if(text!==""&&isImg){
              // 追加list
              let obj=JSON.parse(JSON.stringify(this.currentPushTaskBoxData))

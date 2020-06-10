@@ -122,12 +122,13 @@
             tabs
         },
         onPullDownRefresh() {
+            // #ifdef  APP-PLUS
+            plus.nativeUI.toast("任务资源刷新中...");
+            // #endif
             this.getData()
         },
         created() {
-            // #ifdef  APP-PLUS
-            // this.checkVersion()
-            // #endif
+     
             //没token  跳登录去
             uni.getStorage({
                 key: 'token',
@@ -165,7 +166,6 @@
             }
         },
         methods: {
-            // #ifdef APP-PLUS
             // async checkVersion() {
             //     //版本判断
             //     await this.$u.post('/check_version', {
@@ -174,7 +174,7 @@
 
             //     })
             // },
-            // #endif
+
             // tabs 监听
             changeTabIndex(index) {
                 // 0 抖音  1 普通任务
@@ -185,20 +185,57 @@
                     title: "即将开放",
                     icon: 'none'
                 })
+                // uni.navigateTo({
+                //     url:`../${page}/${page}`
+                // })
             },
             async getData() {
+                // 检查新版本
+                  
+                //  #ifdef APP-PLUS
+                       await this.$u.post('/updateV', {
+                           v:plus.runtime.version
+                       }).then(res => {
+                        if(res.errorCode===0){
+                            // 新版本
+                            uni.showModal({
+                                title: '探索到新版本',
+                                content: res.data.content,
+                                success: (model)=>{
+                                    if (model.confirm) {
+                                      plus.runtime.openURL(res.data.url);
+                                    } 
+                                    if (model.cancel) {
+                                        plus.nativeUI.toast("建议更新到最新版本");
+                                    }
+                                }
+                            });
+                        }
+                               
+                             
+                       })
+                        //  #endif
                 // 任务列表
                 await this.$u.get('/get_task_list').then(
                     res => {
                         if (res.errorCode !== 0) return;
-                        this.tasklist = res.data
+                        let taskData =res.data.map((item) =>{
+                              item.price=parseInt(item.price);
+                         return item;
+                        })
+                           this.tasklist=_.orderBy(taskData,['price'], ['desc'])
                     }
                 )
                 // 抖音任务列表
                 await this.$u.get('/get_dy_task_list').then(
                     res => {
                         if (res.errorCode !== 0) return;
-                        this.dytasklist = res.data
+                      
+                         let dyTaskData =res.data.map((item) =>{
+                             item.price=parseInt(item.price);
+                        return item;
+                       })
+                          this.dytasklist=_.orderBy(dyTaskData,['price'], ['desc'])
                     }
                 )
                 // 获取轮播图

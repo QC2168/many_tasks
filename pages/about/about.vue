@@ -1,7 +1,7 @@
 <template>
     <view class="about">
         <view class="logobox u-f-ajc">
-            <image @tap="showfeelback=!showfeelback" src="../../static/images/logo/logo.png" mode="aspectFill"></image>
+            <image src="../../static/images/logo/logo.png" mode="aspectFill"></image>
         </view>
         <!-- #ifdef APP-PLUS -->
         <view class="u-f-ajc v">
@@ -14,14 +14,14 @@
         </view>
         <!-- #endif -->
        
-        <u-divider height="100" class="animated rotateInUpLeft" v-show="showfeelback">意见反馈</u-divider>
-        <u-cell-group v-show="showfeelback" class="animated rotateInUpLeft">
+        <u-divider height="100">意见反馈</u-divider>
+        <u-cell-group>
             <u-field v-model="value" label="反馈内容" placeholder="请填写您的意见" type="textarea" maxlength="80" confirm-type="反馈内容"
                 label-width="165" icon="edit-pen">
             </u-field>
         </u-cell-group>
         <view class="btn u-f-ajc">
-            <u-button v-show="showfeelback" @tap="post" type="primary" size="medium" class="animated rotateInUpLeft">提交反馈</u-button>
+            <u-button @tap="post" type="primary" size="medium">提交反馈</u-button>
             <u-button @tap="update()" type="primary" size="medium">检查更新</u-button>
         </view>
         <view @tap="tochangepassword" class="tochangepassword u-f-ajc">
@@ -38,7 +38,6 @@
         data() {
             return {
                 value: "",
-                showfeelback: false,
                 //#ifdef APP-PLUS
                 v:plus.runtime.version,
                 //#endif
@@ -83,7 +82,7 @@
                 //#endif
                 //#ifdef APP-PLUS
                //版本判断
-               await this.$u.post('updateV', {
+               await this.$u.post('/updateV', {
                    v:this.v
                }).then(res => {
                    if (res.errorCode === 0) {
@@ -102,14 +101,7 @@
                                }
                            }
                        });
-                   }
-                   if (res.errorCode === 20011) {
-                       uni.showToast({
-                           title: "当前已是最新版本",
-                           icon: "none"
-                       })
-                   }
-               
+                   }     
                })
                 //#endif
                

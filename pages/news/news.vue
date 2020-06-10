@@ -3,7 +3,7 @@
 		<!-- model -->
         <view v-for="(item,index) in list" :key="index" class="card animated pulse">
             <view class="title">{{item.title}}</view>
-            <view class="content">{{item.content}}</view>
+            <view v-html="item.content" class="content"></view>
             <view class="create_time">发布时间：{{item.create_time}}</view>
         </view>
 	</view>
@@ -12,6 +12,9 @@
 <script>
 	export default {
         onPullDownRefresh() {
+            // #ifdef  APP-PLUS
+            plus.nativeUI.toast("正在刷新数据...");
+            // #endif
             this.getData()
         },
         created(){
@@ -31,7 +34,8 @@
         methods:{
             async getData(){
                await this.$u.get('/get_news').then(res=>{
-                    this.list=res.data
+                    let listData=res.data;
+                 this.list=_.orderBy(listData,['create_time'], ['desc'])
                     uni.stopPullDownRefresh()
                 })
             }

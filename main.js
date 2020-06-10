@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
+let _ = require('lodash');
 Vue.config.productionTip = false
 //全局过滤器
 import * as filters from 'common/commonFilter.js'

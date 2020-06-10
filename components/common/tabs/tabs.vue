@@ -25,7 +25,7 @@
                     this.currentIndex=index
                     
                 }catch(e){
-                    console.log(e)
+                    
                 }
                 
             }

@@ -18,6 +18,7 @@
               }
           });
           // #endif
+        
        
          // console.log(this.$u.config.v);
         },
@@ -25,15 +26,14 @@
 
         },
         onHide: function() {
-
+// #ifdef  APP-PLUS
+            plus.nativeUI.toast("切换至后台运行");
+            // #endif
         },
         globalData: {
-        		 URL:"http://task.taskarea.top",
-        		 // URL:"http://api.taskarea.com",
+        		 // URL:"http://task.taskarea.top",
+        		 URL:"http://api.taskarea.com",
         	},
-            methods:{
-                
-            }
     }
 </script>
 

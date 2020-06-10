@@ -80,6 +80,9 @@
             };
         },
         onPullDownRefresh(){
+            // #ifdef  APP-PLUS
+            plus.nativeUI.toast("正在刷新数据...");
+            // #endif
               this.getData()
         },
         methods: {
@@ -197,7 +200,6 @@
                         titleH.boundingClientRect(data => {
                             let pH = this.pH;
                             this.navHeight = pH - data.top //计算高度：元素高度=窗口高度-元素距离顶部的距离（data.top）
-                            console.log(this.navHeight);
                         }).exec()
                     }
                 })

@@ -149,6 +149,9 @@
 <script>
     export default {
         onPullDownRefresh(){
+            // #ifdef  APP-PLUS
+            plus.nativeUI.toast("正在刷新数据...");
+            // #endif
              this.getdata()
         },
         data() {

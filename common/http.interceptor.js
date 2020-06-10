@@ -1,9 +1,12 @@
 const install = (Vue, vm) => {
     // 此为自定义配置参数，具体参数见上方说明
     Vue.prototype.$u.http.setConfig({
-        // baseUrl: 'http://api.taskarea.com/api/v1',
-        // baseUrl: 'http://task.taskarea.top/api/v1',
+        // #ifdef H5
         baseUrl: process.env.NODE_ENV === 'development'?'http://api.taskarea.com/api/v1':'http://task.taskarea.top/api/v1',
+        // #endif
+        // #ifdef APP-PLUS
+        baseUrl: 'http://task.taskarea.top/api/v1',
+        // #endif
         header: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
@@ -48,6 +51,9 @@ const install = (Vue, vm) => {
             // res为服务端返回值，可能有code，result等字段
             // 这里对res.result进行返回，将会在this.$u.post(url).then(res => {})的then回调中的res的到
             // 如果配置了originalData为true，请留意这里的返回值
+            if(res.data.errorCode === 0 ||res.data.errorCode === 20011 ) {
+                return res.data;
+            }
             if (res.data.errorCode === 10000) {
                 uni.showToast({
                     title: res.data.msg,
@@ -81,9 +87,7 @@ const install = (Vue, vm) => {
                 })
                  return false;
             }
-            if(res.data.errorCode === 0) {
-                return res.data;
-            }
+           
             if(res.data.errorCode === 20014) {
                 uni.showToast({
                     title: res.data.msg,

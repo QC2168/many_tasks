@@ -88,3 +88,6 @@ export const formatDate = (time, fmt) => {
 function padLeftZero(str) {
     return ('00' + str).substr(str.length)
 }
+export const numFilter=(value,number=2)=> {
+    return parseFloat(value).toFixed(number)
+}

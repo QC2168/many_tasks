@@ -80,7 +80,7 @@
         <!-- 发布按钮 -->
         <view class="pushBtn u-f-column" @tap="post">
             <view>发布</view>
-            <view class="payment">本次扣除 {{payment}}</view>
+            <view class="payment">本次扣除 {{payment|numFilter}}</view>
         </view>
     </view>
 </template>
