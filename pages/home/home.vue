@@ -19,7 +19,7 @@
                 <image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚钱
             </view>
         </view>
-        <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['点赞任务','悬赏任务']"></tabs>
+        <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
         <view class="uni-padding-wrap">
             <view class="page-section swiper">
                 <view class="page-section-spacing">
@@ -190,37 +190,13 @@
                 // })
             },
             async getData() {
-                // 检查新版本
-                  
-                //  #ifdef APP-PLUS
-                       await this.$u.post('/updateV', {
-                           v:plus.runtime.version
-                       }).then(res => {
-                        if(res.errorCode===0){
-                            // 新版本
-                            uni.showModal({
-                                title: '探索到新版本',
-                                content: res.data.content,
-                                success: (model)=>{
-                                    if (model.confirm) {
-                                      plus.runtime.openURL(res.data.url);
-                                    } 
-                                    if (model.cancel) {
-                                        plus.nativeUI.toast("建议更新到最新版本");
-                                    }
-                                }
-                            });
-                        }
-                               
-                             
-                       })
-                        //  #endif
+            
                 // 任务列表
                 await this.$u.get('/get_task_list').then(
                     res => {
                         if (res.errorCode !== 0) return;
                         let taskData =res.data.map((item) =>{
-                              item.price=parseInt(item.price);
+                                 item.price=parseFloat(item.price);
                          return item;
                         })
                            this.tasklist=_.orderBy(taskData,['price'], ['desc'])
@@ -232,7 +208,8 @@
                         if (res.errorCode !== 0) return;
                       
                          let dyTaskData =res.data.map((item) =>{
-                             item.price=parseInt(item.price);
+                       
+                             item.price=parseFloat(item.price);
                         return item;
                        })
                           this.dytasklist=_.orderBy(dyTaskData,['price'], ['desc'])

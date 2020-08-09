@@ -36,6 +36,8 @@ export const taskOrder = (value) => {
             return "自主取消";
         case 4:
             return "得提交数据";
+        case 5:
+            return "任务主取消";
         default:
             return "未知任务状态";
     }

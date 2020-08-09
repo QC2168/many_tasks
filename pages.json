@@ -6,9 +6,20 @@
     },
     "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
         {
+            "path" : "pages/rewardArea/rewardArea",
+         "style": {
+             "navigationBarTitleText": "互粉大厅",
+             "enablePullDownRefresh":true,
+             "app-plus":{
+                 // 隐藏滚动条
+                 "scrollIndicator":"none"
+                 }
+         }
+        },
+        {
             "path": "pages/home/home",
             "style": {
-                "navigationBarTitleText": "大厅",
+                "navigationBarTitleText": "任务大厅",
                 "enablePullDownRefresh":true,
                 "app-plus":{
                     // 隐藏滚动条
@@ -256,6 +267,16 @@
                     }
               
             }
+        },
+        {
+            "path": "pages/rewardDetail/rewardDetail",
+            "style": {
+                "navigationBarTitleText": "拉取红包中...",
+                "app-plus":{
+                    // 隐藏滚动条
+                    "scrollIndicator":"none"
+                    }
+            }
         }
      
         ,{
@@ -278,6 +299,16 @@
                  }
          }
         }
+        ,{
+            "path" : "pages/pushHb/pushHb",
+          "style": {
+              "navigationBarTitleText": "发布动态",
+               "app-plus":{
+                   // 隐藏滚动条
+                   "scrollIndicator":"none"
+                   }
+          }
+        }
     ],
 
     "globalStyle": {
@@ -291,16 +322,23 @@
         "selectedColor": "#000000",
         "borderStyle": "black",
         "backgroundColor": "#ffffff",
-        "list": [{
+        "list": [
+            {
+                "pagePath": "pages/rewardArea/rewardArea",
+                "iconPath": "static/images/tabbar/rewardArea.png",
+                "selectedIconPath": "static/images/tabbar/rewardArea_selected.png",
+                "text": "互粉大厅"
+            },
+            {
                 "pagePath": "pages/home/home",
                 "iconPath": "static/images/tabbar/home.png",
                 "selectedIconPath": "static/images/tabbar/home_selected.png",
-                "text": "大厅"
+                "text": "任务大厅"
             }, {
                 "pagePath": "pages/news/news",
                 "iconPath": "static/images/tabbar/news.png",
                 "selectedIconPath": "static/images/tabbar/news_selected.png",
-                "text": "消息"
+                "text": "系统消息"
             },
             {
                 "pagePath": "pages/profile/profile",

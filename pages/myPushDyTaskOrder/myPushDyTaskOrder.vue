@@ -16,7 +16,7 @@
                 <view>申请时间</view>
                 <view>{{item.create_time}}</view>
             </view>
-            <view v-if="item.status===0" @tap="openImage(item.check_pic)" class="btn u-f-ajc">
+            <view v-if="item.status===0" @tap="openImage(item.orderSn)" class="btn u-f-ajc">
                 <view>查看图片</view>
             </view>
             <view v-if="item.status===0" class="btns u-f">
@@ -68,18 +68,27 @@
                     this.getData(this.dy_task_id);
                 })
             },
-            openImage(pic){
-              uni.previewImage({
-                  urls:[this.URL+pic]
-              })  
-            },
             async getData(dy_task_id) {
                 await this.$u.get('/my_push_dy_task_order',{'dy_task_id_select':dy_task_id}).then(res=>{
                     if(res.errorCode===0){
                        this.orderList = res.data
                     }
                 })
-            }
+            },
+            async openImage(orderSn) {
+                await this.$u.post('/select_dy_order_pic', {
+                    orderSn
+                }).then(res => {
+                    let urls = []
+                    for (let i of res.data) {
+                        urls.push(this.URL + i.pic)
+                    }
+                    uni.previewImage({
+                        urls
+                    })
+                })
+            
+            },
         }
     }
 </script>

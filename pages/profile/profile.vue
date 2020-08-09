@@ -2,8 +2,8 @@
     <view v-if="userData.length!==0" :style="'height:'+view_height+'px'" :class="[mode?'profile':'profile linear-gradient']">
         <template v-if="mode">
             <view class="userinfo">
-                <view class="headimage">
-                    <image class="animated bounceIn" :src="URL+userData.user_pic" mode="aspectFit"></image>
+                <view class="headimage" >
+                    <image class="animated bounceIn" @tap="changeUserPic" :src="URL+userData.user_pic" mode="aspectFit"></image>
                 </view>
                 <view class="u-f-ajc">{{userData.username}}</view>
                 <template v-if="userData.privilege">
@@ -56,7 +56,7 @@
             <!-- model 头像 -->
             <view class="modelUser animated fadeIn">
                 <view class="userPic u-f-ajc">
-                    <image class="animated flipInX" :src="URL+userData.user_pic" mode="aspectFit"></image>
+                    <image class="animated flipInX" @tap="changeUserPic" :src="URL+userData.user_pic" mode="aspectFit"></image>
                 </view>
                 <view class="line">
                     <view class="one">{{userData.username}}</view>
@@ -122,7 +122,7 @@
                         <image src="../../static/images/profile/list/team.png" mode="aspectFill"></image>
                     </view>
 
-                    <view class="text">邀请赚钱</view>
+                    <view class="text">分享赚钱</view>
                 </view>
                 <view @tap="to('about')" class="line">
 
@@ -159,11 +159,21 @@
                 mode: false,
                 userData: [],
                 URL: getApp().globalData.URL,
-                view_height:0
+                view_height:0,
+                //  上传图片的header
+                updateUserPicHeader:{}
             };
         },
         created() {
-            this.getdata();
+             this.getdata();
+            // 为图片上传添加请求头
+              uni.getStorage({
+                  key:'token',
+                  success:(res)=>{
+                      this.updateUserPicHeader.token=res.data
+                  }
+              }) ;
+           
  uni.getSystemInfo({
                 success:(res)=>{
                     this.view_height=res.windowHeight;
@@ -204,6 +214,31 @@
                 uni.navigateTo({
                     url: "../login/login"
                 })
+            },
+            changeUserPic(){
+                uni.chooseImage({
+                    count:1, //默认9
+                    sizeType: [ 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album'], //从相册选择
+                    success:  (res) =>{
+                       const tempFilePaths = res.tempFilePaths;
+                       uni.uploadFile({
+                                  url: this.URL+'/api/v1/upload_user_pic', //接口地址
+                                   // url: '/api/v1/upload_user_pic', //接口地址
+                                  filePath: tempFilePaths[0],
+                                  name: 'user_pic',
+                                  header:this.updateUserPicHeader,
+                                  success: (res) => {
+                                      let data=JSON.parse(res.data)
+                                      uni.showToast({
+                                          title:data.msg,
+                                          icon:"none"
+                                      })
+                                         this.getdata()
+                                  }
+                              });
+                    },
+                });
             },
             register() {
                 uni.navigateTo({

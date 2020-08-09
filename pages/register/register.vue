@@ -5,6 +5,7 @@
             <image src="../../static/images/logo/logo.png" mode="widthFix"></image>
         </view>
         <view class="u-f-ajc" style="color: #eeeeee;">WELCOME TO USE TASKAREA</view>
+             <space size="20"></space>
         <view>
             <u-cell-group>
                 <u-field v-model="username" label="昵称" placeholder="请填写昵称" :error-message="checkUsername"></u-field>
@@ -19,15 +20,32 @@
                 </u-field> 
             </u-cell-group>
         </view>
-        <view class="btns">
+       <!--  <view class="btns">
             <u-button :ripple="true" ripple-bg-color="#909399" size="medium" shape="square" @tap="register">注册</u-button>
             <u-button @tap="back" :ripple="true" ripple-bg-color="#909399" size="medium" shape="square">返回</u-button>
+        </view> -->
+        <space size="50"></space>
+        <view class="btnBox">
+            <view class="content">
+                <wButton
+                bgColor="#2979ff"
+                			class="wbutton"
+                			text="立即注册"
+                			@click.native="register()"
+                		></wButton>
+            </view>
+            
         </view>
     </view>
 </template>
 
 <script>
+        import wButton from '../../components/watch-login/watch-button.vue' //button
+           import space from "../../components/space/space.vue"
     export default {
+        components:{
+            wButton,space
+        },
           onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
           if(option.INC){
               this.code=option.INC;

@@ -1,7 +1,7 @@
 <template>
 	<view :style="'height:'+view_height+'px'" class="news">
 		<!-- model -->
-        <view v-for="(item,index) in list" :key="index" class="card animated pulse">
+        <view v-for="(item,index) in list" :key="index" class="card animated fadeInUp">
             <view class="title">{{item.title}}</view>
             <view v-html="item.content" class="content"></view>
             <view class="create_time">发布时间：{{item.create_time}}</view>

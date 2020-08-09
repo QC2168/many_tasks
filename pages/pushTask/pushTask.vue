@@ -1,6 +1,6 @@
 <template>
     <view class="pushTask">
-        <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
+        <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
         <view v-show="taskType===1">
             <view>
                 <view class="tasklogo u-f-ajc">

@@ -1,6 +1,6 @@
 <template>
     <view class="myTaskOrder">
-        <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
+        <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
         <template v-if="taskType===0">
             <template v-if="dyOrderList.length!==0">
                 <view class="item u-f-ajc animated fadeInUp" v-for="(item,index) in dyOrderList" :key="index">
@@ -30,7 +30,7 @@
                 </view>
             </template>
             <template v-else>
-                <u-empty text="快去申请点赞任务吧!" mode="order"></u-empty>
+                <u-empty text="快去申请视频红包吧!" mode="order"></u-empty>
             </template>
         </template>
         <template v-if="taskType===1">
@@ -67,7 +67,7 @@
                 </view>
             </template>
             <template v-else>
-                <u-empty text="快去申请悬赏任务吧!" mode="order"></u-empty>
+                <u-empty text="快去申请悬赏红包吧!" mode="order"></u-empty>
             </template>
         </template>
        

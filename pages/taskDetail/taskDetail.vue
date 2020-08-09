@@ -1,9 +1,14 @@
 <template>
 	<view class="taskDetail">
-        <u-divider
+       <!-- <u-divider
         fontSize="30"
         height="60"
-        >任务数据</u-divider>
+        >任务数据</u-divider> -->
+        <lines>
+              <template v-slot:center>
+         任务数据
+              </template>
+        </lines>
 	<view class="wrap" justify="around">
 		<u-row gutter="16">
 			<u-col span="6">
@@ -29,20 +34,30 @@
 	    </u-row>
 	</view>
     <!-- 任务简介 -->
-    <u-divider
+<!--    <u-divider
     fontSize="30"
     height="60"
-    >任务简介</u-divider>
+    >任务简介</u-divider> -->
+    <lines>
+          <template v-slot:center>
+     任务简介
+          </template>
+    </lines>
     <view class="describe">
         <text>
         {{taskData.content}}
         </text>
     </view>
     <!-- 任务步骤 -->
-    <u-divider
+    <lines>
+          <template v-slot:center>
+     任务步骤
+          </template>
+    </lines>
+<!--    <u-divider
     fontSize="30"
     height="60"
-    >如何完成任务？</u-divider>
+    >如何完成任务？</u-divider> -->
     <view class="step" v-for="(item,index) in taskData.task_step_pic" :key="index">
         <view class="one u-f-ajc">任务操作步骤{{index+1}}</view>
         <view class="two u-f-ajc">{{item.text}}</view>
@@ -50,12 +65,14 @@
     </view>
     <!-- 报名任务 -->
     <view @tap="post(task_id)" class="signUp u-f-ajc">
-        报名该任务
+        <view class="u-f-ajc">报名该任务</view>
+       
     </view>
 	</view>
 </template>
 
 <script>
+        import lines from '@/components/common/lines/lines'
 	export default {
          onLoad:function (option) { //option为object类型，会序列化上个页面传递的参数
      this.getData(option.task_id)
@@ -63,6 +80,9 @@
             },
             created(){
     
+            },
+            components:{
+                  lines
             },
 		data() {
 			return {
@@ -95,6 +115,7 @@
 
 <style lang="scss" scoped>
     .taskDetail{
+                padding-bottom: 105rpx;
         .wrap {
         	padding: 24rpx;
             font-size: 28rpx;
@@ -126,20 +147,27 @@
                 }
             }
         }
-        .signUp{
-         height: 80rpx;
-         width: 100%;
-         background-color: #007AFF;
-         position: fixed;
-         bottom: 0;
-         left: 0;
-         color: white;
-         font-size: 30rpx;
-         font-family: Sans-serif;
-         font-weight: bold;
-         letter-spacing:10rpx;
-         z-index: 999;
+        .signUp {
+        height: 88rpx;
+        width: 100%;
+        background-color: #f5f5f5;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        color: white;
+        font-size: 30rpx;
+        font-family: Sans-serif;
+        font-weight: bold;
+        letter-spacing:10rpx;
+        z-index: 999;
+        view{
+            background-color: #007AFF;
+            width: 600rpx;
+            height: 60rpx;
+            border-radius: 30rpx;
         }
+        }
+
     }
 
 </style>

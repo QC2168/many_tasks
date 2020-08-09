@@ -17,6 +17,9 @@
                         <view>申请时间</view>
                         <view>{{item.create_time}}</view>
                     </view>
+                    <view v-if="item.status===4" class="btns u-f">
+                        <view class="yes u-f-ajc" style="background-color:  #e30003;" @tap="forceCancel(item.orderSn)">强制取消该订单</view>
+                    </view>
                     <view v-if="item.status===0" class="btns u-f">
                         <view class="yes u-f-ajc" style="background-color:  #007AFF;" @tap="openImage(item.orderSn)">查看图片</view>
                         <view class="no u-f-ajc" style="background-color:  #c0e82f;" @tap="openData(item)">查看数据</view>
@@ -67,6 +70,17 @@
             };
         },
         methods: {
+            forceCancel(orderSn){
+                uni.showModal({
+                    title: '是否确认强制取消？',
+                    content: '申请用户可能正在完成任务！谨慎操作！',
+                    success:  (res)=> {
+                        if (res.confirm) {
+                           this.changeStatus(5,orderSn)
+                        }
+                    }
+                });
+            },
             async changeStatus(status, orderSn) {
                 await this.$u.post('/change_order_status', {
                     status,

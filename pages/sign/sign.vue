@@ -6,20 +6,10 @@
         <view class="toSign u-f-ajc">
             <u-button :plain="signData.isSign===0?false:true" @tap="sign" size="medium" shape="circle" type="warning">{{signData.isSign===0?'一键签到':'已签到'}}</u-button>
         </view>
-        <view class="data u-f">
-            <view class="one">
-                <view class="key u-f-ajc">已持续签到</view>
-     
-                <view class="value u-f-ajc">{{signData.continued}}</view>
-            </view>
-            <view class="yline"></view>
-            <view class="two">
-                <view class="key u-f-ajc">持续签到</view>
- 
-            <view class="value u-f-ajc">1</view>
-            </view>
-            
+        <view v-if="signData.continued>1" class="data u-f-ajc">
+            您已持续签到{{signData.continued}}天
         </view>
+
 	</view>
 </template>
 
@@ -82,27 +72,12 @@
         margin: 30rpx auto;
         height: 140rpx;
         width: 85%;
+        font-size: 40rpx;
+        letter-spacing:5rpx;
         background-color: white;
         border-radius: 12rpx;
-        box-shadow: 2rpx 2rpx 4rpx #cacaca;
-        .one,.two{
-            flex:1;
-            .key{
-margin-top: 14rpx;
-                color: #eadd26;
-                 font-size: 26rpx;
-            }
-            .value{
-                 font-size: 38rpx;
-                 font-weight: bold;
-                 height: 60%;
-            }
-        }
-        .yline{
-         width: 1rpx;
-         height: 100%;
-        background:linear-gradient(#efefef,#b6b6b6,#efefef);
-        }
+        box-shadow: 2rpx 2rpx 5rpx #cacaca;
+        
        
     }
 }

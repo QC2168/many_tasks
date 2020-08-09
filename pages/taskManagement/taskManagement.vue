@@ -1,6 +1,6 @@
 <template>
     <view class="taskManagement">
-         <tabs @changeTabIndex="changeTabIndex" :list="['抖音点赞','悬赏任务']"></tabs>
+         <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
          <template v-if="taskType===0">
              <template v-if="dytaskList.length!==0">
                  <view class="item animated fadeInUp" v-for="(item,index) in dytaskList" :key="index">

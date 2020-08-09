@@ -1,14 +1,14 @@
 {
-    "name" : "任务联盟",
+    "name" : "互粉神器",
     "appid" : "__UNI__43907E6",
-    "description" : "这是一款多兼职模式的平台App",
-    "versionName" : "1.2.1",
-    "versionCode" : 121,
+    "description" : "这是一款多模式的平台App",
+    "versionName" : "1.5",
+    "versionCode" : 150,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
         "usingComponents" : true,
-        "nvueCompiler" : "任务多多",
+        "nvueCompiler" : "互粉神器",
         "compilerVersion" : 3,
         "splashscreen" : {
             "alwaysShowBeforeRender" : true,
@@ -48,7 +48,8 @@
                 "permissionPhoneState" : {
                     "request" : "always",
                     "prompt" : "为保证您正常、安全地使用，需要获取设备识别码（部分手机提示为获取手机号码）使用权限，请允许。"
-                }
+                },
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
             },
             /* ios打包配置 */
             "ios" : {},
@@ -96,6 +97,9 @@
                     "hdpi" : ""
                 }
             }
+        },
+        "uniStatistics" : {
+            "enable" : true
         }
     },
     /* 快应用特有相关 */
@@ -109,16 +113,28 @@
             "postcss" : true,
             "minified" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
     },
     "mp-alipay" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
     },
     "mp-baidu" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
     },
     "mp-toutiao" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
     },
     "h5" : {
         "router" : {
@@ -129,10 +145,21 @@
                 "enable" : false
             }
         },
-        "title" : "任务联盟",
+        "title" : "互粉神器",
         "devServer" : {
             "https" : false
         },
-        "domain" : "www.taskarea.top"
+        "domain" : "www.taskarea.top",
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "uniStatistics" : {
+        "enable" : true
+    },
+    "mp-qq" : {
+        "uniStatistics" : {
+            "enable" : false
+        }
     }
 }

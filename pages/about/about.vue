@@ -27,6 +27,7 @@
         <view @tap="tochangepassword" class="tochangepassword u-f-ajc">
             点击修改账号密码
         </view>
+       
     </view>
 </template>
 
