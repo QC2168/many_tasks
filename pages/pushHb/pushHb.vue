@@ -16,13 +16,14 @@
            </view>
            <view class="amountList">
      <u-field @click="selectAmount=true" v-model="currentAmount.label" 
-     		:disabled="true" label="红包金额" placeholder="请选择金额"
+     		:disabled="true" label="金币" placeholder="请选择金币数量"
      		right-icon="arrow-down-fill"
      		>
      		</u-field>
             <u-field
             			v-model="quota"
             			label="红包数量"
+                        :disabled="quotaStatus"
             		>
             		</u-field>
              <u-select v-model="selectAmount" mode="single-column" :list="Amountlist" @confirm="clickItem"></u-select>
@@ -58,6 +59,7 @@
                      token: null
                  },
                  quota:10,
+                 quotaStatus:false,
                  currentAmount:{label:"",value:""},
                  selectAmount: false,
                  				Amountlist: [
@@ -76,6 +78,12 @@
             			clickItem(e) {
             						this.currentAmount.label = e[0].label;
             						this.currentAmount.value = e[0].value;
+                                    if(e[0].value==0){
+                                        this.quota=10
+                                        this.quotaStatus=true
+                                    }else{
+                                          this.quotaStatus=false
+                                    }
             					},
             //图片上传失败
             error(res) {
@@ -95,26 +103,27 @@
                             this.lists=lists
             			},
                         post(){
-                            if(typeof this.quota !=='number'){
+                            this.quota=parseFloat(this.quota)
+                            if(typeof this.quota !=='number' || this.quota==='NaN'){
                                 uni.showToast({
-                                    title:"金额有误",
+                                    title:"数量有误",
                                     icon:"none"
                                 })
-                                return;
+                                return ;
                             }
                             if(this.input.length===0 || this.input==false){
                                 uni.showToast({
                                     title:"内容不能为空",
                                     icon:"none"
                                 })
-                                 return;
+                                return ;
                             }
                             if(this.currentAmount.label.length===0){
                                 uni.showToast({
-                                    title:"红包金额不能为空，可以选择免费",
+                                    title:"红包金币不能为空，可以选择免费",
                                     icon:"none"
                                 })
-                                 return;
+                          return ;
                             }
                             
                             this.$u.post('/push_hb',{

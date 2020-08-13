@@ -10,7 +10,7 @@
         <!-- #endif -->
         <!-- #ifdef H5 -->
         <view class="u-f-ajc v">
-            当前版本 {{v}}
+            当前版本 H5
         </view>
         <!-- #endif -->
        

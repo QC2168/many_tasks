@@ -2,6 +2,9 @@
     <view class="rewardArea">
         <u-modal v-model="updateModal" @confirm="downloadApp" show-cancel-button :content="updateModalContent"></u-modal>
         <u-notice-bar v-if="noticeList.length" mode="vertical" :list="noticeList"></u-notice-bar>
+        <view class="wrap">
+            <u-swiper name="img_url" :list="swiperlist"></u-swiper>
+        </view>
         <view class="rewardPanl" v-for="(item) in hbList" :key="item.hd_id" @tap="toDetail(item.hb_id)">
             <view class="userinfo u-f-ac">
                 <image class="userPic" :src="URL+item.user.user_pic" mode="scaleToFill"></image>
@@ -12,6 +15,7 @@
 
                 </view>
                 <view class="tag">
+                    <u-tag v-if="item.priority>=1" :text="'置顶'" shape="circle" mode="dark" type="error" size="mini" />
                     <u-tag :text="' '+item.tag+' '" shape="circle" mode="dark" type="error" size="mini" />
                 </view>
             </view>
@@ -76,21 +80,30 @@
                 URL: getApp().globalData.URL,
                 noticeList: [],
                 hbList: [],
+                swiperlist: [],
                 // page index
                 index: 1,
+                // last_page
+                last_page:1
                 //#ifdef APP-PLUS
                 v: plus.runtime.version
                 //#endif
             };
         },
+        onReachBottom(){
+            // 到底刷新
+            // 获取下一页
+            this.getNextData()
+        },
         onPullDownRefresh() {
             this.getData();
-
+            this.index= 1
+            this.last_page= 1
         },
         methods: {
             async getDownloadAppAddress() {
                 await this.$u.post('/updateV', {
-                    v: '1.0.0'
+                    v: this.v
                 }).then(res => {
                     this.updateModal = true;
                     this.appAddress = res.data.url;
@@ -109,6 +122,19 @@
                 this.$u.route('/pages/rewardDetail/rewardDetail', {
                     hb_id
                 });
+            },
+            async getNextData(){
+                if(this.index<this.last_page){
+                     this.index++;
+                     // 获取红包列表
+                     await this.$u.get('/get_hb_area_list', {
+                         index: this.index
+                     }).then(res => {
+                         this.hbList = [...this.hbList,...res.data.data];
+                     })
+                }
+               
+             
             },
             async getData() {
                 // 检查新版本
@@ -148,9 +174,30 @@
                 await this.$u.get('/get_hb_area_list', {
                     index: this.index
                 }).then(res => {
-                    this.hbList = res.data;
+                    this.hbList = res.data.data;
+                    this.last_page=res.data.last_page
                     uni.stopPullDownRefresh()
                 })
+                // 获取消息
+                 await this.$u.get('/get_message').then(res => {
+                   if(res.data===null||res.data==='') return;
+                   uni.showModal({
+                       content:res.data,
+                       title:"消息",
+                       showCancel:false
+                   })
+                 })
+                // 获取轮播图
+                await this.$u.get('/get_home_pic').then(
+                    res => {
+                        if (res.errorCode !== 0) return;
+                        //给url加上前缀
+                        for (let i of res.data) {
+                            // 判断是不是网络图片
+                            if (!this.$u.test.url(i.img_url)) i.img_url = this.URL + i.img_url;
+                        }
+                        this.swiperlist = res.data
+                    })
             }
         },
 
@@ -159,6 +206,9 @@
 
 <style lang="scss">
     .rewardArea {
+        .wrap {
+            padding: 20rpx;
+        }
         .rewardPanl {
             padding: 10rpx 25rpx;
             margin: 5rpx 0 14px 0;
@@ -181,6 +231,9 @@
 
                 .tag {
                     margin: 0 0 0 10rpx;
+                    view{
+                        margin: 0 10rpx 0 0;
+                    }
                 }
 
                 .rewardIconBox {

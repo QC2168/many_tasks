@@ -35,10 +35,10 @@
                     this.goods = res.data.map(o=>{return{
                         '特性等级':o.level, 
                         '提现手续费':o.out*100+'%',
-                        '发布悬赏任务技术服务费':o.push_task+'元',
-                        '发布抖音任务技术服务费':o.push_dy_task+'元',
+                        '发布悬赏任务技术服务费':o.push_task+'金币',
+                        '发布抖音任务技术服务费':o.push_dy_task+'金币',
                         '开通时长':o.term+'天',
-                        '开通价格':o.price+'元',
+                        '开通费用':o.price+'金币',
                         '开通条件':'粉丝达到'+o.fans+'位',
                         }});
                     });

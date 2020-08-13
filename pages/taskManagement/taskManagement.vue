@@ -1,6 +1,6 @@
 <template>
     <view class="taskManagement">
-         <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
+         <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包','红包广告']"></tabs>
          <template v-if="taskType===0">
              <template v-if="dytaskList.length!==0">
                  <view class="item animated fadeInUp" v-for="(item,index) in dytaskList" :key="index">
@@ -51,6 +51,33 @@
                 <u-empty text="快去发布悬赏任务吧" mode="order"></u-empty>
             </template>
         </template>
+        <template v-if="taskType===2">
+            <template v-if="hbList.length!==0">
+                <view class="item animated fadeInUp" v-for="(item,index) in hbList" :key="index">
+                    <view class="Detail u-f">
+                      <view class="pic u-f-ajc">
+                            <image :src="URL+item.user.user_pic" mode="aspectFill"></image>
+                        </view>
+                        <view class="line">
+                            <view>红包类型:  {{item.hb_amount==0?"免费红包":"付费红包"}}</view>
+                            <view>红包名额:  {{item.remaining_quota}} / {{item.quota}}</view>
+                            <view>红包余额:  {{item.remaining_hb_amount}} / {{item.hb_amount}}</view>
+                            <view>置顶状态:  {{item.priority>0?"置顶中":"未置顶"}}</view>
+                            <view>创建时间:  {{item.create_time}}</view>
+                            <!-- <view>状态:  {{item.show|taskStatus?}}</view> -->
+                        </view>
+                    </view>
+                    <view class="btn u-f-ajc">
+                        <view class="open u-f-ajc" @tap="open(item.hb_id,3)">查看</view>
+                        <view class="top u-f-ajc" @tap="top()">置顶</view> 
+                        <view class="del u-f-ajc" @tap="del(item.hb_id,3)">下架</view>
+                    </view>
+                </view>
+            </template>
+            <template v-else>
+                <u-empty text="快去发布红包吧" mode="order"></u-empty>
+            </template>
+        </template>
        
 
     </view>
@@ -70,6 +97,7 @@
                 taskType:0,
                 dytaskList: [],
                 taskList: [],
+                hbList: [],
                 URL:getApp().globalData.URL,
             };
         },
@@ -86,39 +114,31 @@
                 await this.$u.get('/my_push_task').then(res => {
                     this.taskList = res.data
                 })
+                await this.$u.get('/my_Hb').then(res => {
+                    this.hbList = res.data
+                })
             },
             del(id,type){
-                //抖音
-                if(type===1){
-                    uni.showModal({
+                uni.showModal({
                         title:"提示",
                         content:"确认下架？",
                         cancelText:"继续展示",
                         confirmText:"下架",
                         success:(res)=>{
                             if(res.confirm){
-                                this.$u.post('/delete_dy_task',{dy_task_id:id}).then(res=>{
-                                    if(res.errorCode===0){
-                                        uni.showToast({
-                                            title:"下架成功"
-                                        })
-                                    }
-                                    this.getData()
-                                })
-                            }
-                            
-                        }
-                    })
-                }
-                //悬赏
-                if(type===2){
-                    uni.showModal({
-                        title:"提示",
-                        content:"确认下架？",
-                        cancelText:"继续展示",
-                        confirmText:"下架",
-                        success:(res)=>{
-                            if(res.confirm){
+                                // dy
+                                if(type===1){
+                                    this.$u.post('/delete_dy_task',{dy_task_id:id}).then(res=>{
+                                        if(res.errorCode===0){
+                                            uni.showToast({
+                                                title:"下架成功"
+                                            })
+                                        }
+                                        this.getData()
+                                    })
+                                }
+                                //悬赏
+                                if(type===2){
                                 this.$u.post('/delete_task',{task_id:id}).then(res=>{
                                     if(res.errorCode===0){
                                         uni.showToast({
@@ -127,12 +147,24 @@
                                     }
                                     this.getData()
                                 })
-                            }
-                            
-                        }
+                            }}
+                            // 红包
+                            if(type===3){
+                            this.$u.post('/delete_hb',{hb_id:id}).then(res=>{
+                                if(res.errorCode===0){
+                                    uni.showToast({
+                                        title:"下架成功"
+                                    })
+                                }
+                                this.getData()
+                            })
+                        }}
                     })
-                }
+                
 
+            },
+            top(){
+                console.log('top');
             },
             open(id,type){
                 if(type===1){
@@ -145,7 +177,11 @@
                     	task_id:id
                     });
                 }
-              
+              if(type===3){
+                  this.$u.route('/pages/rewardDetail/rewardDetail', {
+                      hb_id:id
+                  });
+              }
             }
         }
     }
@@ -190,6 +226,7 @@
                 box-shadow: 5rpx 5rpx -5rpx #EEEEEE;
   font-size: 30rpx;
                 .open,
+                .top,
                 .del {
                     box-shadow: 5rpx 5rpx -5rpx #EEEEEE;
                     height: 80rpx;
@@ -199,6 +236,10 @@
                 .open {
                     background-color: #e5d412;
                     border-bottom-left-radius: 15rpx;
+                    color: black;
+                }
+                .top {
+                    background-color: #10a0ff;
                     color: black;
                 }
 

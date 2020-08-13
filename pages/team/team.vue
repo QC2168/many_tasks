@@ -5,7 +5,7 @@
             <text class="xb-share-title">我的邀请码</text>
             <text class="xb-share-code">{{team.code}}</text>
             <text class="xb-share-desc">扫描该二维码注册 无需输入邀请码</text>
-            <text class="xb-share-desc">每邀一好友至少得 0.3元</text>
+            <text class="xb-share-desc">每邀一好友至少得 0.3金币</text>
             <!-- <uni-qrcode class="xb-share-margin-top" cid="qrcode1446" text="uQRCode" foregroundColor="#ECA26A" logo="/static/logo.png" makeOnLoad /> -->
             <canvas canvas-id="qrcode" style="width: 160px;height: 160px;" />
             <button @tap="saveQrCode" class="xb-share-button xb-share-margin-top">保存二维码</button>

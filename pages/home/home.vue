@@ -1,9 +1,11 @@
 <template>
     <view class="home">
         <u-notice-bar v-if="noticeList.length" mode="horizontal" :list="noticeList"></u-notice-bar>
-        <view class="wrap">
+        <space size="12" />
+ <!--       <view class="wrap">
             <u-swiper name="img_url" :list="swiperlist"></u-swiper>
-        </view>
+        </view> -->
+        
         <!-- 任务模块 -->
         <view class="taskmodel u-f">
             <view @tap="to('shortVideo')">
@@ -13,10 +15,10 @@
                 <image src="../../static/images/home/film.png" mode="aspectFit"></image>电影代理
             </view>
             <view @tap="to('cart')">
-                <image src="../../static/images/home/cart.png" mode="aspectFit"></image>购物赚钱
+                <image src="../../static/images/home/cart.png" mode="aspectFit"></image>购物赚币
             </view>
             <view @tap="to('game')">
-                <image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚钱
+                <image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚币
             </view>
         </view>
         <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
@@ -34,7 +36,7 @@
                                         </view>
                                         <view class="center">
                                             <view>{{item.title}}</view>
-                                            <view>佣金：{{item.price}}</view>
+                                            <view>金币：{{item.price}}</view>
                                         </view>
                                         <view class="right u-f-ajc">
                                             <u-button @tap="openDyTaskDetail(item.dy_task_id)" type="warning" size="mini"
@@ -113,13 +115,14 @@
 
 <script>
     import tabs from "../../components/common/tabs/tabs.vue";
+    import space from "../../components/space/space.vue"
     export default {
         onReady() {
             
             
         },
         components: {
-            tabs
+            tabs,space
         },
         onPullDownRefresh() {
             // #ifdef  APP-PLUS
@@ -194,7 +197,6 @@
                 // 任务列表
                 await this.$u.get('/get_task_list').then(
                     res => {
-                        if (res.errorCode !== 0) return;
                         let taskData =res.data.map((item) =>{
                                  item.price=parseFloat(item.price);
                          return item;
@@ -205,7 +207,6 @@
                 // 抖音任务列表
                 await this.$u.get('/get_dy_task_list').then(
                     res => {
-                        if (res.errorCode !== 0) return;
                       
                          let dyTaskData =res.data.map((item) =>{
                        
@@ -218,7 +219,6 @@
                 // 获取轮播图
                 await this.$u.get('/get_home_pic').then(
                     res => {
-                        if (res.errorCode !== 0) return;
                         //给url加上前缀
                         for (let i of res.data) {
                             // 判断是不是网络图片
@@ -229,13 +229,14 @@
 
                 // 获取notic
                 await this.$u.get('/get_notice_bar').then(res => {
-                    if (res.errorCode !== 0) return;
                    this.noticeList=[];
                this.noticeList.push(res.data)
     
-                    uni.stopPullDownRefresh()
+                   
                 })
+          
               await this.setScrollHeight()
+              await uni.stopPullDownRefresh()
             },
             openTaskDetail(task_id) {
                 this.$u.route('pages/taskDetail/taskDetail', {
@@ -305,8 +306,8 @@
                     .item {
                         margin: 0 auto 15rpx auto;
                         border-radius: 15rpx;
-                        border: .4rpx solid black;
-                        box-shadow: 4rpx 4rpx 8rpx #EEEEEE;
+                        border: .5rpx solid #EEEEEE;
+                        box-shadow: 4rpx 4rpx 9rpx #EEEEEE;
                         width: 90%;
                         height: 120rpx;
                         padding: 10rpx;

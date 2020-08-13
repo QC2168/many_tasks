@@ -4,7 +4,7 @@
         <view v-for="(item,index) in list" :key="index" class="card animated fadeInUp">
             <view class="title">{{item.title}}</view>
             <view v-html="item.content" class="content"></view>
-            <view class="create_time">发布时间：{{item.create_time}}</view>
+            <view class="create_time">{{item.create_time}}</view>
         </view>
 	</view>
 </template>
@@ -45,7 +45,7 @@
 
 <style lang="scss" scoped>
 .news{
-    background-color: #e6e6e6;
+    background-color: #f5f5f5;
 
     width: 100%;
     height: 100vh;
@@ -54,25 +54,24 @@
      width: 90%;
      background-color: white;
      border-radius: 15rpx;
-     box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
+     box-shadow: 2rpx 2rpx 10rpx #EEEEEE;
      padding:10rpx 20rpx;
-       margin: 0 auto 30rpx auto;
+       margin: 0 auto 35rpx auto;
      .title{
-         margin: 10rpx 0;
-         font-size: 34rpx;
+         margin: 12rpx 0 38rpx 0;
+         font-size: 36rpx;
          text-align: center;
-         margin-bottom: 10rpx;
      }
      .content{
          font-size: 26rpx;
          text-align: justify;
-         
      }
      .create_time{
          font-size: 20rpx;
-         text-align: center;
+         text-align: right;
          color: grey;
-         margin: 18rpx 0;
+         margin: 45rpx 0 10rpx 0;
+         padding: 0 10rpx 0 0;
      }
  }   
 }

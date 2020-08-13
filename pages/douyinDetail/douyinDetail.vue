@@ -12,7 +12,7 @@
         <view class="wrap" justify="around">
             <u-row gutter="16">
                 <u-col span="6">
-                    <view class="demo-layout bg-purple u-f-ajc">佣金</view>
+                    <view class="demo-layout bg-purple u-f-ajc">金币</view>
                 </u-col>
                 <u-col span="6">
                     <view class="demo-layout bg-purple-light u-f-ajc">剩余名额</view>
@@ -64,7 +64,7 @@
         <!-- #endif -->
         <lines>
             <template v-slot:center>
-                上传点赞图证
+                上传任务图证
             </template>
         </lines>
         <!-- <u-divider fontSize="30" height="60">上传点赞图证</u-divider> -->

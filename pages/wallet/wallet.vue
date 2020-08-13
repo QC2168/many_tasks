@@ -3,7 +3,7 @@
 
         <view class="mywallet u-f-ajc">
             <view>
-                <view class="u-f-ajc a">账户总金额</view>
+                <view class="u-f-ajc a">账户总金币</view>
                 
                 <view class="u-f-ajc a">{{data.wallet}}元</view>
                 <view class="u-f-ajc bind">已绑定支付宝账户 {{bind}}</view>
@@ -14,7 +14,7 @@
         </view>
         <view class="whiteBox">
             <view class="inpBox u-f-ajc">
-                                <input type="text" placeholder="请输入充值卡密 / 提现金额" v-model="number" />
+                                <input type="text" placeholder="请输入充值卡密 / 提现金币" v-model="number" />
             </view>
             
             <view class="out u-f-ajc">
@@ -132,14 +132,14 @@
             async out() {
                 if(this.$u.test.empty(this.number)){
                    uni.showToast({
-                       title: "请输入提现金额",
+                       title: "请输入提现金币",
                        icon: 'none'
                    })
                    return; 
                 }
                 if(!(this.$u.test.digits(this.number))){
                    uni.showToast({
-                       title: "请输入正确的提现金额",
+                       title: "请输入正确的提现金币",
                        icon: 'none'
                    })
                    return; 
@@ -153,7 +153,7 @@
                 }
                 if ((this.number % 10) != 0 || this.number == 0) {
                     uni.showToast({
-                        title: "提现金额必须为10倍",
+                        title: "提现金币必须为10倍",
                         icon: 'none'
                     })
                     return;

@@ -4,7 +4,7 @@
         <view class="u-f-ajc logobox">
             <image src="../../static/images/logo/logo.png" mode="widthFix"></image>
         </view>
-        <view class="u-f-ajc" style="color: #e2e2e2;">WELCOME TO USE TASKAREA</view>
+        <view class="u-f-ajc" style="color: #e2e2e2;">WELCOME TO USE FANS</view>
         <view class="inputBox u-f">
             <view class="content">
                 <wInput
@@ -39,7 +39,7 @@
         <view class="btnBox">
             <view class="content">
                 <wButton
-                bgColor="#2979ff"
+                bgColor="#D6AD60"
                 			class="wbutton"
                 			text="登录"
                 			@click.native="login()"

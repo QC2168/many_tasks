@@ -65,7 +65,7 @@
          },
          // 任务步骤图上传成功
          taskstepPicSuccess(data){
-             let data2 = JSON.parse(data)
+             let data2 = data
              if (data2.errorCode === 0) {
                  this.currentPushTaskBoxData.pic=data2.data;
                   this.currentPushTaskBoxData.isImg = true;

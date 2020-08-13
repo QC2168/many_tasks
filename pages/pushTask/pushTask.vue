@@ -10,7 +10,7 @@
                     <u-cell-group>
                         <u-field v-model="taskData.title" label="任务标题" placeholder="请填写任务标题">
                         </u-field>
-                        <u-field v-model="taskData.price" label="价格" placeholder="请填写派发价格">
+                        <u-field v-model="taskData.price" label="金币" placeholder="请填写每单派发金币">
                         </u-field>
                         <u-field v-model="taskData.quota" label="数量" placeholder="请填写发放任务数量">
                         </u-field>
@@ -18,7 +18,7 @@
                         </u-field>
                     </u-cell-group>
                     <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">每一单收取
-                        {{taskServePrice}}元作为平台服务费</view>
+                        {{taskServePrice}}金币作为平台服务费</view>
                 </view>
                 <!-- 预览步骤 -->
                 <u-divider height="100">上传任务步骤</u-divider>
@@ -56,7 +56,7 @@
                    </u-field>
                    <u-field v-model="formData.dy_url" label="视频链接" placeholder="请填写抖音分享链接">
                    </u-field>
-                   <u-field v-model="formData.price" label="价格" placeholder="请填写派发价格">
+                   <u-field v-model="formData.price" label="金币" placeholder="请填写每单派发金币">
                    </u-field>
                    <u-field v-model="formData.quota" label="数量" placeholder="请填写发放任务数量">
                    </u-field>
@@ -64,7 +64,7 @@
                    </u-field>
                </u-cell-group>
                <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">每一单收取
-                   {{dytaskServePrice}}元作为平台服务费</view>
+                   {{dytaskServePrice}}金币作为平台服务费</view>
                <u-divider height="110">上传视频图片</u-divider>
                <view class="uploadPicBox u-f-ajc">
                    <u-upload :auto-upload="false" 
@@ -207,13 +207,30 @@
                     })
                     return false;
                 };
-                if (this.$u.test.empty(this.formData.price)) {
+                if (this.formData.title.length<4 || this.formData.title.length>10) {
                     uni.showToast({
-                        title: "你还没有填写点赞价格",
+                        title: "标题只能是4-10字符之间",
                         icon: "none"
                     })
                     return false;
                 };
+                if (this.$u.test.empty(this.formData.price)) {
+                    uni.showToast({
+                        title: "你还没有填写点赞金币",
+                        icon: "none"
+                    })
+                    return false;
+                };
+               this.formData.price=parseFloat(this.formData.price);
+               if(typeof this.formData.price !=='number' || this.formData.price=='NaN'){
+                
+                   uni.showToast({
+                       title:"金币数量有误",
+                       icon:"none"
+                   })
+                    this.formData.price=""
+                   return false;
+               }
                 if (this.$u.test.empty(this.formData.dy_url)) {
                     uni.showToast({
                         title: "你还没有填写视频链接",
@@ -228,6 +245,16 @@
                     })
                     return false;
                 };
+                this.formData.quota=parseFloat(this.formData.quota)
+                if(typeof this.formData.quota !=='number' || this.formData.quota=='NaN'){
+                   
+                    uni.showToast({
+                        title:"数量有误",
+                        icon:"none"
+                    })
+                     this.formData.quota=""
+                    return false;
+                }
                 if (this.$u.test.empty(this.formData.content)) {
                     uni.showToast({
                         title: "你还没有填写任务说明",
@@ -251,16 +278,17 @@
                     })
                     return false;
                 };
-                if (this.taskData.title.length > 10 ) {
+                if (this.taskData.title.length<2 || this.taskData.title.length>10) {
                     uni.showToast({
-                        title: "标题太长了",
+                        title: "标题只能是2-10字符之间",
                         icon: "none"
                     })
                     return false;
                 };
+           
                 if (this.$u.test.empty(this.taskData.price)) {
                     uni.showToast({
-                        title: "你还没有填写任务价格",
+                        title: "你还没有填写任务金币",
                         icon: "none"
                     })
                     return false;
@@ -272,6 +300,16 @@
                     })
                     return false;
                 };
+                this.taskData.quota=parseFloat(this.taskData.quota)
+                if(typeof this.taskData.quota !=='number' || this.taskData.quota=='NaN'){
+                    uni.showToast({
+                        title:"数量有误",
+                        icon:"none"
+                    })
+                    this.taskData.quota=""
+                    
+                    return false;
+                }
                 if (this.$u.test.empty(this.taskData.content)) {
                     uni.showToast({
                         title: "你还没有填写任务说明",
@@ -279,6 +317,16 @@
                     })
                     return false;
                 };
+                 this.taskData.price=parseFloat(this.taskData.price)
+                if(typeof this.taskData.price !=='number'|| this.taskData.price=='NaN'){
+                     
+                    uni.showToast({
+                        title:"金币数量有误",
+                        icon:"none"
+                    })
+                    this.taskData.price=""
+                    return false;
+                }
                 // 验证是否有步骤图片
                 if (this.$u.test.empty(this.taskStepList)) {
                     uni.showToast({
@@ -291,6 +339,7 @@
             },
             async postTask(){
                 if(!this.taskcheckParam())return;
+              
                await this.$u.post('/push_task',{
                       title:this.taskData.title,
                       price:this.taskData.price,
@@ -319,7 +368,7 @@
             },
             //抖音图片上传成功 任务发布完成
             success(data) {
-                let data2 = JSON.parse(data)
+                let data2 = data
                  if(!this.response(data2)) return;
                 if (data2.errorCode === 0) {
                     uni.showToast({
@@ -357,13 +406,6 @@
                     return;
                 }
             },
-            // 悬赏任务步骤图上传成功
-            taskstepPicSuccess(data){
-                let data2 = JSON.parse(data)
-                if (data2.errorCode === 0) {
-                    this.currentPushTaskBoxData.pic=data2.data;
-                }
-            },
             //图片上传失败
             error(res) {
                 uni.showToast({
@@ -378,13 +420,6 @@
             },
             remove(index) {
                 this.isImg = false
-            },
-            // 悬赏任务页
-            taskComplete(list) {
-                this.currentPushTaskBoxData.isImg = true
-            },
-            taskRemove(index) { 
-                this.currentPushTaskBoxData.isImg = false
             },
             
             // 粘贴url
