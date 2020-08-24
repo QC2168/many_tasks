@@ -59,7 +59,7 @@
         <!-- #ifdef APP-PLUS -->
         <view class="opendouyinbox u-f-ajc">
             <u-button shape="circle" v-show="showCopyBtn" type="success" size="medium" @tap="copy()">复制分享链接</u-button>
-            <u-button shape="circle" type="success" size="medium" @tap="open()">跳转到指定视频中</u-button>
+            <u-button shape="circle" type="success" size="medium" @longtap="showCopyBtn=true" @tap="open()">跳转到指定视频中</u-button>
         </view>
         <!-- #endif -->
         <lines>
@@ -69,7 +69,7 @@
         </lines>
         <!-- <u-divider fontSize="30" height="60">上传点赞图证</u-divider> -->
         <view class="uploadimg u-f-ajc">
-            <u-upload ref="uUpload" max-size="2097152" max-count="6" :size-type="['compressed']" :action="this.URL+'/api/v1/upload_dy_task_order_pic'"
+            <u-upload ref="uUpload" max-size="5242880" max-count="6" :size-type="['compressed']" :action="this.URL+'/api/v1/upload_dy_task_order_pic'"
                 @on-uploaded="onUploaded" @on-error="error" @on-oversize="oversize" name='pic' :header="headerData"></u-upload>
             <!-- 
             <u-upload 
@@ -219,7 +219,7 @@
             this.pic_list=[];
             this.filesArr.forEach((item)=>{
                 //将图片路径push到要上传的列表
-                let res=JSON.parse(item.response)
+                let res=item.response
              this.pic_list.push(res.data)
             })
             // 发送请求

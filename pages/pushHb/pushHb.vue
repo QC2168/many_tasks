@@ -4,7 +4,7 @@
             <textarea v-model="input" maxlength="1000" placeholder="开始发布你想法吧,比如 微信二维码 获取更多的客源" />
             </view>
 		   <view class="updatePicBox u-f-ajc">
-               <u-upload :action="URL+'/api/v1/upload_hb_detail_pic'" max-size="2097152" 
+               <u-upload :action="URL+'/api/v1/upload_hb_detail_pic'" max-size="5242880" 
 		            max-count="8" 
 		            :size-type="['compressed']"
                      name='pic'

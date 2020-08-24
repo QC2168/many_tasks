@@ -22,7 +22,7 @@
             </view>
             <view class="upload u-f-ajc">
                 <u-upload 
-                max-size="2097152" 
+                max-size="5242880" 
                 class="u-f-ajc"
                  ref="uUpload" 
                  :action="this.URL+'/api/v1/upload_task_order_pic'"  
@@ -102,7 +102,7 @@
                 //将response 转 表达式
                 this.filesArr.forEach((item)=>{
                     //将图片路径push到要上传的列表
-                    let res=JSON.parse(item.response)
+                    let res=item.response
                  this.pic_list.push(res.data)
                 })
                 // 发送请求

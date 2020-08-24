@@ -1,6 +1,6 @@
 <template>
     <view class="taskManagement">
-         <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包','红包广告']"></tabs>
+         <tabs @changeTabIndex="changeTabIndex" :list="['视频任务','悬赏任务','福利红包']"></tabs>
          <template v-if="taskType===0">
              <template v-if="dytaskList.length!==0">
                  <view class="item animated fadeInUp" v-for="(item,index) in dytaskList" :key="index">
@@ -69,7 +69,7 @@
                     </view>
                     <view class="btn u-f-ajc">
                         <view class="open u-f-ajc" @tap="open(item.hb_id,3)">查看</view>
-                        <view class="top u-f-ajc" @tap="top()">置顶</view> 
+                        <view class="top u-f-ajc" @tap="top(item.hb_id)">置顶</view> 
                         <view class="del u-f-ajc" @tap="del(item.hb_id,3)">下架</view>
                     </view>
                 </view>
@@ -78,7 +78,7 @@
                 <u-empty text="快去发布红包吧" mode="order"></u-empty>
             </template>
         </template>
-       
+       	<u-action-sheet :list="topPriceList"  @click="buyTop" v-model="topPriceListFlag"></u-action-sheet>
 
     </view>
 </template>
@@ -95,10 +95,13 @@
         data() {
             return {
                 taskType:0,
+                currentHbId:0,
                 dytaskList: [],
                 taskList: [],
                 hbList: [],
                 URL:getApp().globalData.URL,
+                topPriceListFlag:false,
+                topPriceList: [],
             };
         },
         methods: {
@@ -116,6 +119,10 @@
                 })
                 await this.$u.get('/my_Hb').then(res => {
                     this.hbList = res.data
+                })
+                // 红包置顶数据
+                await this.$u.get('/get_hb_top_list').then(res => {
+                                 this.topPriceList=res.data
                 })
             },
             del(id,type){
@@ -147,24 +154,49 @@
                                     }
                                     this.getData()
                                 })
-                            }}
-                            // 红包
+                            }
+                              // 红包
                             if(type===3){
-                            this.$u.post('/delete_hb',{hb_id:id}).then(res=>{
-                                if(res.errorCode===0){
-                                    uni.showToast({
-                                        title:"下架成功"
-                                    })
-                                }
-                                this.getData()
-                            })
-                        }}
+                                this.$u.post('/delete_hb',{hb_id:id}).then(res=>{
+                                    if(res.errorCode===0){
+                                        uni.showToast({
+                                            title:"下架成功"
+                                        })
+                                    }
+                                    this.getData()
+                                })
+                            }}
+                            }
+                          
+                      
                     })
                 
 
             },
-            top(){
-                console.log('top');
+            
+            top(hb_id){
+                this.currentHbId=hb_id;
+               // 查看是否显示说明
+               const V = uni.getStorageSync('V');
+               if(V==0){
+                   uni.showToast({
+                       title:"请先开通会员",
+                       icon:"none"
+                   })
+               }else{
+                   this.topPriceListFlag=true
+               }
+            },
+            buyTop(index){
+                let top_id=this.topPriceList[index].top_id
+                this.$u.post('/top_hb',{
+                    hb_id:this.currentHbId,
+                    top_id}).then(res=>{
+                        uni.showToast({
+                            title:res.msg
+                        })
+                    this.getData()
+                })
             },
             open(id,type){
                 if(type===1){

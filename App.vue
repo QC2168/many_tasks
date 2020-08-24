@@ -1,6 +1,7 @@
 <script>
     export default {
         onLaunch: function() {
+     
           // uni.showModal({
           //     title:"警告",
           //     content:'测试阶段',
@@ -35,6 +36,7 @@
         },
         onShow: function() {
             console.log( process.env.NODE_ENV);
+       
         },
         onHide: function() {
 // #ifdef  APP-PLUS

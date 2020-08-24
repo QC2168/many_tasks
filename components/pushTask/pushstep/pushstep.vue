@@ -7,7 +7,7 @@
 		                    <textarea placeholder="填写一下这一步的说明..." auto-height adjust-position type="text" v-model="currentPushTaskBoxData.text" /></view>
 		        <view class="uploadBox u-f-ajc">
 		            <u-upload 
-		            max-size="2097152" 
+		            max-size="5242880" 
 		            max-count="1" 
 		            :size-type="['compressed']"
 		            :action="stepPicAction" 

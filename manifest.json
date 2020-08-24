@@ -2,8 +2,8 @@
     "name" : "互粉",
     "appid" : "__UNI__43907E6",
     "description" : "这是一款多模式的平台App",
-    "versionName" : "1.5.5",
-    "versionCode" : 155,
+    "versionName" : "1.5.8",
+    "versionCode" : 158,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -95,7 +95,8 @@
             "splashscreen" : {
                 "android" : {
                     "hdpi" : ""
-                }
+                },
+                "androidStyle" : "common"
             }
         },
         "uniStatistics" : {
@@ -152,6 +153,9 @@
         "domain" : "www.taskarea.top",
         "uniStatistics" : {
             "enable" : true
+        },
+        "sdkConfigs" : {
+            "maps" : {}
         }
     },
     "uniStatistics" : {

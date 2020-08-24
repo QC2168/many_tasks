@@ -78,7 +78,7 @@
                     delta:1
                 })
             },
-            // 验证登录数据
+            // 验证数据
             checkLogin() {
               if (!this.username.length >= 1 && this.username.length <=10) {
                     this.checkUsername="请输入标准的昵称";

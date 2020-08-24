@@ -1,6 +1,6 @@
 <template>
     <view class="pushTask">
-        <tabs @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
+        <tabs @changeTabIndex="changeTabIndex" :list="['视频任务','悬赏任务']"></tabs>
         <view v-show="taskType===1">
             <view>
                 <view class="tasklogo u-f-ajc">
@@ -68,7 +68,7 @@
                <u-divider height="110">上传视频图片</u-divider>
                <view class="uploadPicBox u-f-ajc">
                    <u-upload :auto-upload="false" 
-                   ref="uUpload" max-size="2097152" max-count="1" :size-type="['compressed']"
+                   ref="uUpload" max-size="5242880" max-count="1" :size-type="['compressed']"
                        :action="URL+'/api/v1/push_dy_task'" @on-success="success" @on-error="error" @on-oversize="oversize" @on-remove="remove"
                        @on-choose-complete="complete" name='dy_task_pic' :form-data="formData" :header="headerData"
                        :show-tips="false"></u-upload>

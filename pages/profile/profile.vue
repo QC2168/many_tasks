@@ -26,11 +26,11 @@
                 <u-grid :col="3">
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="renwu" @tap="to('myTaskOrder')" custom-prefix="custom-icon" :size="46"></u-icon>
-                        <view class="grid-text">我申请的任务</view>
+                        <view class="grid-text">申请</view>
                     </u-grid-item>
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="zichan" @tap="to('wallet')" custom-prefix="custom-icon" :size="46"></u-icon>
-                        <view class="grid-text">资产管理</view>
+                        <view class="grid-text">资产</view>
                     </u-grid-item>
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="tubiaozhizuomoban" @tap="to('team')" custom-prefix="custom-icon" :size="46"></u-icon>
@@ -38,11 +38,11 @@
                     </u-grid-item>
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="fabu" @tap="to('pushTask')" custom-prefix="custom-icon" :size="46"></u-icon>
-                        <view class="grid-text">发布任务</view>
+                        <view class="grid-text">发布</view>
                     </u-grid-item>
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="guanli" @tap="to('taskManagement')" custom-prefix="custom-icon" :size="46"></u-icon>
-                        <view class="grid-text">任务管理</view>
+                        <view class="grid-text">管理</view>
                     </u-grid-item>
                     <u-grid-item class="animated bounceIn">
                         <u-icon name="guanyu" custom-prefix="custom-icon" @tap="to('about')" :size="46"></u-icon>
@@ -98,7 +98,7 @@
                         <image src="../../static/images/profile/list/wallet.png" mode="aspectFill"></image>
                     </view>
 
-                    <view class="text">钱包</view>
+                    <view class="text">我的钱包</view>
                 </view>
                 <view @tap="to('pushTask')" class="line">
 
@@ -106,7 +106,7 @@
                         <image src="../../static/images/profile/list/push.png" mode="aspectFill"></image>
                     </view>
 
-                    <view class="text">发布新任务</view>
+                    <view class="text">开始发布任务</view>
                 </view>
                 <view @tap="to('taskManagement')" class="line">
 
@@ -187,12 +187,16 @@
         },
         methods: {
             changeMode() {
+              
                 this.mode = !this.mode;
+                  uni.setStorageSync('proMode',this.mode.toString())
             },
            async getdata() {
                 await this.$u.get('/get_user').then(res => {
                     if (res.errorCode !== 0) return;
                     this.userData = res.data[0];
+                    // userData.privilege.vip
+                    uni.setStorageSync('V',this.userData.privilege.vip.toString())
                     uni.stopPullDownRefresh();
                 })
                 
@@ -384,7 +388,7 @@
             margin: 25rpx auto;
             box-shadow: 3rpx 3rpx 3rpx #cbcbcb;
             display: flex;
-
+letter-spacing: 3rpx;
             view {
 
                 flex: 1;
@@ -423,7 +427,7 @@
                 padding: 0 30rpx;
                 line-height: 90rpx;
                 font-size: 28rpx;
-
+                letter-spacing: 3rpx;
                 .iicon {
 
                     width: 70rpx;

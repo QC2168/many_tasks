@@ -21,7 +21,7 @@
                 <image src="../../static/images/home/game.png" mode="aspectFit"></image>游戏赚币
             </view>
         </view>
-        <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['视频红包','悬赏红包']"></tabs>
+        <tabs ref="tabs" @changeTabIndex="changeTabIndex" :list="['视频任务','悬赏任务']"></tabs>
         <view class="uni-padding-wrap">
             <view class="page-section swiper">
                 <view class="page-section-spacing">

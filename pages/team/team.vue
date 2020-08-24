@@ -5,10 +5,25 @@
             <text class="xb-share-title">我的邀请码</text>
             <text class="xb-share-code">{{team.code}}</text>
             <text class="xb-share-desc">扫描该二维码注册 无需输入邀请码</text>
-            <text class="xb-share-desc">每邀一好友至少得 0.3金币</text>
+            <text class="xb-share-desc">每邀一好友至少得 0.3现金</text>
             <!-- <uni-qrcode class="xb-share-margin-top" cid="qrcode1446" text="uQRCode" foregroundColor="#ECA26A" logo="/static/logo.png" makeOnLoad /> -->
             <canvas canvas-id="qrcode" style="width: 160px;height: 160px;" />
             <button @tap="saveQrCode" class="xb-share-button xb-share-margin-top">保存二维码</button>
+
+        </view>
+        <view class="myFans u-f-ajc">
+            我的下级
+        </view>
+        <view class="fansList">
+            <!-- {{fansList}} -->
+
+            <view class="item" v-for="(item,index) in fansList" :key="index">
+                <text>用户：{{item.username}}</text>
+                
+                <text>时间：{{item.create_time}}</text>
+
+            </view>
+
         </view>
     </view>
 </template>
@@ -23,16 +38,19 @@
         data() {
             return {
                 team: [],
+                fansList: [],
                 pH: 0,
                 navHeight: 0,
                 URL: getApp().globalData.URL,
             };
         },
+
         methods: {
-        
+
             async getData() {
                 await this.$u.get('get_team').then(res => {
                     this.team = res.data
+                    this.fansList = res.data.list
                     this.setScrollHeight()
                     this.makeQRCode()
                 })
@@ -78,18 +96,18 @@
                     }
                 })
             },
-            
+
             saveQrCode() {
                 // #ifdef H5
-               uni.showToast({
-                   title:"该功能暂不支持网页版本，请使用APP",
-                   icon:"none"
-               })
+                uni.showToast({
+                    title: "该功能暂不支持网页版本，请使用APP",
+                    icon: "none"
+                })
                 // #endif
                 // #ifndef H5
-     uni.canvasToTempFilePath({
+                uni.canvasToTempFilePath({
                     canvasId: 'qrcode',
-                    success: (res)=> {
+                    success: (res) => {
                         uni.saveFile({
                             tempFilePath: res.tempFilePath,
                             success: function(res) {
@@ -98,38 +116,64 @@
                                 plus.nativeUI.toast("保存成功，文件位置：" + savedFilePath);
                             }
                         });
-            
+
                     }
                 })
-            // #endif
-           
+                // #endif
+
             },
-              makeQRCode() {
-                  uQRCode.make({
-                      canvasId: 'qrcode',
-                      text: `http://www.taskarea.top/pages/register/register?INC=${this.team.code}`,
-                      size: 160,
-                      margin: 10,
-                      backgroundColor: '#ffffff',
-                      foregroundColor: '#000000',
-                      fileType: 'jpg',
-                      correctLevel: uQRCode.errorCorrectLevel.H,
-                      success: res => {
-                          // console.log(res)
-                      }
-                  })
-              },
+            makeQRCode() {
+                uQRCode.make({
+                    canvasId: 'qrcode',
+                    text: `http://www.taskarea.top/pages/register/register?INC=${this.team.code}`,
+                    size: 160,
+                    margin: 10,
+                    backgroundColor: '#ffffff',
+                    foregroundColor: '#000000',
+                    fileType: 'jpg',
+                    correctLevel: uQRCode.errorCorrectLevel.H,
+                    success: res => {
+                        // console.log(res)
+                    }
+                })
+            },
         }
 
     }
 </script>
 
 <style lang="scss" scoped>
-
-
     .team {
-        height: 100vh;
-         background-color: #d63e3d;
+        height: 100%;
+        background-color: #d63e3d;
+        padding: 0 0 50rpx 0;
+
+        .myFans {
+            height: 80rpx;
+            font-size: 32rpx;
+            color: white;
+
+        }
+
+        .fansList {
+            height: auto;
+            padding: 50rpx;
+            margin: 10rpx 50rpx 0rpx 50rpx;
+            background-color: #ffffff;
+            border-radius: 15rpx;
+
+            .item {
+                display: flex;
+                // align-items: center;
+                justify-content: space-between;
+                // height: 70rpx;
+                // border-bottom-left-radius: 20rpx;
+                // border-bottom-right-radius: 20rpx;
+                // border-bottom: 1rpx solid #eeeeee;
+                // box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
+            }
+        }
+
         .xb-share-margin-top {
             margin-top: 20px;
         }
@@ -199,17 +243,6 @@
 
         }
 
-        .list {
-            .item {
-                padding: 0 30rpx;
-                align-items: center;
-                justify-content: space-between;
-                height: 70rpx;
-                border-bottom-left-radius: 20rpx;
-                border-bottom-right-radius: 20rpx;
-                border-bottom: 1rpx solid #eeeeee;
-                box-shadow: 5rpx 5rpx 5rpx #EEEEEE;
-            }
-        }
+
     }
 </style>

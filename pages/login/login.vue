@@ -11,13 +11,13 @@
                 				v-model="username"
                 				type="text"
                 				maxlength="18"
-                				placeholder="请填写昵称"
+                				placeholder="输入您的昵称"
                 			></wInput>
                 <wInput
                 				v-model="password"
                 				type="password"
                 				maxlength="18"
-                				placeholder="设置您的密码"
+                				placeholder="输入您的密码"
                 			></wInput>
             </view>
    

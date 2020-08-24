@@ -95,7 +95,7 @@
         }, {
             "path": "pages/douyinDetail/douyinDetail",
             "style": {
-                "navigationBarTitleText": "抖音任务",
+                "navigationBarTitleText": "视频任务",
                 "app-plus":{
                     // 隐藏滚动条
                     "scrollIndicator":"none"

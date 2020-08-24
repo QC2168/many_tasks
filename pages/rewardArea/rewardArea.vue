@@ -3,37 +3,9 @@
         <u-modal v-model="updateModal" @confirm="downloadApp" show-cancel-button :content="updateModalContent"></u-modal>
         <u-notice-bar v-if="noticeList.length" mode="vertical" :list="noticeList"></u-notice-bar>
         <view class="wrap">
-            <u-swiper name="img_url" :list="swiperlist"></u-swiper>
+            <u-swiper img-mode="widthFix" indicator-pos="bottomRight" name="img_url" :list="swiperlist"></u-swiper>
         </view>
-        <view class="rewardPanl" v-for="(item) in hbList" :key="item.hd_id" @tap="toDetail(item.hb_id)">
-            <view class="userinfo u-f-ac">
-                <image class="userPic" :src="URL+item.user.user_pic" mode="scaleToFill"></image>
-                <view class="username">{{item.username}}</view>
-
-                <view class="rewardIconBox">
-                    <image class="rewardIcon" src="../../static/images/rewardArea/hongbao.png" mode="aspectFill"></image>
-
-                </view>
-                <view class="tag">
-                    <u-tag v-if="item.priority>=1" :text="'置顶'" shape="circle" mode="dark" type="error" size="mini" />
-                    <u-tag :text="' '+item.tag+' '" shape="circle" mode="dark" type="error" size="mini" />
-                </view>
-            </view>
-            <view class="content">
-                {{item.content}}
-            </view>
-            <view class="miniImages" v-if="Object.keys(item.hb_area_pic).length!==0">
-                <image v-for="(item,index) in item.hb_area_pic" :key="item.pic" class="img" :src="URL+item.pic" mode="scaleToFill"></image>
-            </view>
-            <view class="bottom u-f-ac">
-                <view class="count">
-                    {{item.hb_area_comment_list.length}}
-                </view>
-                <u-icon name="pinglun" custom-prefix="custom-icon" size="45" color="#888888"></u-icon>
-
-            </view>
-            <space bgColor="#f4f4f5" size="3"></space>
-        </view>
+        <rewardPanl v-for="(item,index) in hbList" :key="item.hb_id" :item="item"></rewardPanl>
         <!-- 添加红包 -->
         <image @tap="addHb" src="../../static/images/rewardArea/addHb.png" class="addHb" mode="widthFix"></image>
         <image @tap="sign" src="../../static/images/rewardArea/sign.png" class="sign" mode="widthFix"></image>
@@ -43,33 +15,56 @@
 
 <script>
     import space from "../../components/space/space.vue"
+    import rewardPanl from "./childComponents/rewardPanl.vue"
     export default {
         components: {
-            space
+            space,
+            rewardPanl
+        },
+        onLoad() {
+            uni.$on('toHbDetail', (e) => this.toDetail(e.hb_id))
+        },
+        onUnload() {
+            uni.$off('toHbDetail')
         },
         created() {
+
             this.getData();
             // #ifdef H5
             this.getDownloadAppAddress()
             // #endif
-            // 查看是否显示说明
-            const use = uni.getStorageSync('use');
-           if(use!=1){
-               uni.showModal({
-                                        showCancel: false,
-                                        title: '如何获得更多人脉',
-                                        content: '点击右侧 + 号图标，免费发布广告（例如：您的产品广告、微信二维码 等广告信息），获得红包奖励，邀请也有红包奖励！',
-                                        confirmText: "知道了，不再提示",
-                                        success: (model) => {
-                                            if (model.confirm) {
-                                                uni.setStorageSync('use', '1');
-                                            }
-                                        }
-                                    });
-           }
-           
 
-     
+            // 获取消息
+            this.$u.get('/get_message').then(res => {
+                if (res.data === null || res.data === '') return;
+                uni.showModal({
+                    content: res.data,
+                    title: "消息",
+                    showCancel: false,
+                    complete() {
+                        // 查看是否显示说明
+                        const use = uni.getStorageSync('use');
+                        if (use != 1) {
+                            uni.showModal({
+                                showCancel: false,
+                                title: '如何获得更多人脉',
+                                content: '点击右侧 + 号图标，免费发布广告（例如：您的产品广告、微信二维码 等广告信息），获得红包奖励，邀请也有红包奖励！',
+                                confirmText: "知道了，不再提示",
+                                success: (model) => {
+                                    if (model.confirm) {
+                                        uni.setStorageSync('use', '1');
+                                    }
+                                },
+
+                            });
+                        }
+                    }
+                })
+            })
+
+
+
+
 
         },
         data() {
@@ -84,21 +79,21 @@
                 // page index
                 index: 1,
                 // last_page
-                last_page:1
+                last_page: 1,
                 //#ifdef APP-PLUS
                 v: plus.runtime.version
                 //#endif
             };
         },
-        onReachBottom(){
+        onReachBottom() {
             // 到底刷新
             // 获取下一页
             this.getNextData()
         },
         onPullDownRefresh() {
             this.getData();
-            this.index= 1
-            this.last_page= 1
+            this.index = 1
+            this.last_page = 1
         },
         methods: {
             async getDownloadAppAddress() {
@@ -115,26 +110,26 @@
             addHb() {
                 this.$u.route('pages/pushHb/pushHb')
             },
-            sign(){
-                    this.$u.route('pages/sign/sign')
+            sign() {
+                this.$u.route('pages/sign/sign')
             },
             toDetail(hb_id) {
                 this.$u.route('/pages/rewardDetail/rewardDetail', {
                     hb_id
                 });
             },
-            async getNextData(){
-                if(this.index<this.last_page){
-                     this.index++;
-                     // 获取红包列表
-                     await this.$u.get('/get_hb_area_list', {
-                         index: this.index
-                     }).then(res => {
-                         this.hbList = [...this.hbList,...res.data.data];
-                     })
+            async getNextData() {
+                if (this.index < this.last_page) {
+                    this.index++;
+                    // 获取红包列表
+                    await this.$u.get('/get_hb_area_list', {
+                        index: this.index
+                    }).then(res => {
+                        this.hbList = [...this.hbList, ...res.data.data];
+                    })
                 }
-               
-             
+
+
             },
             async getData() {
                 // 检查新版本
@@ -175,18 +170,10 @@
                     index: this.index
                 }).then(res => {
                     this.hbList = res.data.data;
-                    this.last_page=res.data.last_page
+                    this.last_page = res.data.last_page
                     uni.stopPullDownRefresh()
                 })
-                // 获取消息
-                 await this.$u.get('/get_message').then(res => {
-                   if(res.data===null||res.data==='') return;
-                   uni.showModal({
-                       content:res.data,
-                       title:"消息",
-                       showCancel:false
-                   })
-                 })
+
                 // 获取轮播图
                 await this.$u.get('/get_home_pic').then(
                     res => {
@@ -207,72 +194,9 @@
 <style lang="scss">
     .rewardArea {
         .wrap {
-            padding: 20rpx;
+            padding: 3%;
         }
-        .rewardPanl {
-            padding: 10rpx 25rpx;
-            margin: 5rpx 0 14px 0;
 
-            .userinfo {
-                height: 110rpx;
-
-                .userPic {
-                    width: 67rpx;
-                    height: 67rpx;
-                    border-radius: 100%;
-                    border: 1rpx solid #C8C7CC;
-                    margin: 0 10px 0 10rpx;
-                }
-
-                .username {
-                    // margin: 0 20rpx 0 0;
-                    font-size: 32rpx;
-                }
-
-                .tag {
-                    margin: 0 0 0 10rpx;
-                    view{
-                        margin: 0 10rpx 0 0;
-                    }
-                }
-
-                .rewardIconBox {
-                    margin: 0 0 0 10rpx;
-
-                    .rewardIcon {
-                        width: 60rpx;
-                        height: 60rpx;
-                    }
-                }
-            }
-
-            .content {
-                // letter-spacing:1rpx;
-                text-align: justify;
-            }
-
-            .miniImages {
-                margin: 13rpx 0;
-
-                .img {
-                    width: 195rpx;
-                    height: 195rpx;
-                    margin: 0 10rpx;
-                    border-radius: 13rpx;
-                }
-            }
-
-            .bottom {
-                flex-direction: row-reverse;
-
-                view {
-                    margin: 0 10rpx;
-                }
-
-                height: 90rpx;
-
-            }
-        }
 
 
         .addHb {
@@ -287,6 +211,7 @@
             border: 1rpx solid #F1F1F1;
             box-shadow: 7rpx 7rpx 5rpx #F1F1F1;
         }
+
         .sign {
             width: 100rpx;
             height: 100rpx;

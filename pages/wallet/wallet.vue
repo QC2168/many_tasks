@@ -6,7 +6,7 @@
                 <view class="u-f-ajc a">账户总金币</view>
                 
                 <view class="u-f-ajc a">{{data.wallet}}元</view>
-                <view class="u-f-ajc bind">已绑定支付宝账户 {{bind}}</view>
+                <view class="u-f-ajc bind">提现支付宝账户 {{bind}}</view>
             </view>
 
 
@@ -18,8 +18,9 @@
             </view>
             
             <view class="out u-f-ajc">
-                <u-button @tap="out" type="primary" plain shape="square" size="medium">一键提现</u-button>
-                <u-button @tap="recharge" type="primary" plain shape="square" size="medium">一键充值</u-button>
+                <u-button @tap="out" type="primary" plain shape="square" size="mini">一键提现</u-button>
+                <u-button @tap="buyKey" type="primary" plain shape="square" size="mini">购买卡密</u-button>
+                <u-button @tap="recharge" type="primary" plain shape="square" size="mini">一键充值</u-button>
             </view>
             <view class="u-f-ajc" style="color: red;font-size: 20rpx;font-weight: bold;height: 50rpx;">当前提现手续费 {{outServePrice}}</view>
             <u-divider fontSize="25" height="90">历史提现记录</u-divider>
@@ -86,6 +87,12 @@
               this.getData()
         },
         methods: {
+            buyKey(){
+                uni.showToast({
+                    title:"抱歉！自助购买入口暂时关闭，请联系您的上级",
+                    icon:'none'
+                })
+            },
             outTypeValue(value){
                 switch (value) {
                     case 0:
