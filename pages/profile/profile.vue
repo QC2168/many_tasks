@@ -62,19 +62,20 @@
                     <view class="one">{{userData.username}}</view>
                     <view v-if="userData.privilege.vip===0" class="buyVip" @tap="to('buyVip')">点击购买VIP 畅享特权</view>
                     <view class="vip">
-                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===1" class="animated bounceIn"
-                            text="VIP" mode="light" size="mini" shape="circle" type="error" />
-                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===2" class="animated bounceIn"
-                            text="SVIP" mode="light" size="mini" shape="circle" type="error" />
-                        <u-tag v-if="userData.privilege.vip!==0&&userData.privilege.vip===3" class="animated bounceIn"
-                            text="SSVIP" mode="light" size="mini" shape="circle" type="warning" />
+                        <u-tag v-if="userData.privilege.vip!==0" class="animated bounceIn"
+                            :text="'V'+userData.privilege.vip" mode="light" size="mini" shape="circle" type="error" />
+                       
                     </view>
                     <view class="expireTime" v-if="userData.privilege.vip!==0">
                         特权到期时间: {{userData.privilege.expire_time|formatDate('yyyy-MM-dd hh:mm')}}
                     </view>
                 </view>
             </view>
+<!-- 当天收入 -->
+<!-- <view class="todayWallet">
 
+  
+</view> -->
             <view class="modelTask animated fadeIn">
                 <view class="u-f-ajc" @tap="to('myTaskOrder','toBeSubmitted')">
                     <image src="../../static/images/profile/myTaskOrderSn.png" mode="aspectFill">
@@ -98,7 +99,7 @@
                         <image src="../../static/images/profile/list/wallet.png" mode="aspectFill"></image>
                     </view>
 
-                    <view class="text">我的钱包</view>
+                    <view class="text">钱包 （ 今天总收益 ：{{todaySum}} 元 ）</view>
                 </view>
                 <view @tap="to('pushTask')" class="line">
 
@@ -158,6 +159,7 @@
             return {
                 mode: false,
                 userData: [],
+                todaySum:0,
                 URL: getApp().globalData.URL,
                 view_height:0,
                 //  上传图片的header
@@ -198,6 +200,9 @@
                     // userData.privilege.vip
                     uni.setStorageSync('V',this.userData.privilege.vip.toString())
                     uni.stopPullDownRefresh();
+                })
+                await this.$u.get('/get_user_today_wallet_details_sum').then((res)=>{
+                    this.todaySum=res.data
                 })
                 
             },
@@ -379,7 +384,7 @@
 
         }
 
-        .modelTask {
+        .todayWallet,.modelTask {
             background-color: white;
             padding: 10rpx 0 0 0;
             width: 90%;

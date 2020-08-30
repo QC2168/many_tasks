@@ -89,7 +89,7 @@
         methods: {
             buyKey(){
                 uni.showToast({
-                    title:"抱歉！自助购买入口暂时关闭，请联系您的上级",
+                    title:"自助购买入口即将开放，需要充值请联系客服 / 上级",
                     icon:'none'
                 })
             },
