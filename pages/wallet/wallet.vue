@@ -58,7 +58,17 @@
 <script>
     export default {
         created() {
-            
+            // 判断有没有认证钱包
+            this.$u.get('/checkAuth').then(
+                res => {
+                  if(res.data === false){
+                      uni.redirectTo({
+                          url:"../walletAuth/walletAuth"
+                          
+                      })
+                  }
+                }
+            )
             this.getData()
         },
         onNavigationBarButtonTap(e) {

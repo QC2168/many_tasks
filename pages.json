@@ -309,6 +309,16 @@
                    }
           }
         }
+        ,{
+            "path" : "pages/walletAuth/walletAuth",
+        "style": {
+            "navigationBarTitleText": "提现认证",
+             "app-plus":{
+                 // 隐藏滚动条
+                 "scrollIndicator":"none"
+                 }
+        }
+        }
     ],
 
     "globalStyle": {
