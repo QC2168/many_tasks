@@ -153,6 +153,11 @@
         },
         data() {
             return {
+                tabs: [{
+                              label: '视频任务'
+                          }, {
+                              label: '悬赏任务'
+                          }],
                 URL: getApp().globalData.URL,
                 tasklist: [],
                 dytasklist: [],

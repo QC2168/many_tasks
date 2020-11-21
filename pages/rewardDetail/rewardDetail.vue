@@ -60,6 +60,7 @@
         },
         created() {
             this.getData(this.hb_id)
+            
         },
         components: {
             chatBottom,
